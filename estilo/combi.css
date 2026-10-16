@@ -21,31 +21,36 @@
   /* Tintas con función (ver PLAN.md, "Sistema visual") */
   --negro: #000000;        /* texto, contorno, línea principal */
   --azul: #2458a6;         /* flujo, continuidad, agua, conexión */
-  --ocre: #b8741f;         /* estructura, forma, tierra, contexto */
+  --ocre: #9a5c16;         /* estructura, forma, tierra, contexto (oscurecido tras CAL-01: impreso salía naranja) */
   --bermellon: #d23c1e;    /* atención, el "ahora", errores típicos */
   --gris: #5f5f5f;         /* texto secundario, pronunciación */
   --gris-linea: #9a9a9a;   /* filetes y líneas de guía */
 
-  /* Tramas claras para áreas (mezcladas con blanco) */
-  --azul-10: color-mix(in srgb, var(--azul) 10%, white);
-  --azul-20: color-mix(in srgb, var(--azul) 20%, white);
-  --ocre-10: color-mix(in srgb, var(--ocre) 12%, white);
-  --ocre-20: color-mix(in srgb, var(--ocre) 22%, white);
-  --bermellon-10: color-mix(in srgb, var(--bermellon) 10%, white);
-  --gris-05: #f2f2f2;
+  /* Tramas claras para áreas (mezcladas con blanco).
+     CAL-01 impresa: por debajo de ~20 % casi no se ven, así que las "claras"
+     arrancan en 16–20 %. Los nombres se conservan para no tocar las hojas. */
+  --azul-10: color-mix(in srgb, var(--azul) 18%, white);
+  --azul-20: color-mix(in srgb, var(--azul) 28%, white);
+  --ocre-10: color-mix(in srgb, var(--ocre) 20%, white);
+  --ocre-20: color-mix(in srgb, var(--ocre) 30%, white);
+  --bermellon-10: color-mix(in srgb, var(--bermellon) 16%, white);
+  --gris-05: #e6e6e6;
 
-  /* Tipografía: opción B por defecto (Bitter + Source Sans 3).
-     Para pasar a la opción A (Inter), agregar class="tipo-a" al <body>. */
+  /* Tipografía: opción B (Bitter + Source Sans 3), elegida con CAL-01.
+     La opción A (Inter) sigue disponible con class="tipo-a" en el <body>. */
   --fuente-titulo: "Bitter", Georgia, serif;
   --fuente-texto: "Source Sans 3", "Inter", Arial, sans-serif;
 
-  /* Escala tipográfica en puntos (7 pt es el mínimo provisorio) */
-  --t-micro: 7pt;
-  --t-chico: 8pt;
-  --t-texto: 9.5pt;
-  --t-medio: 11pt;
-  --t-subtitulo: 13pt;
-  --t-titulo: 24pt;
+  /* Escala tipográfica en puntos, ajustada con CAL-01 (2026-10-16):
+     el texto más chico cómodo a 40 cm es 10 pt. Regla:
+     - todo lo que se lee para aprender: 10 pt o más;
+     - solo metadatos (pie, códigos, referencias U7, etiquetas de diagramas): 8 pt. */
+  --t-micro: 8pt;      /* solo metadatos */
+  --t-chico: 10pt;     /* texto secundario: traducciones, notas, pistas */
+  --t-texto: 10.5pt;   /* texto principal */
+  --t-medio: 11.5pt;
+  --t-subtitulo: 14pt;
+  --t-titulo: 26pt;
 
   --margen: 10mm;
 }
@@ -95,7 +100,7 @@ body {
 .codigo {
   font-family: var(--fuente-texto);
   font-weight: 700;
-  font-size: var(--t-chico);
+  font-size: 9pt;
   letter-spacing: 0.06em;
   border: 0.35mm solid var(--negro);
   padding: 1mm 2mm;
@@ -104,7 +109,7 @@ body {
 }
 .coleccion {
   display: block;
-  font-size: var(--t-chico);
+  font-size: 8.5pt;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;

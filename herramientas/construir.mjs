@@ -6,13 +6,14 @@
 // Pasos por cada archivo:
 //   1. Abre la hoja en Chromium y mide la maquetación real:
 //        ERRORES (frenan la construcción)
-//          texto-chico      letra por debajo de 7 pt
+//          texto-chico      letra de lectura por debajo de 10 pt, o metadato por
+//                           debajo de 8 pt (metadatos: pie, códigos, referencias,
+//                           etiquetas dentro de diagramas SVG, [data-meta])
 //          texto-encimado   dos textos se pisan
 //          texto-cortado    un texto queda cortado por su caja
 //          fuera-de-margen  texto a menos de 8 mm del borde de la hoja
 //          sin-hoja         el archivo no tiene ningún elemento .hoja
 //        AVISOS (se revisan a ojo)
-//          texto-justo      letra entre 7 y 8 pt
 //          casi-encimado    dos textos casi se tocan
 //   2. Si no hay errores (o con --forzar), genera el PDF en salida/.
 //   3. Rasteriza el PDF y mide:
@@ -36,8 +37,10 @@ const CHROMIUM = process.env.CHROMIUM_PATH || '/opt/pw-browsers/chromium-1194/ch
 
 const PX_POR_MM = 96 / 25.4;
 const PX_POR_PT = 96 / 72;
-const LETRA_MIN_PT = 7;        // error por debajo
-const LETRA_COMODA_PT = 8;     // aviso por debajo
+// Calibración CAL-01 (2026-10-16): el texto más chico cómodo a 40 cm es 10 pt.
+const LETRA_MIN_PT = 10;       // texto de lectura: error por debajo
+const LETRA_META_PT = 8;       // metadatos: error por debajo
+const SELECTOR_META = '.pie, .ref, .ver, .etiqueta-corr, .codigo, .coleccion, .cabecera .lateral, svg, [data-meta]';
 const MARGEN_SEGURO_MM = 8;    // nada a menos de esto del borde
 const TINTA_MAX_DEFECTO = 20;  // % de densidad media
 
@@ -71,14 +74,12 @@ try {
     await pagina.waitForTimeout(150);
 
     const informe = await pagina.evaluate(medirMaquetacion, {
-      PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_COMODA_PT, MARGEN_SEGURO_MM,
+      PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, SELECTOR_META, MARGEN_SEGURO_MM,
     });
 
     for (const e of informe.errores) console.log(`  ✗ ERROR ${e}`);
-    // Los textos de 7–8 pt son microtexto intencional: se resumen en una línea salvo con --detalle
-    const justos = informe.avisos.filter((a) => a.startsWith('texto-justo'));
-    for (const a of informe.avisos) if (detalle || !a.startsWith('texto-justo')) console.log(`  ! aviso ${a}`);
-    if (justos.length && !detalle) console.log(`  · ${justos.length} texto(s) entre 7 y 8 pt (microtexto; --detalle para listarlos)`);
+    for (const a of informe.avisos) console.log(`  ! aviso ${a}`);
+    if (detalle) for (const m of informe.metas) console.log(`  · meta ${m}`);
     console.log(`  maquetación: ${informe.errores.length} error(es), ${informe.avisos.length} aviso(s), ${informe.textos} textos medidos, ${informe.hojas.length} hoja(s)`);
 
     let errores = informe.errores.length;
@@ -125,7 +126,7 @@ try {
     execFileSync('pdftoppm', ['-r', '110', '-png', pdf, join(dirPrevias, nombre)], { stdio: 'ignore' });
     console.log(`  PDF: ${relative(RAIZ, pdf)}  ·  vista previa: salida/previas/${nombre}-*.png`);
     totalErrores += errores;
-    resumen.push({ hoja: nombre, paginas: tamanios.length, errores, avisos: informe.avisos.length - justos.length });
+    resumen.push({ hoja: nombre, paginas: tamanios.length, errores, avisos: informe.avisos.length });
   }
 } finally {
   await navegador.close();
@@ -169,7 +170,7 @@ function medirTinta(ruta, ppp) {
 
 // ---------------------------------------------------------------------------
 // Se ejecuta dentro de la página. Devuelve errores, avisos y datos por hoja.
-function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_COMODA_PT, MARGEN_SEGURO_MM }) {
+function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, SELECTOR_META, MARGEN_SEGURO_MM }) {
   const errores = [];
   const avisos = [];
   const hojas = [...document.querySelectorAll('.hoja')].map((el) => ({
@@ -286,7 +287,8 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_COMODA_PT,
   }
 
   // Tamaño de letra (en pt reales; las transformaciones SVG escalan la letra)
-  for (const { el, tam, rects } of textos) {
+  const metas = [];
+  for (const { el, tam } of textos) {
     let escala = 1;
     if (el instanceof SVGElement) {
       const ctm = el.getScreenCTM();
@@ -294,8 +296,10 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_COMODA_PT,
     }
     const pt = (tam * escala) / PX_POR_PT;
     if (el.closest('[data-letra-ok]')) continue;
-    if (pt < LETRA_MIN_PT - 0.05) errores.push(`texto-chico      ${describir(el)} mide ${pt.toFixed(1)} pt (mínimo ${LETRA_MIN_PT} pt)`);
-    else if (pt < LETRA_COMODA_PT - 0.05) avisos.push(`texto-justo      ${describir(el)} mide ${pt.toFixed(1)} pt`);
+    const esMeta = !!el.closest(SELECTOR_META);
+    const minimo = esMeta ? LETRA_META_PT : LETRA_MIN_PT;
+    if (pt < minimo - 0.05) errores.push(`texto-chico      ${describir(el)} mide ${pt.toFixed(1)} pt (mínimo ${minimo} pt${esMeta ? ', metadato' : ''})`);
+    else if (esMeta && pt < LETRA_MIN_PT - 0.05) metas.push(`${describir(el)} ${pt.toFixed(1)} pt`);
   }
 
   // Margen de seguridad respecto del borde de su hoja
@@ -356,7 +360,7 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_COMODA_PT,
   }
 
   return {
-    errores, avisos, textos: textos.length,
+    errores, avisos, metas, textos: textos.length,
     hojas: hojas.map((h) => ({ tintaMax: h.tintaMax, bordeOk: h.bordeOk })),
   };
 }
