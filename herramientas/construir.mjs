@@ -40,7 +40,7 @@ const PX_POR_PT = 96 / 72;
 // Calibración CAL-01 (2026-10-16): el texto más chico cómodo a 40 cm es 10 pt.
 const LETRA_MIN_PT = 10;       // texto de lectura: error por debajo
 const LETRA_META_PT = 8;       // metadatos: error por debajo
-const SELECTOR_META = '.pie, .ref, .ver, .etiqueta-corr, .codigo, .coleccion, .cabecera .lateral, svg, [data-meta]';
+const SELECTOR_META = '.pie, .ref, .ver, .etiqueta-corr, .codigo, .coleccion, .cabecera .lateral, svg, sup, [data-meta]';
 const MARGEN_SEGURO_MM = 8;    // nada a menos de esto del borde
 const TINTA_MAX_DEFECTO = 20;  // % de densidad media
 
