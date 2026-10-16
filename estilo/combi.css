@@ -1,0 +1,255 @@
+/* =====================================================================
+   Estilo "Combi" para hojas A4 imprimibles
+   Impresora de tinta doméstica, papel común de 75 g.
+   Reglas de la casa:
+   - Fondo siempre blanco (en 75 g, un fondo de color moja y ondula la hoja).
+   - Cuatro tintas con función fija; las áreas grandes van en tramas claras
+     (10–25 %) y el color pleno solo en líneas y elementos chicos.
+   - Margen de seguridad de 10 mm; nada importante a menos de 8 mm del borde.
+   ===================================================================== */
+
+/* ---------- Fuentes (licencia OFL, guardadas en /fuentes) ---------- */
+@font-face { font-family: "Inter"; src: url("../fuentes/Inter-variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: "Inter"; src: url("../fuentes/Inter-Italic-variable.ttf") format("truetype"); font-weight: 100 900; font-style: italic; }
+@font-face { font-family: "Bitter"; src: url("../fuentes/Bitter-variable.ttf") format("truetype"); font-weight: 100 900; font-style: normal; }
+@font-face { font-family: "Bitter"; src: url("../fuentes/Bitter-Italic-variable.ttf") format("truetype"); font-weight: 100 900; font-style: italic; }
+@font-face { font-family: "Source Sans 3"; src: url("../fuentes/SourceSans3-variable.ttf") format("truetype"); font-weight: 200 900; font-style: normal; }
+@font-face { font-family: "Source Sans 3"; src: url("../fuentes/SourceSans3-Italic-variable.ttf") format("truetype"); font-weight: 200 900; font-style: italic; }
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Tintas con función (ver PLAN.md, "Sistema visual") */
+  --negro: #000000;        /* texto, contorno, línea principal */
+  --azul: #2458a6;         /* flujo, continuidad, agua, conexión */
+  --ocre: #b8741f;         /* estructura, forma, tierra, contexto */
+  --bermellon: #d23c1e;    /* atención, el "ahora", errores típicos */
+  --gris: #5f5f5f;         /* texto secundario, pronunciación */
+  --gris-linea: #9a9a9a;   /* filetes y líneas de guía */
+
+  /* Tramas claras para áreas (mezcladas con blanco) */
+  --azul-10: color-mix(in srgb, var(--azul) 10%, white);
+  --azul-20: color-mix(in srgb, var(--azul) 20%, white);
+  --ocre-10: color-mix(in srgb, var(--ocre) 12%, white);
+  --ocre-20: color-mix(in srgb, var(--ocre) 22%, white);
+  --bermellon-10: color-mix(in srgb, var(--bermellon) 10%, white);
+  --gris-05: #f2f2f2;
+
+  /* Tipografía: opción B por defecto (Bitter + Source Sans 3).
+     Para pasar a la opción A (Inter), agregar class="tipo-a" al <body>. */
+  --fuente-titulo: "Bitter", Georgia, serif;
+  --fuente-texto: "Source Sans 3", "Inter", Arial, sans-serif;
+
+  /* Escala tipográfica en puntos (7 pt es el mínimo provisorio) */
+  --t-micro: 7pt;
+  --t-chico: 8pt;
+  --t-texto: 9.5pt;
+  --t-medio: 11pt;
+  --t-subtitulo: 13pt;
+  --t-titulo: 24pt;
+
+  --margen: 10mm;
+}
+body.tipo-a {
+  --fuente-titulo: "Inter", Arial, sans-serif;
+  --fuente-texto: "Inter", Arial, sans-serif;
+}
+
+/* ---------- Página ---------- */
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; background: white; }
+body {
+  font-family: var(--fuente-texto);
+  font-size: var(--t-texto);
+  line-height: 1.3;
+  color: var(--negro);
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+.hoja {
+  width: 210mm;
+  height: 297mm;
+  padding: var(--margen);
+  position: relative;
+  overflow: hidden;
+  page-break-after: always;
+  break-after: page;
+  display: flex;
+  flex-direction: column;
+}
+.hoja:last-child { page-break-after: auto; break-after: auto; }
+/* Hojas apaisadas: el archivo HTML debe declarar además
+   <style>@page { size: A4 landscape; }</style> */
+.hoja.apaisada { width: 297mm; height: 210mm; }
+
+/* ---------- Cabecera y pie ---------- */
+.cabecera {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: end;
+  gap: 4mm;
+  padding-bottom: 2.5mm;
+  border-bottom: 0.6mm solid var(--negro);
+  margin-bottom: 4mm;
+}
+.codigo {
+  font-family: var(--fuente-texto);
+  font-weight: 700;
+  font-size: var(--t-chico);
+  letter-spacing: 0.06em;
+  border: 0.35mm solid var(--negro);
+  padding: 1mm 2mm;
+  align-self: start;
+  margin-top: 1mm;
+}
+.coleccion {
+  display: block;
+  font-size: var(--t-chico);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--gris);
+  margin-bottom: 1mm;
+}
+.titulo {
+  font-family: var(--fuente-titulo);
+  font-weight: 800;
+  font-size: var(--t-titulo);
+  line-height: 1.02;
+  margin: 0;
+}
+.bajada {
+  font-size: var(--t-medio);
+  line-height: 1.25;
+  margin: 1.5mm 0 0;
+  color: #222;
+}
+.cabecera .lateral {
+  font-size: var(--t-chico);
+  color: var(--gris);
+  text-align: right;
+  max-width: 55mm;
+}
+.cuerpo { flex: 1; position: relative; min-height: 0; }
+.pie {
+  display: flex;
+  justify-content: space-between;
+  gap: 4mm;
+  border-top: 0.25mm solid var(--gris-linea);
+  padding-top: 1.5mm;
+  margin-top: 3mm;
+  font-size: var(--t-micro);
+  color: var(--gris);
+}
+.pie .fuentes { flex: 1; }
+
+/* ---------- Tipografía de contenido ---------- */
+h2, .h2 {
+  font-family: var(--fuente-titulo);
+  font-weight: 700;
+  font-size: var(--t-subtitulo);
+  line-height: 1.1;
+  margin: 0 0 1.5mm;
+}
+h3, .h3 {
+  font-family: var(--fuente-texto);
+  font-weight: 700;
+  font-size: var(--t-medio);
+  line-height: 1.15;
+  margin: 0 0 1mm;
+}
+p { margin: 0 0 1.5mm; }
+.micro { font-size: var(--t-micro); line-height: 1.25; }
+.chico { font-size: var(--t-chico); line-height: 1.25; }
+.medio { font-size: var(--t-medio); }
+.gris { color: var(--gris); }
+.versalitas { font-size: var(--t-chico); font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+
+/* Idiomas y pronunciación */
+.en { color: var(--azul); font-weight: 700; }             /* inglés: azul y negrita */
+.es { color: var(--negro); }                               /* castellano: negro normal */
+.pron { color: var(--gris); font-style: italic; font-weight: 400; } /* pronunciación figurada */
+.pron .tonica { font-style: italic; font-weight: 700; }
+
+/* Piezas del verbo (atlas de tiempos verbales) */
+.aux { color: var(--ocre); font-weight: 700; }           /* auxiliares: estructura */
+.ing { color: var(--azul); font-weight: 700; }           /* -ing: continuidad */
+.part { text-decoration: underline; text-decoration-thickness: 0.3mm; text-underline-offset: 0.6mm; } /* participio */
+
+/* Alertas y errores típicos: siempre con el triángulo */
+.alerta {
+  border-left: 1mm solid var(--bermellon);
+  background: var(--bermellon-10);
+  padding: 1.2mm 2mm;
+  font-size: var(--t-chico);
+}
+.alerta::before {
+  content: "⚠ ";
+  color: var(--bermellon);
+  font-weight: 700;
+}
+.mal { text-decoration: line-through; text-decoration-color: var(--bermellon); text-decoration-thickness: 0.35mm; color: #444; }
+.bien { font-weight: 700; }
+
+/* Números de llamada */
+.num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 4.6mm;
+  height: 4.6mm;
+  border-radius: 50%;
+  background: var(--negro);
+  color: white;
+  font-size: var(--t-chico);
+  font-weight: 700;
+  line-height: 1;
+  flex: none;
+}
+.num.azul { background: var(--azul); }
+.num.ocre { background: var(--ocre); }
+.num.rojo { background: var(--bermellon); }
+
+/* Referencias cruzadas (por ejemplo, unidades del Murphy) */
+.ref {
+  display: inline-block;
+  font-size: var(--t-micro);
+  font-weight: 700;
+  border: 0.25mm solid var(--gris);
+  color: var(--gris);
+  padding: 0.2mm 1.2mm;
+  border-radius: 0.8mm;
+  white-space: nowrap;
+}
+
+/* Recuadros y paneles */
+.panel {
+  border: 0.3mm solid var(--negro);
+  padding: 2.5mm 3mm;
+}
+.panel.suave { border-color: var(--gris-linea); }
+.fondo-azul { background: var(--azul-10); }
+.fondo-ocre { background: var(--ocre-10); }
+.fondo-gris { background: var(--gris-05); }
+
+/* Renglones para escribir a mano (escritura guiada) */
+.renglones {
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent calc(8.5mm - 0.2mm),
+    var(--gris-linea) calc(8.5mm - 0.2mm),
+    var(--gris-linea) 8.5mm
+  );
+  background-position: 0 0;
+}
+
+/* Utilidades */
+.fila { display: flex; gap: 3mm; }
+.col { display: flex; flex-direction: column; gap: 2mm; }
+.grilla-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 4mm; }
+.grilla-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3mm; }
+.centro { text-align: center; }
+.derecha { text-align: right; }
+.sin-margen { margin: 0; }
+svg text { font-family: var(--fuente-texto); }
