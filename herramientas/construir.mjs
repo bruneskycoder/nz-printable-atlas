@@ -317,6 +317,22 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, S
     }
   }
 
+  // Contenido que se sale por debajo del cuerpo: un recuadro con fondo puede tapar
+  // el pie sin que ningún texto se encime con otro, así que se mide cada caja
+  for (const cuerpo of document.querySelectorAll('.hoja .cuerpo')) {
+    const limite = cuerpo.getBoundingClientRect().bottom;
+    const pie = cuerpo.closest('.hoja').querySelector('.pie');
+    const techoPie = pie ? pie.getBoundingClientRect().top : limite;
+    let peor = null, fondo = limite + 0.5 * PX_POR_MM;
+    for (const el of cuerpo.querySelectorAll('*')) {
+      const b = el.getBoundingClientRect();
+      if (b.height > 0 && b.bottom > fondo && visible(el)) { fondo = b.bottom; peor = el; }
+    }
+    if (!peor) continue;
+    if (fondo > techoPie + 0.3 * PX_POR_MM) errores.push(`desborde         ${describir(peor)} se sale ${mm(fondo - limite)} mm del cuerpo y entra ${mm(fondo - techoPie)} mm en el pie`);
+    else avisos.push(`casi-desborde    ${describir(peor)} se sale ${mm(fondo - limite)} mm del cuerpo (se come el aire antes del pie)`);
+  }
+
   // Texto cortado por una caja con overflow oculto (salvo la propia .hoja, que ya cubre el margen)
   for (const { el, rects } of textos) {
     if (el instanceof SVGElement) continue;
