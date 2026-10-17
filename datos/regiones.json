@@ -1,0 +1,1700 @@
+{
+ "_nota": "Datos de las fichas NZ-A-01 a 16 y de la matriz NZ-A-99. Cada cifra lleva su fuente (ver 'fuentes'). Tipos: 'dato' = publicado por la fuente; 'calculo' = cuenta hecha con datos publicados; 'estimacion' = aproximación, no es un dato oficial. Consultado el 2026-10-17 a través de un buscador (las páginas oficiales están bloqueadas desde el entorno de trabajo). Las cifras del censo tienen redondeo aleatorio de Stats NZ.",
+ "fuentes": {
+  "censo": "Stats NZ, Censo 2023: infografías regionales («Our region») y comunicados «2023 Census data highlights»; población por distrito y nacidos en el exterior vía Figure.NZ (tablas de Stats NZ).",
+  "clima": "NIWA, Climate Averages 1991–2020, vía Figure.NZ. Días con lluvia: promedios 1981–2010 (la serie 1991–2020 no estaba disponible).",
+  "alquiler": "Tenancy Services (MBIE), datos de bonos: alquiler semanal de los contratos registrados en junio de 2026 (media geométrica, que aproxima la mediana), vía Figure.NZ.",
+  "desempleo": "Stats NZ, Household Labour Force Survey, trimestre de marzo de 2026, por región, vía Figure.NZ. Algunas regiones se publican agrupadas.",
+  "salario": "Employment New Zealand: salario mínimo adulto de NZ$23,95 por hora desde el 1 de abril de 2026 (antes de impuestos).",
+  "great_walks": "DOC: temporada 2026/27 de las 11 Great Walks.",
+  "iwi": "Te Ara (Ministry for Culture and Heritage) y Te Kāhui Māngai (Te Puni Kōkiri). Lista no exhaustiva.",
+  "estacional": "Estimación: meses aproximados a partir de fuentes de la industria (kiwi, manzana, vino, cereza), guías de trabajo estacional y prensa regional. Cambian cada año con el clima.",
+  "superficie": "Calculada sobre los límites regionales de Stats NZ 2017 (geoBoundaries)."
+ },
+ "pais": {
+  "poblacion": 4993923,
+  "poblacion_txt": "4.993.923",
+  "censo": 2023,
+  "superficie_txt": "267.300",
+  "nacidos_exterior": 28.8,
+  "maori": 17.8,
+  "edad_mediana": 38.1,
+  "salario_minimo": 23.95,
+  "desempleo_jun2026": 5.6,
+  "desempleo_mar2026": 5.4
+ },
+ "sectores": {
+  "kiwi": "Kiwi: cosecha y empaque",
+  "kiwi-poda": "Kiwi: poda y raleo",
+  "manzana": "Manzana y pera: cosecha",
+  "manzana-poda": "Frutales: raleo y poda",
+  "uva": "Uva: vendimia",
+  "uva-poda": "Viñedo: poda de invierno",
+  "cereza": "Cereza y fruta de carozo",
+  "lupulo": "Lúpulo: cosecha",
+  "tambo": "Tambo: temporada de partos",
+  "esqui": "Centros de esquí",
+  "turismo": "Turismo: temporada alta",
+  "hospitalidad": "Hotelería y gastronomía"
+ },
+ "regiones": [
+  {
+   "iso": "NTL",
+   "n": 1,
+   "nombre": "Northland",
+   "mi": "Te Tai Tokerau",
+   "isla": "norte",
+   "superficie": 12548,
+   "poblacion": 194007,
+   "crec_2018": 8.3,
+   "nacidos_exterior": 17.1,
+   "maori": 37.4,
+   "edad_mediana": 43.2,
+   "distritos": [
+    [
+     "Whangārei",
+     96678
+    ],
+    [
+     "Far North",
+     71430
+    ],
+    [
+     "Kaipara",
+     25899
+    ]
+   ],
+   "estacion": {
+    "n": "Whangārei",
+    "max": 24.7,
+    "mes_max": "feb",
+    "min_jul": 8.1,
+    "lluvia": 1289,
+    "dias": 132
+   },
+   "alquiler": 580,
+   "desempleo": 5.1,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "kiwi",
+     [
+      3,
+      4,
+      5,
+      6
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Bay of Islands",
+     "bahía con 144 islas; barco, kayak y delfines",
+     174.15,
+     -35.22
+    ],
+    [
+     "Cape Reinga / Te Rerenga Wairua",
+     "el extremo norte, donde se juntan dos mares",
+     172.68,
+     -34.43
+    ],
+    [
+     "Waipoua Forest",
+     "kauri gigantes: Tāne Mahuta",
+     173.53,
+     -35.6
+    ],
+    [
+     "Ninety Mile Beach / Te Oneroa-a-Tōhē",
+     "playa de arena larguísima",
+     172.95,
+     -34.8
+    ]
+   ],
+   "iwi": [
+    "Ngāpuhi",
+    "Te Rarawa",
+    "Ngāti Kahu",
+    "Te Aupōuri",
+    "Ngāti Kurī",
+    "Ngātiwai",
+    "Ngāti Whātua"
+   ],
+   "cultura": "Waitangi Treaty Grounds: ahí se firmó Te Tiriti o Waitangi el 6 de febrero de 1840. Cada 6 de febrero es el feriado nacional.",
+   "rasgo": "La segunda región con más proporción de māori, después de Gisborne, y los inviernos más templados de esta colección."
+  },
+  {
+   "iso": "AUK",
+   "n": 2,
+   "nombre": "Auckland",
+   "mi": "Tāmaki Makaurau",
+   "isla": "norte",
+   "superficie": 4953,
+   "poblacion": 1656486,
+   "crec_2018": 5.4,
+   "nacidos_exterior": 42.9,
+   "maori": 12.3,
+   "edad_mediana": 35.9,
+   "distritos": [
+    [
+     "Auckland (un solo consejo)",
+     1656486
+    ]
+   ],
+   "estacion": {
+    "n": "Auckland",
+    "max": 24.4,
+    "mes_max": "feb",
+    "min_jul": 7.7,
+    "lluvia": 1119,
+    "dias": 136
+   },
+   "alquiler": 650,
+   "desempleo": 6.6,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "hospitalidad",
+     "todo"
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Waiheke Island",
+     "isla de viñedos y playas, a 40 min en ferry",
+     175.05,
+     -36.8
+    ],
+    [
+     "Rangitoto",
+     "volcán joven en el golfo; se sube en 1 h",
+     174.86,
+     -36.79
+    ],
+    [
+     "Piha y Waitākere Ranges",
+     "playa de arena negra y bosque nativo",
+     174.47,
+     -36.95
+    ],
+    [
+     "Hauraki Gulf / Tīkapa Moana",
+     "islas, ballenas y delfines",
+     175.1,
+     -36.55
+    ]
+   ],
+   "iwi": [
+    "Ngāti Whātua Ōrākei",
+    "Waikato-Tainui",
+    "Ngāti Pāoa",
+    "Ngāti Maru",
+    "Ngāti Te Ata"
+   ],
+   "cultura": "Auckland War Memorial Museum: la colección de taonga māori y del Pacífico más grande del país. Se la suele llamar la ciudad polinesia más grande del mundo.",
+   "rasgo": "Un tercio del país vive acá. Casi la mitad de sus habitantes nació en el exterior."
+  },
+  {
+   "iso": "WKO",
+   "n": 3,
+   "nombre": "Waikato",
+   "mi": null,
+   "isla": "norte",
+   "superficie": 24607,
+   "poblacion": 498771,
+   "crec_2018": null,
+   "nacidos_exterior": 21.9,
+   "maori": 25.2,
+   "edad_mediana": 37.9,
+   "distritos": [
+    [
+     "Hamilton",
+     174741
+    ],
+    [
+     "Waikato",
+     85968
+    ],
+    [
+     "Waipā",
+     58686
+    ],
+    [
+     "Taupō",
+     40296
+    ]
+   ],
+   "estacion": {
+    "n": "Hamilton",
+    "max": 25.1,
+    "mes_max": "feb",
+    "min_jul": 3.8,
+    "lluvia": 1124,
+    "dias": 125
+   },
+   "alquiler": 575,
+   "desempleo": 5.2,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Waitomo Caves",
+     "cuevas con luciérnagas",
+     175.1,
+     -38.26
+    ],
+    [
+     "Lake Taupō",
+     "el lago más grande del país, en un cráter volcánico",
+     175.9,
+     -38.8
+    ],
+    [
+     "Coromandel: Cathedral Cove",
+     "arcos de roca y Hot Water Beach",
+     175.79,
+     -36.83
+    ],
+    [
+     "Raglan",
+     "surf de izquierda de fama mundial",
+     174.87,
+     -37.8
+    ],
+    [
+     "Hobbiton",
+     "el set de El Señor de los Anillos, en Matamata",
+     175.68,
+     -37.86
+    ]
+   ],
+   "iwi": [
+    "Waikato-Tainui",
+    "Ngāti Maniapoto",
+    "Ngāti Raukawa",
+    "Ngāti Tūwharetoa",
+    "Ngāti Maru",
+    "Ngāti Tamaterā"
+   ],
+   "cultura": "Tūrangawaewae Marae, en Ngāruawāhia: sede del Kīngitanga, el movimiento del rey māori, nacido en 1858.",
+   "rasgo": "El corazón lechero del país; tiene el lago Taupō y la península de Coromandel."
+  },
+  {
+   "iso": "BOP",
+   "n": 4,
+   "nombre": "Bay of Plenty",
+   "mi": "Te Moana-a-Toi",
+   "isla": "norte",
+   "superficie": 12275,
+   "poblacion": 334140,
+   "crec_2018": 8.3,
+   "nacidos_exterior": 20.8,
+   "maori": 30.6,
+   "edad_mediana": 39.7,
+   "distritos": [
+    [
+     "Tauranga",
+     152844
+    ],
+    [
+     "Rotorua",
+     74058
+    ],
+    [
+     "Western Bay of Plenty",
+     56184
+    ],
+    [
+     "Whakatāne",
+     37149
+    ]
+   ],
+   "estacion": {
+    "n": "Tauranga",
+    "max": 24.4,
+    "mes_max": "feb",
+    "min_jul": 6.3,
+    "lluvia": 1202,
+    "dias": 110
+   },
+   "alquiler": 630,
+   "desempleo": 7.1,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "kiwi",
+     [
+      3,
+      4,
+      5,
+      6
+     ]
+    ],
+    [
+     "kiwi-poda",
+     [
+      6,
+      7,
+      8,
+      10,
+      11,
+      12
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Rotorua",
+     "géiseres, barro hirviente y lagos",
+     176.25,
+     -38.16
+    ],
+    [
+     "Mount Maunganui / Mauao",
+     "volcán y playa de surf en Tauranga",
+     176.18,
+     -37.63
+    ],
+    [
+     "Ōhope Beach",
+     "playa larga junto a Whakatāne",
+     177.05,
+     -37.97
+    ],
+    [
+     "Lagos de Rotorua",
+     "kayak, truchas y aguas termales",
+     176.42,
+     -38.04
+    ]
+   ],
+   "iwi": [
+    "Te Arawa",
+    "Ngāti Awa",
+    "Ngāi Te Rangi",
+    "Ngāti Ranginui",
+    "Ngāi Tūhoe",
+    "Te Whānau-ā-Apanui",
+    "Te Whakatōhea"
+   ],
+   "cultura": "Rotorua es la capital cultural māori del turismo: Whakarewarewa, aldea viva de Te Arawa, y Te Puia, escuela nacional de talla.",
+   "rasgo": "La capital del kiwi: Te Puke y Tauranga concentran la cosecha y el empaque."
+  },
+  {
+   "iso": "GIS",
+   "n": 5,
+   "nombre": "Gisborne",
+   "mi": "Te Tairāwhiti",
+   "isla": "norte",
+   "superficie": 8367,
+   "poblacion": 51135,
+   "crec_2018": 7.6,
+   "nacidos_exterior": 11.8,
+   "maori": 54.8,
+   "edad_mediana": 36.7,
+   "distritos": [
+    [
+     "Gisborne (un solo consejo)",
+     51135
+    ]
+   ],
+   "estacion": {
+    "n": "Gisborne",
+    "max": 25.8,
+    "mes_max": "ene",
+    "min_jul": 5.5,
+    "lluvia": 1001,
+    "dias": 107
+   },
+   "alquiler": 580,
+   "desempleo": 4.8,
+   "desempleo_grupo": "Gisborne y Hawke's Bay",
+   "trabajo": [
+    [
+     "uva",
+     [
+      2,
+      3,
+      4
+     ]
+    ],
+    [
+     "kiwi",
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "manzana",
+     [
+      2,
+      3,
+      4
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "East Cape",
+     "faro en el punto más al este de la isla",
+     178.55,
+     -37.69
+    ],
+    [
+     "Tolaga Bay Wharf",
+     "muelle de 660 m sobre el mar",
+     178.32,
+     -38.37
+    ],
+    [
+     "Hikurangi",
+     "montaña sagrada de Ngāti Porou",
+     178.06,
+     -37.92
+    ],
+    [
+     "Playas de surf",
+     "Wainui y Makorori, junto a Gisborne",
+     178.07,
+     -38.69
+    ]
+   ],
+   "iwi": [
+    "Ngāti Porou",
+    "Rongowhakaata",
+    "Ngāi Tāmanuhiri",
+    "Te Aitanga-a-Māhaki"
+   ],
+   "cultura": "La región más māori del país: más de la mitad de la población. Ngāti Porou es una de las iwi más grandes y el te reo tiene mucha presencia.",
+   "rasgo": "Aislada y soleada; una de las primeras ciudades del mundo en ver el amanecer."
+  },
+  {
+   "iso": "HKB",
+   "n": 6,
+   "nombre": "Hawke's Bay",
+   "mi": "Te Matau-a-Māui",
+   "isla": "norte",
+   "superficie": 14184,
+   "poblacion": 175074,
+   "crec_2018": 5.2,
+   "nacidos_exterior": 17.7,
+   "maori": 28.6,
+   "edad_mediana": 40.4,
+   "distritos": [
+    [
+     "Hastings",
+     85965
+    ],
+    [
+     "Napier",
+     64695
+    ],
+    [
+     "Central Hawke's Bay",
+     15480
+    ],
+    [
+     "Wairoa",
+     8826
+    ]
+   ],
+   "estacion": {
+    "n": "Napier",
+    "max": 24.7,
+    "mes_max": "ene",
+    "min_jul": 4.8,
+    "lluvia": 790,
+    "dias": 88
+   },
+   "alquiler": 590,
+   "desempleo": 4.8,
+   "desempleo_grupo": "Gisborne y Hawke's Bay",
+   "trabajo": [
+    [
+     "manzana",
+     [
+      2,
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "manzana-poda",
+     [
+      6,
+      7,
+      8,
+      11,
+      12
+     ]
+    ],
+    [
+     "uva",
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "cereza",
+     [
+      12,
+      1,
+      2
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Napier art déco",
+     "ciudad reconstruida en 1931 tras el terremoto",
+     176.91,
+     -39.49
+    ],
+    [
+     "Te Mata Peak",
+     "mirador sobre las llanuras de Heretaunga",
+     176.91,
+     -39.7
+    ],
+    [
+     "Cape Kidnappers",
+     "colonia de alcatraces",
+     177.09,
+     -39.64
+    ],
+    [
+     "Lake Waikaremoana",
+     "Great Walk en el bosque de Te Urewera",
+     177.1,
+     -38.77
+    ]
+   ],
+   "iwi": [
+    "Ngāti Kahungunu"
+   ],
+   "cultura": "Territorio de Ngāti Kahungunu, que se extiende hasta el Wairarapa. Marae activos en toda la región.",
+   "rasgo": "La huerta del país: manzanas, peras, carozos y vino, con mucho sol."
+  },
+  {
+   "iso": "TKI",
+   "n": 7,
+   "nombre": "Taranaki",
+   "mi": null,
+   "isla": "norte",
+   "superficie": 7267,
+   "poblacion": 126015,
+   "crec_2018": null,
+   "nacidos_exterior": 15.0,
+   "maori": 21.8,
+   "maori_tipo": "calculo",
+   "edad_mediana": 40.4,
+   "distritos": [
+    [
+     "New Plymouth",
+     87000
+    ],
+    [
+     "South Taranaki",
+     29025
+    ]
+   ],
+   "estacion": {
+    "n": "New Plymouth",
+    "max": 22.5,
+    "mes_max": "feb",
+    "min_jul": 5.9,
+    "lluvia": 1410,
+    "dias": 136
+   },
+   "alquiler": 550,
+   "desempleo": 4.1,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Taranaki Maunga",
+     "volcán de 2518 m; Te Papa-Kura-o-Taranaki",
+     174.06,
+     -39.3
+    ],
+    [
+     "Pouākai Crossing",
+     "caminata de un día con lago espejo",
+     174.02,
+     -39.25
+    ],
+    [
+     "Surf Highway 45",
+     "costa de surf alrededor del volcán",
+     173.85,
+     -39.4
+    ],
+    [
+     "Coastal Walkway",
+     "13 km de rambla en New Plymouth",
+     174.07,
+     -39.06
+    ]
+   ],
+   "iwi": [
+    "Ngāti Tama",
+    "Ngāti Mutunga",
+    "Te Atiawa",
+    "Ngāti Maru",
+    "Taranaki",
+    "Ngāruahine",
+    "Ngāti Ruanui",
+    "Ngaa Rauru Kiitahi"
+   ],
+   "cultura": "Parihaka: aldea de resistencia pacífica a la confiscación de tierras (1870–1881). Desde 2025 la montaña es persona jurídica: Te Kāhui Tupua.",
+   "rasgo": "Lechería, energía y un volcán a 30 minutos del mar."
+  },
+  {
+   "iso": "MWT",
+   "n": 8,
+   "nombre": "Manawatū-Whanganui",
+   "mi": null,
+   "isla": "norte",
+   "superficie": 22238,
+   "poblacion": 251412,
+   "crec_2018": 5.3,
+   "nacidos_exterior": 16.0,
+   "maori": 25.1,
+   "edad_mediana": 39.7,
+   "distritos": [
+    [
+     "Palmerston North",
+     87090
+    ],
+    [
+     "Whanganui",
+     47619
+    ],
+    [
+     "Horowhenua",
+     36693
+    ],
+    [
+     "Manawatū",
+     32415
+    ]
+   ],
+   "estacion": {
+    "n": "Palmerston North",
+    "max": 23.2,
+    "mes_max": "feb",
+    "min_jul": 4.7,
+    "lluvia": 984,
+    "dias": 121
+   },
+   "alquiler": 520,
+   "desempleo": 4.9,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "esqui",
+     [
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Tongariro Alpine Crossing",
+     "la caminata de un día más famosa (compartida con Waikato)",
+     175.65,
+     -39.13
+    ],
+    [
+     "Ruapehu",
+     "volcán activo con centros de esquí (Whakapapa y Tūroa)",
+     175.57,
+     -39.28
+    ],
+    [
+     "Whanganui Journey",
+     "Great Walk en canoa por el río Whanganui",
+     175.05,
+     -39.5
+    ],
+    [
+     "Te Āpiti / Manawatū Gorge",
+     "garganta con senderos",
+     175.8,
+     -40.32
+    ]
+   ],
+   "iwi": [
+    "Whanganui",
+    "Ngāti Rangi",
+    "Ngāti Raukawa",
+    "Rangitāne",
+    "Ngāti Apa",
+    "Ngāti Tūwharetoa"
+   ],
+   "cultura": "El río Whanganui es persona jurídica desde 2017 (Te Awa Tupua): la primera ley del mundo de ese tipo para un río.",
+   "rasgo": "Alquiler de los más bajos de la Isla Norte; volcanes y esquí al norte."
+  },
+  {
+   "iso": "WGN",
+   "n": 9,
+   "nombre": "Wellington",
+   "mi": "Te Whanganui-a-Tara",
+   "isla": "norte",
+   "superficie": 8124,
+   "poblacion": 520971,
+   "crec_2018": null,
+   "nacidos_exterior": 28.3,
+   "maori": 15.5,
+   "edad_mediana": 37.9,
+   "distritos": [
+    [
+     "Wellington City",
+     202689
+    ],
+    [
+     "Lower Hutt",
+     107562
+    ],
+    [
+     "Porirua",
+     59445
+    ],
+    [
+     "Kāpiti Coast",
+     55914
+    ]
+   ],
+   "estacion": {
+    "n": "Wellington",
+    "max": 20.6,
+    "mes_max": "feb",
+    "min_jul": 6.7,
+    "lluvia": 1319,
+    "dias": 122
+   },
+   "alquiler": 575,
+   "desempleo": 6.3,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "hospitalidad",
+     "todo"
+    ],
+    [
+     "uva",
+     [
+      3,
+      4
+     ]
+    ],
+    [
+     "uva-poda",
+     [
+      6,
+      7,
+      8
+     ]
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Te Papa",
+     "el museo nacional, frente al puerto",
+     174.78,
+     -41.29
+    ],
+    [
+     "Zealandia",
+     "santuario de aves en plena ciudad",
+     174.75,
+     -41.29
+    ],
+    [
+     "Cape Palliser",
+     "faro y colonia de lobos marinos",
+     175.29,
+     -41.61
+    ],
+    [
+     "Martinborough",
+     "pueblo de viñedos del Wairarapa",
+     175.46,
+     -41.22
+    ]
+   ],
+   "iwi": [
+    "Taranaki Whānui",
+    "Ngāti Toa Rangatira",
+    "Ngāti Kahungunu ki Wairarapa",
+    "Rangitāne o Wairarapa",
+    "Ngāti Raukawa ki te Tonga"
+   ],
+   "cultura": "Te Papa Tongarewa tiene su propio marae, Rongomaraeroa. La capital concentra las instituciones del Tratado.",
+   "rasgo": "La capital: gobierno, oficinas y cultura. Ventosa y compacta."
+  },
+  {
+   "iso": "TAS",
+   "n": 10,
+   "nombre": "Tasman",
+   "mi": null,
+   "isla": "sur",
+   "superficie": 9665,
+   "poblacion": 57807,
+   "crec_2018": 10.3,
+   "nacidos_exterior": 21.4,
+   "maori": 9.9,
+   "edad_mediana": 46.8,
+   "distritos": [
+    [
+     "Tasman (un solo consejo)",
+     57807
+    ]
+   ],
+   "estacion": {
+    "n": "Nelson (la más cercana)",
+    "max": 22.7,
+    "mes_max": "feb",
+    "min_jul": 2.6,
+    "lluvia": 976,
+    "dias": 93
+   },
+   "alquiler": 570,
+   "desempleo": 4.6,
+   "desempleo_grupo": "Tasman, Nelson, Marlborough y West Coast",
+   "trabajo": [
+    [
+     "manzana",
+     [
+      2,
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "manzana-poda",
+     [
+      6,
+      7,
+      8,
+      11,
+      12
+     ]
+    ],
+    [
+     "lupulo",
+     [
+      2,
+      3
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Abel Tasman Coast Track",
+     "Great Walk de playas doradas y kayak",
+     173.0,
+     -40.9
+    ],
+    [
+     "Heaphy Track",
+     "Great Walk por Kahurangi, hasta la costa oeste",
+     172.43,
+     -40.85
+    ],
+    [
+     "Farewell Spit / Onetahua",
+     "lengua de arena de más de 25 km",
+     172.9,
+     -40.52
+    ],
+    [
+     "Nelson Lakes",
+     "lagos Rotoiti y Rotoroa, entre montañas",
+     172.83,
+     -41.83
+    ]
+   ],
+   "iwi": [
+    "Ngāti Tama",
+    "Te Ātiawa",
+    "Ngāti Rārua",
+    "Ngāti Kōata",
+    "Ngāti Apa ki te Rā Tō",
+    "Ngāti Kuia",
+    "Rangitāne o Wairau",
+    "Ngāti Toa Rangatira"
+   ],
+   "cultura": "Parte de Te Tauihu: ocho iwi comparten la región. Te Waikoropupū Springs es un manantial sagrado.",
+   "rasgo": "La región que más creció entre 2018 y 2023; fruta, lúpulo y tres parques nacionales."
+  },
+  {
+   "iso": "NLS",
+   "n": 11,
+   "nombre": "Nelson",
+   "mi": "Whakatū",
+   "isla": "sur",
+   "superficie": 425,
+   "poblacion": 52584,
+   "crec_2018": 3.3,
+   "nacidos_exterior": 26.5,
+   "maori": 11.9,
+   "edad_mediana": 44.0,
+   "distritos": [
+    [
+     "Nelson (un solo consejo)",
+     52584
+    ]
+   ],
+   "estacion": {
+    "n": "Nelson",
+    "max": 22.7,
+    "mes_max": "feb",
+    "min_jul": 2.6,
+    "lluvia": 976,
+    "dias": 93
+   },
+   "alquiler": 565,
+   "desempleo": 4.6,
+   "desempleo_grupo": "Tasman, Nelson, Marlborough y West Coast",
+   "trabajo": [
+    [
+     "manzana",
+     [
+      2,
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Tāhunanui Beach",
+     "playa urbana",
+     173.24,
+     -41.29
+    ],
+    [
+     "Centre of New Zealand",
+     "colina mirador sobre la ciudad",
+     173.29,
+     -41.28
+    ],
+    [
+     "Abel Tasman",
+     "a una hora, en Tasman",
+     173.0,
+     -40.9
+    ]
+   ],
+   "iwi": [
+    "Ngāti Kōata",
+    "Ngāti Rārua",
+    "Ngāti Tama",
+    "Te Ātiawa",
+    "Ngāti Toa Rangatira",
+    "Ngāti Kuia",
+    "Ngāti Apa ki te Rā Tō",
+    "Rangitāne o Wairau"
+   ],
+   "cultura": "Whakatū Marae; la ciudad es la puerta de Te Tauihu y de sus ocho iwi.",
+   "rasgo": "La región más chica: una ciudad soleada con puerto pesquero, entre Tasman y Marlborough."
+  },
+  {
+   "iso": "MBH",
+   "n": 12,
+   "nombre": "Marlborough",
+   "mi": null,
+   "isla": "sur",
+   "superficie": 10486,
+   "poblacion": 49431,
+   "crec_2018": null,
+   "nacidos_exterior": 19.7,
+   "maori": 14.9,
+   "maori_tipo": "calculo",
+   "edad_mediana": 46.1,
+   "distritos": [
+    [
+     "Marlborough (un solo consejo)",
+     49431
+    ]
+   ],
+   "estacion": {
+    "n": "Blenheim",
+    "max": 23.4,
+    "mes_max": "ene",
+    "min_jul": 2.9,
+    "lluvia": 639,
+    "dias": 82
+   },
+   "alquiler": 550,
+   "desempleo": 4.6,
+   "desempleo_grupo": "Tasman, Nelson, Marlborough y West Coast",
+   "trabajo": [
+    [
+     "uva",
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "uva-poda",
+     [
+      6,
+      7,
+      8
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Marlborough Sounds",
+     "valles inundados por el mar; kayak y barco",
+     174.1,
+     -41.15
+    ],
+    [
+     "Queen Charlotte Track",
+     "caminata de 70 km por los Sounds",
+     174.2,
+     -41.1
+    ],
+    [
+     "Viñedos del Wairau",
+     "el sauvignon blanc más conocido del país",
+     173.83,
+     -41.51
+    ],
+    [
+     "Picton",
+     "puerto del ferry a Wellington",
+     174.0,
+     -41.29
+    ]
+   ],
+   "iwi": [
+    "Rangitāne o Wairau",
+    "Ngāti Kuia",
+    "Ngāti Apa ki te Rā Tō",
+    "Ngāti Toa Rangatira",
+    "Te Ātiawa",
+    "Ngāti Rārua"
+   ],
+   "cultura": "Wairau Bar: uno de los primeros asentamientos polinesios del país, de fines del siglo XIII.",
+   "rasgo": "La región del vino: vendimia en otoño y poda en invierno dan trabajo casi todo el año."
+  },
+  {
+   "iso": "WTC",
+   "n": 13,
+   "nombre": "West Coast",
+   "mi": "Te Tai Poutini",
+   "isla": "sur",
+   "superficie": 23328,
+   "poblacion": 33390,
+   "crec_2018": 5.7,
+   "nacidos_exterior": 13.3,
+   "maori": 13.4,
+   "maori_tipo": "calculo",
+   "edad_mediana": 48.1,
+   "distritos": [
+    [
+     "Grey",
+     14043
+    ],
+    [
+     "Buller",
+     10446
+    ],
+    [
+     "Westland",
+     8901
+    ]
+   ],
+   "estacion": {
+    "n": "Hokitika",
+    "max": 19.9,
+    "mes_max": "feb",
+    "min_jul": 3.1,
+    "lluvia": 2921,
+    "dias": 172
+   },
+   "alquiler": 468,
+   "desempleo": 4.6,
+   "desempleo_grupo": "Tasman, Nelson, Marlborough y West Coast",
+   "trabajo": [
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Punakaiki: Pancake Rocks",
+     "rocas en capas y bufaderos; Paparoa Track",
+     171.33,
+     -42.11
+    ],
+    [
+     "Glaciares Franz Josef y Fox",
+     "glaciares que bajan casi hasta la selva",
+     170.18,
+     -43.47
+    ],
+    [
+     "Lake Matheson",
+     "el lago espejo de Aoraki",
+     169.97,
+     -43.44
+    ],
+    [
+     "Hokitika Gorge",
+     "agua turquesa",
+     171.08,
+     -42.95
+    ]
+   ],
+   "iwi": [
+    "Ngāi Tahu (Poutini Ngāi Tahu)",
+    "Ngāti Waewae",
+    "Ngāti Māhaki ki Makaawhio"
+   ],
+   "cultura": "Te Tai Poutini es la tierra del pounamu (piedra verde). En Hokitika se talla y se vende.",
+   "rasgo": "La región menos poblada y más lluviosa; el alquiler más barato del país."
+  },
+  {
+   "iso": "CAN",
+   "n": 14,
+   "nombre": "Canterbury",
+   "mi": "Waitaha",
+   "isla": "sur",
+   "superficie": 45236,
+   "poblacion": 651027,
+   "crec_2018": null,
+   "nacidos_exterior": 24.7,
+   "maori": 10.6,
+   "maori_tipo": "calculo",
+   "edad_mediana": 39.1,
+   "distritos": [
+    [
+     "Christchurch",
+     391383
+    ],
+    [
+     "Selwyn",
+     78144
+    ],
+    [
+     "Waimakariri",
+     66246
+    ],
+    [
+     "Timaru",
+     47547
+    ],
+    [
+     "Ashburton",
+     34746
+    ]
+   ],
+   "estacion": {
+    "n": "Christchurch",
+    "max": 22.5,
+    "mes_max": "ene",
+    "min_jul": 0.7,
+    "lluvia": 618,
+    "dias": 84
+   },
+   "alquiler": 550,
+   "desempleo": 4.4,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "esqui",
+     [
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "uva",
+     [
+      3,
+      4,
+      5
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Aoraki / Mount Cook",
+     "la montaña más alta, 3724 m; glaciar Tasman",
+     170.14,
+     -43.6
+    ],
+    [
+     "Lake Tekapo / Takapō",
+     "reserva de cielo oscuro",
+     170.48,
+     -44.0
+    ],
+    [
+     "Kaikōura",
+     "ballenas, delfines y lobos marinos",
+     173.68,
+     -42.41
+    ],
+    [
+     "Arthur's Pass",
+     "parque nacional en el paso de los Alpes",
+     171.56,
+     -42.94
+    ],
+    [
+     "Akaroa",
+     "pueblo de origen francés en Banks Peninsula",
+     172.97,
+     -43.8
+    ]
+   ],
+   "iwi": [
+    "Ngāi Tahu"
+   ],
+   "cultura": "Ngāi Tahu tiene su sede en Christchurch; su acuerdo con la Corona (1998) es uno de los mayores del Tratado.",
+   "rasgo": "La región más grande: llanura, Alpes del Sur y la segunda ciudad del país."
+  },
+  {
+   "iso": "OTA",
+   "n": 15,
+   "nombre": "Otago",
+   "mi": "Ōtākou",
+   "isla": "sur",
+   "superficie": 31868,
+   "poblacion": 240900,
+   "crec_2018": 7.0,
+   "nacidos_exterior": 23.9,
+   "maori": 9.9,
+   "edad_mediana": 38.4,
+   "distritos": [
+    [
+     "Dunedin",
+     128901
+    ],
+    [
+     "Queenstown-Lakes",
+     47808
+    ],
+    [
+     "Central Otago",
+     24306
+    ],
+    [
+     "Waitaki",
+     23472
+    ]
+   ],
+   "estacion": {
+    "n": "Queenstown",
+    "max": 22.0,
+    "mes_max": "ene",
+    "min_jul": -1.4,
+    "lluvia": 721,
+    "dias": 97
+   },
+   "alquiler": 595,
+   "desempleo": 3.6,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "cereza",
+     [
+      12,
+      1,
+      2
+     ]
+    ],
+    [
+     "manzana",
+     [
+      2,
+      3,
+      4
+     ]
+    ],
+    [
+     "uva",
+     [
+      4,
+      5
+     ]
+    ],
+    [
+     "uva-poda",
+     [
+      6,
+      7,
+      8
+     ]
+    ],
+    [
+     "esqui",
+     [
+      6,
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3,
+      7,
+      8
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Queenstown",
+     "capital de la aventura: bungy, jet boat, esquí",
+     168.66,
+     -45.03
+    ],
+    [
+     "Wānaka y Mt Aspiring",
+     "lago, montaña y Rob Roy Glacier",
+     169.13,
+     -44.7
+    ],
+    [
+     "Routeburn Track",
+     "Great Walk alpina (compartida con Southland)",
+     168.27,
+     -44.75
+    ],
+    [
+     "Otago Central Rail Trail",
+     "152 km en bicicleta por pueblos mineros",
+     169.7,
+     -45.3
+    ],
+    [
+     "Otago Peninsula",
+     "albatros reales y pingüinos",
+     170.73,
+     -45.77
+    ]
+   ],
+   "iwi": [
+    "Kāi Tahu (Ngāi Tahu)"
+   ],
+   "cultura": "Ōtākou Marae, en la península: el nombre de la región viene de ahí. En el sur se dice «Kāi Tahu», con k.",
+   "rasgo": "El desempleo más bajo; cerezas en verano y esquí en invierno."
+  },
+  {
+   "iso": "STL",
+   "n": 16,
+   "nombre": "Southland",
+   "mi": "Murihiku",
+   "isla": "sur",
+   "superficie": 31737,
+   "poblacion": 100143,
+   "crec_2018": 2.7,
+   "nacidos_exterior": 14.5,
+   "maori": 16.8,
+   "edad_mediana": 40.4,
+   "distritos": [
+    [
+     "Invercargill",
+     55599
+    ],
+    [
+     "Southland",
+     31833
+    ],
+    [
+     "Gore",
+     12711
+    ]
+   ],
+   "estacion": {
+    "n": "Invercargill",
+    "max": 18.9,
+    "mes_max": "ene",
+    "min_jul": 1.1,
+    "lluvia": 1097,
+    "dias": 161
+   },
+   "alquiler": 490,
+   "desempleo": 5.3,
+   "desempleo_grupo": null,
+   "trabajo": [
+    [
+     "tambo",
+     [
+      7,
+      8,
+      9,
+      10
+     ]
+    ],
+    [
+     "turismo",
+     [
+      12,
+      1,
+      2,
+      3
+     ]
+    ],
+    [
+     "hospitalidad",
+     "todo"
+    ]
+   ],
+   "naturaleza": [
+    [
+     "Milford Sound / Piopiotahi",
+     "fiordo con cascadas de más de 150 m",
+     167.93,
+     -44.67
+    ],
+    [
+     "Milford y Kepler Tracks",
+     "dos Great Walks desde Te Anau",
+     167.72,
+     -45.41
+    ],
+    [
+     "Rakiura / Stewart Island",
+     "Great Walk y kiwis en libertad",
+     168.1,
+     -46.9
+    ],
+    [
+     "Hump Ridge Track",
+     "Great Walk sobre la costa sur",
+     167.33,
+     -46.17
+    ],
+    [
+     "The Catlins",
+     "costa salvaje: Curio Bay y Nugget Point",
+     169.1,
+     -46.6
+    ]
+   ],
+   "iwi": [
+    "Ngāi Tahu (Kāi Tahu)"
+   ],
+   "cultura": "Cuatro rūnaka de Ngāi Tahu en Murihiku: Awarua, Waihōpai, Ōraka Aparima y Hokonui.",
+   "rasgo": "Cuatro de las once Great Walks están acá, y parte de una quinta. Fresco y con lluvia frecuente."
+  }
+ ]
+}

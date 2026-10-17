@@ -1,3 +1,5 @@
 node_modules/
 salida/previas/
 salida/pruebas/
+cache/
+__pycache__/

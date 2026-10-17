@@ -1,0 +1,329 @@
+{
+  "_nota": "Rótulos del mapa mural. Posición en grados (lon, lat); 'rot' en grados (positivo = sentido horario); 'clase' define el estilo (ver estilo/atlas-nz.css). Nombres oficiales de NZ (LINZ): inglés y te reo māori. Alturas: Aoraki 3724 m (medición de 2014) y Taranaki 2518 m verificadas; las demás son valores de referencia de LINZ citados por DOC.",
+  "picos": [
+    {
+      "n": "Aoraki / Mount Cook",
+      "h": 3724,
+      "lon": 170.142,
+      "lat": -43.595,
+      "pos": "E"
+    },
+    {
+      "n": "Tititea / Mt Aspiring",
+      "h": 3033,
+      "lon": 168.728,
+      "lat": -44.384,
+      "pos": "O"
+    },
+    {
+      "n": "Tapuae-o-Uenuku",
+      "h": 2885,
+      "lon": 173.66,
+      "lat": -42.0,
+      "pos": "E"
+    },
+    {
+      "n": "Ruapehu",
+      "h": 2797,
+      "lon": 175.567,
+      "lat": -39.283,
+      "pos": "E"
+    },
+    {
+      "n": "Taranaki Maunga",
+      "h": 2518,
+      "lon": 174.065,
+      "lat": -39.296,
+      "pos": "O"
+    }
+  ],
+  "rotulos": [
+    {
+      "t": "TASMAN SEA",
+      "lon": 169.2,
+      "lat": -38.9,
+      "rot": 0,
+      "clase": "mar"
+    },
+    {
+      "t": "PACIFIC OCEAN",
+      "lon": 177.6,
+      "lat": -43.0,
+      "rot": 0,
+      "clase": "mar"
+    },
+    {
+      "t": "Cook Strait",
+      "lon": 174.52,
+      "lat": -41.66,
+      "rot": -30,
+      "clase": "agua"
+    },
+    {
+      "t": "Foveaux Strait",
+      "lon": 168.05,
+      "lat": -46.7,
+      "rot": -8,
+      "clase": "agua"
+    },
+    {
+      "t": "Hauraki Gulf",
+      "lon": 175.12,
+      "lat": -36.55,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Bay of Plenty",
+      "lon": 176.75,
+      "lat": -37.52,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Hawke Bay",
+      "lon": 177.3,
+      "lat": -39.3,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Golden Bay",
+      "lon": 173.08,
+      "lat": -40.62,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Tasman Bay",
+      "lon": 173.17,
+      "lat": -40.97,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Pegasus Bay",
+      "lon": 173.05,
+      "lat": -43.28,
+      "rot": 0,
+      "clase": "agua"
+    },
+    {
+      "t": "Canterbury Bight",
+      "lon": 172.05,
+      "lat": -44.58,
+      "rot": -30,
+      "clase": "agua"
+    },
+    {
+      "t": "SOUTHERN ALPS",
+      "lon": 171.45,
+      "lat": -42.98,
+      "rot": -37,
+      "clase": "sierra"
+    },
+    {
+      "t": "FIORDLAND",
+      "lon": 167.15,
+      "lat": -45.25,
+      "rot": -50,
+      "clase": "sierra"
+    },
+    {
+      "t": "KAIKŌURA RANGES",
+      "lon": 173.22,
+      "lat": -42.32,
+      "rot": -38,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "TARARUA RANGE",
+      "lon": 175.42,
+      "lat": -41.03,
+      "rot": -25,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "RUAHINE RANGE",
+      "lon": 176.08,
+      "lat": -39.86,
+      "rot": -60,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "RAUKUMARA RANGE",
+      "lon": 177.72,
+      "lat": -38.05,
+      "rot": -70,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "VOLCANIC PLATEAU",
+      "lon": 175.95,
+      "lat": -39.12,
+      "rot": 0,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "CANTERBURY PLAINS",
+      "lon": 171.95,
+      "lat": -43.8,
+      "rot": -35,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "CENTRAL OTAGO",
+      "lon": 169.95,
+      "lat": -44.95,
+      "rot": 0,
+      "clase": "sierra-chica"
+    },
+    {
+      "t": "Lake Taupō",
+      "lon": 175.62,
+      "lat": -38.82,
+      "rot": 0,
+      "clase": "lago"
+    },
+    {
+      "t": "Lake Rotorua",
+      "lon": 176.42,
+      "lat": -38.04,
+      "rot": 0,
+      "clase": "lago"
+    },
+    {
+      "t": "Lake Wakatipu",
+      "lon": 168.33,
+      "lat": -45.22,
+      "rot": 0,
+      "clase": "lago"
+    },
+    {
+      "t": "Lake Te Anau",
+      "lon": 167.95,
+      "lat": -45.2,
+      "rot": -80,
+      "clase": "lago"
+    },
+    {
+      "t": "Lake Wanaka",
+      "lon": 168.97,
+      "lat": -44.52,
+      "rot": -70,
+      "clase": "lago"
+    },
+    {
+      "t": "Lake Pukaki",
+      "lon": 170.3,
+      "lat": -44.02,
+      "rot": -80,
+      "clase": "lago"
+    },
+    {
+      "t": "Waikato",
+      "lon": 175.15,
+      "lat": -37.62,
+      "rot": -50,
+      "clase": "rio"
+    },
+    {
+      "t": "Whanganui",
+      "lon": 175.0,
+      "lat": -39.5,
+      "rot": -70,
+      "clase": "rio"
+    },
+    {
+      "t": "Clutha / Mata-Au",
+      "lon": 169.55,
+      "lat": -45.95,
+      "rot": -35,
+      "clase": "rio"
+    },
+    {
+      "t": "Waitaki",
+      "lon": 170.62,
+      "lat": -44.72,
+      "rot": 15,
+      "clase": "rio"
+    },
+    {
+      "t": "Stewart Island / Rakiura",
+      "lon": 167.95,
+      "lat": -47.38,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "Great Barrier Island",
+      "lon": 175.62,
+      "lat": -36.08,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "Coromandel Peninsula",
+      "lon": 175.58,
+      "lat": -36.62,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "Banks Peninsula",
+      "lon": 173.25,
+      "lat": -43.92,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "Marlborough Sounds",
+      "lon": 173.92,
+      "lat": -40.97,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "Cape Reinga",
+      "lon": 172.3,
+      "lat": -34.38,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "East Cape",
+      "lon": 178.3,
+      "lat": -37.55,
+      "rot": 0,
+      "clase": "isla"
+    },
+    {
+      "t": "TE IKA-A-MĀUI",
+      "lon": 171.55,
+      "lat": -37.62,
+      "rot": 0,
+      "clase": "isla-grande"
+    },
+    {
+      "t": "North Island",
+      "lon": 171.55,
+      "lat": -37.84,
+      "rot": 0,
+      "clase": "isla-grande-en"
+    },
+    {
+      "t": "TE WAIPOUNAMU",
+      "lon": 167.55,
+      "lat": -42.35,
+      "rot": 0,
+      "clase": "isla-grande"
+    },
+    {
+      "t": "South Island",
+      "lon": 167.55,
+      "lat": -42.57,
+      "rot": 0,
+      "clase": "isla-grande-en"
+    }
+  ]
+}

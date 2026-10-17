@@ -1,0 +1,494 @@
+{
+ "_nota": "Ciudades y pueblos del atlas. Coordenadas en grados (lon, lat): Natural Earth 1:10 m cuando la ciudad está ahí, y si no, del centro del pueblo. Categoría aproximada por población (Censo 2023; para los distritos ver datos/regiones.json): 1 = más de 1 millón; 2 = 100.000 a 500.000; 3 = 25.000 a 100.000; 4 = menos de 25.000. 'pos' es dónde va el rótulo respecto del punto (E, O, N, S, NE, NO, SE, SO). 'aero' = aeropuerto con vuelos internacionales.",
+ "lugares": [
+  {
+   "n": "Kaitaia",
+   "lon": 173.273,
+   "lat": -35.11,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Kerikeri",
+   "lon": 173.951,
+   "lat": -35.228,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Paihia",
+   "lon": 174.091,
+   "lat": -35.282,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Whangārei",
+   "lon": 174.323,
+   "lat": -35.726,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Dargaville",
+   "lon": 173.869,
+   "lat": -35.94,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Auckland",
+   "lon": 174.763,
+   "lat": -36.848,
+   "cat": 1,
+   "pos": "O",
+   "aero": true
+  },
+  {
+   "n": "Pukekohe",
+   "lon": 174.903,
+   "lat": -37.201,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Thames",
+   "lon": 175.54,
+   "lat": -37.138,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Whitianga",
+   "lon": 175.7,
+   "lat": -36.833,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Hamilton",
+   "lon": 175.29,
+   "lat": -37.778,
+   "cat": 2,
+   "pos": "NE"
+  },
+  {
+   "n": "Raglan",
+   "lon": 174.871,
+   "lat": -37.8,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Cambridge",
+   "lon": 175.47,
+   "lat": -37.889,
+   "cat": 4,
+   "pos": "SE"
+  },
+  {
+   "n": "Matamata",
+   "lon": 175.773,
+   "lat": -37.81,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Waitomo",
+   "lon": 175.104,
+   "lat": -38.261,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Tokoroa",
+   "lon": 175.87,
+   "lat": -38.225,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Taupō",
+   "lon": 176.077,
+   "lat": -38.693,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Turangi",
+   "lon": 175.814,
+   "lat": -38.989,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Tauranga",
+   "lon": 176.154,
+   "lat": -37.696,
+   "cat": 2,
+   "pos": "NO"
+  },
+  {
+   "n": "Te Puke",
+   "lon": 176.326,
+   "lat": -37.784,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Rotorua",
+   "lon": 176.248,
+   "lat": -38.132,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Whakatāne",
+   "lon": 176.983,
+   "lat": -37.957,
+   "cat": 4,
+   "pos": "N"
+  },
+  {
+   "n": "Ōpōtiki",
+   "lon": 177.287,
+   "lat": -38.006,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Gisborne",
+   "lon": 178.018,
+   "lat": -38.663,
+   "cat": 3,
+   "pos": "O"
+  },
+  {
+   "n": "Wairoa",
+   "lon": 177.367,
+   "lat": -39.033,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Napier",
+   "lon": 176.912,
+   "lat": -39.49,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Hastings",
+   "lon": 176.837,
+   "lat": -39.638,
+   "cat": 3,
+   "pos": "O"
+  },
+  {
+   "n": "New Plymouth",
+   "lon": 174.075,
+   "lat": -39.056,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Hāwera",
+   "lon": 174.278,
+   "lat": -39.579,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Ohakune",
+   "lon": 175.4,
+   "lat": -39.418,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Whanganui",
+   "lon": 175.039,
+   "lat": -39.933,
+   "cat": 3,
+   "pos": "O"
+  },
+  {
+   "n": "Palmerston North",
+   "lon": 175.607,
+   "lat": -40.353,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Levin",
+   "lon": 175.277,
+   "lat": -40.612,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Masterton",
+   "lon": 175.646,
+   "lat": -40.944,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Paraparaumu",
+   "lon": 174.999,
+   "lat": -40.903,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Porirua",
+   "lon": 174.84,
+   "lat": -41.134,
+   "cat": 3,
+   "pos": "O"
+  },
+  {
+   "n": "Lower Hutt",
+   "lon": 174.912,
+   "lat": -41.204,
+   "cat": 2,
+   "pos": "E"
+  },
+  {
+   "n": "Wellington",
+   "lon": 174.777,
+   "lat": -41.292,
+   "cat": 2,
+   "pos": "SO",
+   "aero": true
+  },
+  {
+   "n": "Takaka",
+   "lon": 172.806,
+   "lat": -40.858,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Motueka",
+   "lon": 173.011,
+   "lat": -41.11,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Nelson",
+   "lon": 173.284,
+   "lat": -41.271,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Picton",
+   "lon": 174.004,
+   "lat": -41.29,
+   "cat": 4,
+   "pos": "N"
+  },
+  {
+   "n": "Blenheim",
+   "lon": 173.955,
+   "lat": -41.514,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Kaikōura",
+   "lon": 173.69,
+   "lat": -42.401,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Westport",
+   "lon": 171.603,
+   "lat": -41.764,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Greymouth",
+   "lon": 171.207,
+   "lat": -42.45,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Hokitika",
+   "lon": 170.968,
+   "lat": -42.716,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Franz Josef",
+   "lon": 170.183,
+   "lat": -43.389,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Haast",
+   "lon": 169.042,
+   "lat": -43.881,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Hanmer Springs",
+   "lon": 172.829,
+   "lat": -42.523,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Christchurch",
+   "lon": 172.63,
+   "lat": -43.531,
+   "cat": 2,
+   "pos": "O",
+   "aero": true,
+   "aero_pos": "N"
+  },
+  {
+   "n": "Akaroa",
+   "lon": 172.968,
+   "lat": -43.804,
+   "cat": 4,
+   "pos": "SE"
+  },
+  {
+   "n": "Methven",
+   "lon": 171.646,
+   "lat": -43.633,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Ashburton",
+   "lon": 171.749,
+   "lat": -43.898,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Tekapo",
+   "lon": 170.477,
+   "lat": -44.004,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Twizel",
+   "lon": 170.1,
+   "lat": -44.258,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Timaru",
+   "lon": 171.242,
+   "lat": -44.397,
+   "cat": 3,
+   "pos": "E"
+  },
+  {
+   "n": "Oamaru",
+   "lon": 170.971,
+   "lat": -45.097,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Wanaka",
+   "lon": 169.145,
+   "lat": -44.698,
+   "cat": 4,
+   "pos": "NE"
+  },
+  {
+   "n": "Cromwell",
+   "lon": 169.196,
+   "lat": -45.046,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Queenstown",
+   "lon": 168.662,
+   "lat": -45.031,
+   "cat": 4,
+   "pos": "N",
+   "aero": true
+  },
+  {
+   "n": "Alexandra",
+   "lon": 169.379,
+   "lat": -45.249,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Dunedin",
+   "lon": 170.503,
+   "lat": -45.874,
+   "cat": 2,
+   "pos": "E",
+   "aero": false
+  },
+  {
+   "n": "Balclutha",
+   "lon": 169.738,
+   "lat": -46.234,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Te Anau",
+   "lon": 167.718,
+   "lat": -45.414,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Milford Sound",
+   "lon": 167.926,
+   "lat": -44.671,
+   "cat": 4,
+   "pos": "O"
+  },
+  {
+   "n": "Gore",
+   "lon": 168.944,
+   "lat": -46.099,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Invercargill",
+   "lon": 168.353,
+   "lat": -46.413,
+   "cat": 3,
+   "pos": "O"
+  },
+  {
+   "n": "Bluff",
+   "lon": 168.334,
+   "lat": -46.598,
+   "cat": 4,
+   "pos": "E"
+  },
+  {
+   "n": "Oban",
+   "lon": 168.127,
+   "lat": -46.898,
+   "cat": 4,
+   "pos": "E"
+  }
+ ]
+}
