@@ -13,8 +13,10 @@
 //          texto-cortado    un texto queda cortado por su caja
 //          fuera-de-margen  texto a menos de 8 mm del borde de la hoja
 //          sin-hoja         el archivo no tiene ningún elemento .hoja
+//          resolución       una imagen impresa a menos de 150 ppp
 //        AVISOS (se revisan a ojo)
 //          casi-encimado    dos textos casi se tocan
+//          resolución       una imagen entre 150 y 200 ppp (se ve, pero no es lo ideal)
 //   2. Si no hay errores (o con --forzar), genera el PDF en salida/.
 //   3. Rasteriza el PDF y mide:
 //          tinta            densidad media de tinta por hoja (objetivo <= 20 %,
@@ -43,6 +45,8 @@ const LETRA_META_PT = 8;       // metadatos: error por debajo
 const SELECTOR_META = '.pie, .ref, .ver, .etiqueta-corr, .codigo, .coleccion, .cabecera .lateral, svg, sup, [data-meta]';
 const MARGEN_SEGURO_MM = 8;    // nada a menos de esto del borde
 const TINTA_MAX_DEFECTO = 20;  // % de densidad media
+const PPP_MIN = 150;           // resolución efectiva de imágenes: error por debajo
+const PPP_BUENA = 200;         // aviso por debajo
 
 const args = process.argv.slice(2);
 const forzar = args.includes('--forzar');
@@ -76,6 +80,23 @@ try {
     const informe = await pagina.evaluate(medirMaquetacion, {
       PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, SELECTOR_META, MARGEN_SEGURO_MM,
     });
+
+    // Resolución efectiva de cada imagen: píxeles reales sobre pulgadas impresas
+    const imagenes = await pagina.evaluate(() => [...document.querySelectorAll('.hoja img')].map((im) => ({
+      src: im.getAttribute('src'), px: im.naturalWidth, ancho: im.getBoundingClientRect().width,
+    })));
+    for (const im of imagenes) {
+      if (!im.px || !im.ancho) continue;
+      const ppp = Math.round(im.px / (im.ancho / 96));
+      const linea = `resolución       ${im.src}: ${ppp} ppp`;
+      if (ppp < PPP_MIN) informe.errores.push(`${linea} (mínimo ${PPP_MIN})`);
+      else if (ppp < PPP_BUENA) informe.avisos.push(`${linea} (ideal ${PPP_BUENA} o más)`);
+      else if (detalle) console.log(`  · ${linea}`);
+    }
+    if (imagenes.length) {
+      const ppps = imagenes.filter((im) => im.px && im.ancho).map((im) => Math.round(im.px / (im.ancho / 96)));
+      if (ppps.length) console.log(`  · imágenes: ${ppps.length}, resolución mínima ${Math.min(...ppps)} ppp`);
+    }
 
     for (const e of informe.errores) console.log(`  ✗ ERROR ${e}`);
     for (const a of informe.avisos) console.log(`  ! aviso ${a}`);
