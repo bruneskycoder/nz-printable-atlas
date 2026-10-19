@@ -69,7 +69,7 @@ def pedir(url, params=None, json_=True, intentos=5):
             return json.loads(datos) if json_ else datos
         except urllib.error.HTTPError as e:
             if e.code in (429, 503) and i < intentos - 1:
-                espera = 5 * (i + 1)
+                espera = int(e.headers.get('Retry-After') or 0) or 15 * (i + 1)
                 print(f'  (límite de la API, espero {espera} s)', file=sys.stderr)
                 time.sleep(espera)
                 continue
@@ -78,7 +78,7 @@ def pedir(url, params=None, json_=True, intentos=5):
 
 
 def limpiar(html):
-    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', html or '')).strip()
+    return re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', '', str(html or ''))).strip()
 
 
 def clasificar(texto):
@@ -107,17 +107,25 @@ def buscar_commons(q, n):
                'autor': limpiar(m.get('Artist', {}).get('value', ''))}
 
 
+# Wikimedia frena la descarga de originales desde servidores en la nube y pide
+# usar miniaturas de tamaño estándar. 1920 px alcanzan para ~20 cm a 250 ppp.
+ANCHOS_COMMONS = (3840, 1920, 1280, 960)
+
+
 def bajar_commons(titulo):
-    d = pedir('https://commons.wikimedia.org/w/api.php', {
-        'action': 'query', 'titles': titulo, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata',
-        'format': 'json', 'formatversion': 2})
-    p = d['query']['pages'][0]
-    ii = p['imageinfo'][0]
+    base = {'action': 'query', 'titles': titulo, 'prop': 'imageinfo', 'iiprop': 'url|size|extmetadata',
+            'format': 'json', 'formatversion': 2}
+    ii = pedir('https://commons.wikimedia.org/w/api.php', base)['query']['pages'][0]['imageinfo'][0]
+    ancho = next((a for a in ANCHOS_COMMONS if a < ii['width']), None)
+    if ancho:
+        mini = pedir('https://commons.wikimedia.org/w/api.php', {**base, 'iiurlwidth': ancho})
+        ii['url_bajada'] = mini['query']['pages'][0]['imageinfo'][0]['thumburl']
     m = {k: limpiar(v.get('value')) for k, v in ii.get('extmetadata', {}).items()}
     return {
         'titulo': m.get('ObjectName') or titulo[5:], 'autor': m.get('Artist', ''),
         'fecha': m.get('DateTimeOriginal', ''), 'fuente': 'Wikimedia Commons',
-        'pagina': ii.get('descriptionurl', ''), 'archivo': ii['url'],
+        'pagina': ii.get('descriptionurl', ''), 'archivo': ii.get('url_bajada', ii['url']),
+        'original_px': [ii['width'], ii['height']],
         'licencia_texto': m.get('LicenseShortName', ''), 'licencia_url': m.get('LicenseUrl', ''),
         'credito': m.get('Credit', ''), 'descripcion': m.get('ImageDescription', '')[:500],
     }
