@@ -254,6 +254,11 @@ def cmd_bajar(a):
         'original': str(original.relative_to(RAIZ)), 'sha256_original': hashlib.sha256(crudo).hexdigest(),
         'preparado': None,
     }
+    # Al volver a bajar la misma obra, el crédito escrito a mano para la lámina se conserva
+    if ficha_de(a.slug).exists():
+        anterior = json.loads(ficha_de(a.slug).read_text())
+        if anterior.get('referencia') == ficha['referencia'] and 'credito_lamina' in anterior:
+            ficha['credito_lamina'] = anterior['credito_lamina']
     ficha_de(a.slug).parent.mkdir(parents=True, exist_ok=True)
     ficha_de(a.slug).write_text(json.dumps(ficha, ensure_ascii=False, indent=2))
     print(f'Bajado: {original.relative_to(RAIZ)} ({len(crudo) // 1024} KB) · licencia: {lic}')
