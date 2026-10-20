@@ -11,7 +11,8 @@
 //                           etiquetas dentro de diagramas SVG, [data-meta])
 //          texto-encimado   dos textos se pisan
 //          texto-cortado    un texto queda cortado por su caja
-//          fuera-de-margen  texto a menos de 8 mm del borde de la hoja
+//          fuera-de-margen  texto a menos de 8 mm del borde de la hoja (o del valor
+//                           de data-margen en la .hoja, en mm)
 //          sin-hoja         el archivo no tiene ningún elemento .hoja
 //          resolución       una imagen impresa a menos de 150 ppp
 //        AVISOS (se revisan a ojo)
@@ -21,7 +22,8 @@
 //   3. Rasteriza el PDF y mide:
 //          tinta            densidad media de tinta por hoja (objetivo <= 20 %,
 //                           o el valor de data-tinta-max en la .hoja)
-//          borde            cualquier tinta a menos de 8 mm del borde = error
+//          borde            cualquier tinta a menos de 8 mm del borde (o de
+//                           data-margen) = error
 //   4. Deja una vista previa PNG en salida/previas/ para revisar a ojo.
 //
 // Las mediciones de maquetación están adaptadas de check.mjs de
@@ -131,13 +133,14 @@ try {
     execFileSync('pdftoppm', ['-r', '60', pdf, base], { stdio: 'ignore' });
     const ppms = readdirSync(dirPrevias).filter((f) => f.startsWith(`${nombre}-medir`) && f.endsWith('.ppm')).sort();
     ppms.forEach((f, i) => {
-      const { tinta, borde } = medirTinta(join(dirPrevias, f), 60);
+      const margen = informe.hojas[i]?.margen ?? MARGEN_SEGURO_MM;
+      const { tinta, borde } = medirTinta(join(dirPrevias, f), 60, margen);
       const max = informe.hojas[i]?.tintaMax ?? TINTA_MAX_DEFECTO;
       const marca = tinta > max ? '✗' : '·';
       console.log(`  ${marca} tinta     página ${i + 1}: ${tinta.toFixed(1)} % (máximo ${max} %)`);
       if (tinta > max) errores++;
       if (borde > 0 && !informe.hojas[i]?.bordeOk) {
-        console.log(`  ✗ ERROR borde     página ${i + 1}: hay tinta a menos de ${MARGEN_SEGURO_MM} mm del borde (${borde} píxeles)`);
+        console.log(`  ✗ ERROR borde     página ${i + 1}: hay tinta a menos de ${margen} mm del borde (${borde} píxeles)`);
         errores++;
       }
       rmSync(join(dirPrevias, f));
@@ -160,7 +163,7 @@ process.exit(totalErrores ? 1 : 0);
 // ---------------------------------------------------------------------------
 // Densidad de tinta (0–100 %) y píxeles entintados en la franja de borde.
 // Lee un PPM binario (P6) generado por pdftoppm.
-function medirTinta(ruta, ppp) {
+function medirTinta(ruta, ppp, margenMm) {
   const buf = readFileSync(ruta);
   let pos = 0;
   const token = () => {
@@ -176,7 +179,7 @@ function medirTinta(ruta, ppp) {
   const ancho = Number(token()), alto = Number(token());
   token(); // valor máximo
   pos++;
-  const franja = Math.round((MARGEN_SEGURO_MM / 25.4) * ppp);
+  const franja = Math.round((margenMm / 25.4) * ppp);
   let suma = 0, borde = 0;
   for (let y = 0; y < alto; y++) {
     for (let x = 0; x < ancho; x++) {
@@ -199,6 +202,7 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, S
     caja: el.getBoundingClientRect(),
     tintaMax: el.dataset.tintaMax ? Number(el.dataset.tintaMax) : undefined,
     bordeOk: el.hasAttribute('data-borde-ok'),
+    margen: el.dataset.margen ? Number(el.dataset.margen) : MARGEN_SEGURO_MM,
   }));
   if (!hojas.length) errores.push('sin-hoja         el archivo no tiene ningún elemento con class="hoja"');
 
@@ -324,17 +328,17 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, S
   }
 
   // Margen de seguridad respecto del borde de su hoja
-  const franja = MARGEN_SEGURO_MM * PX_POR_MM;
   for (const { el, rects } of textos) {
     if (el.closest('[data-borde-ok]')) continue;
     const r0 = rects[0];
     const hoja = hojas.find((h) => r0.top >= h.caja.top - 1 && r0.top <= h.caja.bottom + 1 && r0.left >= h.caja.left - 1 && r0.left <= h.caja.right + 1);
     if (!hoja) { errores.push(`fuera-de-margen  ${describir(el)} está fuera de toda hoja`); continue; }
     const c = hoja.caja;
+    const franja = hoja.margen * PX_POR_MM;
     const malo = rects.find((r) => r.left < c.left + franja || r.top < c.top + franja || r.right > c.right - franja || r.bottom > c.bottom - franja);
     if (malo) {
       const d = Math.min(malo.left - c.left, malo.top - c.top, c.right - malo.right, c.bottom - malo.bottom);
-      errores.push(`fuera-de-margen  ${describir(el)} queda a ${mm(d)} mm del borde (mínimo ${MARGEN_SEGURO_MM} mm)`);
+      errores.push(`fuera-de-margen  ${describir(el)} queda a ${mm(d)} mm del borde (mínimo ${hoja.margen} mm)`);
     }
   }
 
@@ -398,6 +402,6 @@ function medirMaquetacion({ PX_POR_MM, PX_POR_PT, LETRA_MIN_PT, LETRA_META_PT, S
 
   return {
     errores, avisos, metas, textos: textos.length,
-    hojas: hojas.map((h) => ({ tintaMax: h.tintaMax, bordeOk: h.bordeOk })),
+    hojas: hojas.map((h) => ({ tintaMax: h.tintaMax, bordeOk: h.bordeOk, margen: h.margen })),
   };
 }
