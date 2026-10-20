@@ -117,6 +117,14 @@ def bajar_commons(titulo):
             'format': 'json', 'formatversion': 2}
     ii = pedir('https://commons.wikimedia.org/w/api.php', base)['query']['pages'][0]['imageinfo'][0]
     ancho = next((a for a in ANCHOS_COMMONS if a < ii['width']), None)
+    # Si el original es chico, la miniatura estándar perdería resolución (1277 px → 960):
+    # se intenta el original y solo si Commons lo niega se usa la miniatura
+    if ancho and ii['width'] <= 2500:
+        try:
+            pedir(ii['url'], json_=False, intentos=1)
+            ancho = None
+        except Exception:
+            pass
     if ancho:
         mini = pedir('https://commons.wikimedia.org/w/api.php', {**base, 'iiurlwidth': ancho})
         ii['url_bajada'] = mini['query']['pages'][0]['imageinfo'][0]['thumburl']
