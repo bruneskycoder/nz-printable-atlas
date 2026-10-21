@@ -1,0 +1,881 @@
+{
+ "_nota": "Calendario de trabajo estacional del mapa mural. Tareas: C = cosecha (picking), P = poda (pruning), R = raleo (thinning), M = mantenimiento de plantas, V = ventana general sin desglose de tareas. «pico» = mes con más trabajo según Work and Income (en negrita en su calendario). Ventanas orientativas: varían según cultivo, clima, empleador y año. Generado por herramientas/calendario-nz.py.",
+ "consultado": "2026-10-21",
+ "fuentes": {
+  "winz-calendario": "Work and Income, «Fruit and vegetable seasonal work» (https://www.workandincome.govt.nz/work/find-jobs/where-to-look-for-jobs/seasonal-work-calendar.html).",
+  "winz-general": "Work and Income, «Finding seasonal work», actualizada el 09 July 2026 (https://www.workandincome.govt.nz/work/find-jobs/where-to-look-for-jobs/finding-seasonal-work).",
+  "picknz": "PickNZ, «Work and play in Marlborough» (https://www.picknz.co.nz/work-opportunities/work-planner/work-and-play-in-marlborough/): viñedos casi todo el año."
+ },
+ "registros_winz": 644,
+ "filas": [
+  {
+   "etiqueta": "Kiwi",
+   "zona": "Bay of Plenty",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Kawerau",
+    "Western Bay of Plenty",
+    "Western Bay of Pleny",
+    "Whakatane",
+    "Ōpōiki",
+    "Ōpōtiki"
+   ],
+   "meses": [
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    null,
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Manzana y pera",
+   "zona": "Hawke's Bay",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Central Hawkes Bay"
+   ],
+   "meses": [
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": true
+    },
+    {
+     "t": "R",
+     "pico": true
+    }
+   ]
+  },
+  {
+   "etiqueta": "Manzana y pera",
+   "zona": "Nelson-Tasman",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Nelson"
+   ],
+   "meses": [
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": true
+    },
+    {
+     "t": "R",
+     "pico": true
+    }
+   ]
+  },
+  {
+   "etiqueta": "Cereza",
+   "zona": "Central Otago",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Central Otago",
+    "Queenstown Lakes"
+   ],
+   "meses": [
+    {
+     "t": "C",
+     "pico": true
+    },
+    null,
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    null,
+    null,
+    null,
+    {
+     "t": "C",
+     "pico": true
+    }
+   ]
+  },
+  {
+   "etiqueta": "Carozo",
+   "zona": "Central Otago",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Central Otago",
+    "Queenstown Lakes"
+   ],
+   "meses": [
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    null,
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    null,
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "etiqueta": "Palta",
+   "zona": "Northland",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Far North",
+    "Whangarei"
+   ],
+   "meses": [
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    }
+   ]
+  },
+  {
+   "etiqueta": "Lúpulo",
+   "zona": "Tasman",
+   "sector": "fruta",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Tasman"
+   ],
+   "meses": [
+    null,
+    null,
+    {
+     "t": "C",
+     "pico": true
+    },
+    {
+     "t": "C",
+     "pico": true
+    },
+    null,
+    null,
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Uva",
+   "zona": "Wairarapa",
+   "sector": "vid",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Wairarapa"
+   ],
+   "meses": [
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "P",
+     "pico": true
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    },
+    {
+     "t": "M",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Hortalizas",
+   "zona": "Horowhenua",
+   "sector": "hortalizas",
+   "fuente": "winz-calendario",
+   "zonas_winz": [
+    "Horowhenua"
+   ],
+   "meses": [
+    {
+     "t": "R",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "P",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    },
+    {
+     "t": "C",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Frigoríficos",
+   "zona": "",
+   "sector": "frigorificos",
+   "fuente": "winz-general",
+   "texto_fuente": "October to May, and July to August",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Parición y esquila",
+   "zona": "",
+   "sector": "ovinos",
+   "fuente": "winz-general",
+   "texto_fuente": "August to May",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Lechería",
+   "zona": "",
+   "sector": "lecheria",
+   "fuente": "winz-general",
+   "texto_fuente": "Almost year round",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Forestal",
+   "zona": "",
+   "sector": "forestal",
+   "fuente": "winz-general",
+   "texto_fuente": "All year round, particularly autumn",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": true
+    },
+    {
+     "t": "V",
+     "pico": true
+    },
+    {
+     "t": "V",
+     "pico": true
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Viñedos (Marlborough y otras)",
+   "zona": "",
+   "sector": "vid",
+   "fuente": "winz-general",
+   "texto_fuente": "Usually available all year",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Esquí",
+   "zona": "",
+   "sector": "esqui",
+   "fuente": "winz-general",
+   "texto_fuente": "June to September",
+   "meses": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    null,
+    null
+   ]
+  },
+  {
+   "etiqueta": "Turismo, temporada alta",
+   "zona": "",
+   "sector": "turismo",
+   "fuente": "winz-general",
+   "texto_fuente": "November to February",
+   "meses": [
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    }
+   ]
+  },
+  {
+   "etiqueta": "Pesca y mariscos",
+   "zona": "",
+   "sector": "pesca",
+   "fuente": "winz-general",
+   "texto_fuente": "June to September",
+   "meses": [
+    null,
+    null,
+    null,
+    null,
+    null,
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    {
+     "t": "V",
+     "pico": false
+    },
+    null,
+    null,
+    null
+   ]
+  }
+ ]
+}

@@ -18,12 +18,17 @@
   /* Sectores: el mismo color en los glifos, la matriz y el calendario */
   --s-lecheria: #3a6fb7;
   --s-ovinos: #8a7a36;
-  --s-vacunos: #8c3a1d;
-  --s-vid: #7b2352;
+  --s-vacunos: #7a4a2a;
   --s-fruta: #e0751a;
+  --s-vid: #7b2352;
+  --s-hortalizas: #5d8c1a;
   --s-forestal: #23603a;
-  --s-turismo: #12858a;
-  --s-poblacion: #4a4a4a;
+  --s-frigorificos: #b0283f;
+  --s-alojamiento: #12858a;
+  --s-construccion: #a8740f;
+  --s-transporte: #56606c;
+  --s-tecnicos: #4a54a3;
+  --s-pesca: #1a6c96;
 }
 
 /* ---------- Mapa ---------- */
@@ -64,3 +69,71 @@
 .mural .leyenda .tintas div:nth-last-child(2) i { border-right: 0.25mm solid #777; }
 .mural .mapa .guia-parque { fill: none; stroke: var(--m-parque-t); stroke-width: 0.25; }
 .mural .mapa .guia-parque-p { fill: var(--m-parque-t); }
+
+/* ---------- Glifos de sector ---------- */
+.mural .glifo .fondo { fill: #444; stroke: white; stroke-width: 1.2; }
+.mural .glifo .dibujo { fill: white; stroke: none; }
+.mural .glifo .trazo { fill: none; stroke: white; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.mural .glifo-suelto { display: inline-block; vertical-align: middle; overflow: visible; }
+.mural .g-lecheria .fondo { fill: var(--s-lecheria); }
+.mural .g-ovinos .fondo { fill: var(--s-ovinos); }
+.mural .g-vacunos .fondo { fill: var(--s-vacunos); }
+.mural .g-fruta .fondo { fill: var(--s-fruta); }
+.mural .g-vid .fondo { fill: var(--s-vid); }
+.mural .g-hortalizas .fondo { fill: var(--s-hortalizas); }
+.mural .g-forestal .fondo { fill: var(--s-forestal); }
+.mural .g-frigorificos .fondo { fill: var(--s-frigorificos); }
+.mural .g-alojamiento .fondo { fill: var(--s-alojamiento); }
+.mural .g-construccion .fondo { fill: var(--s-construccion); }
+.mural .g-transporte .fondo { fill: var(--s-transporte); }
+.mural .g-tecnicos .fondo { fill: var(--s-tecnicos); }
+.mural .g-pesca .fondo { fill: var(--s-pesca); }
+
+/* ---------- Matriz región × sector (pieza 4) ---------- */
+.mural .m-matriz h2 { font-size: 14pt; margin: 0 0 1mm; }
+.mural .m-matriz .bajada { font-size: 10pt; line-height: 1.25; margin: 0 0 1.6mm; }
+.mural .tabla-sectores { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.mural .tabla-sectores th, .mural .tabla-sectores td { padding: 0; font-size: 10pt; line-height: 1.1; text-align: center; vertical-align: middle; }
+.mural .tabla-sectores col.reg { width: 42mm; }
+.mural .tabla-sectores thead th.grupo { font-size: 10pt; font-weight: 700; color: var(--m-costa); text-align: left; padding: 0 0 0.6mm 0.6mm; border-bottom: 0.3mm solid var(--m-costa); }
+.mural .tabla-sectores thead th.cab { height: 25mm; vertical-align: bottom; padding-bottom: 0.8mm; }
+.mural .tabla-sectores thead th.cab .n { display: block; writing-mode: vertical-rl; transform: rotate(180deg); margin: 0 auto 0.8mm; font-weight: 700; text-align: left; white-space: nowrap; }
+.mural .tabla-sectores tbody td { height: 4.9mm; border-bottom: 0.2mm solid #d2dbe3; font-variant-numeric: tabular-nums; }
+.mural .tabla-sectores tbody td.reg { text-align: left; font-weight: 700; white-space: nowrap; overflow: hidden; }
+.mural .tabla-sectores tbody td.reg .num { display: inline-block; width: 4.4mm; height: 4.4mm; line-height: 4.4mm; border-radius: 50%; background: var(--m-region); color: white; font-size: 8pt; text-align: center; margin-right: 1mm; vertical-align: 0.2mm; }
+.mural .tabla-sectores tbody td.top { font-weight: 800; }
+.mural .tabla-sectores tbody td.oscuro { color: white; }
+.mural .tabla-sectores tbody td.sd { color: #7a8794; font-size: 8pt; }
+.mural .tabla-sectores tbody tr.isla td { height: 4.2mm; font-size: 8pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--m-costa); text-align: left; border-bottom: 0.3mm solid var(--m-costa); }
+.mural .tabla-sectores td.sep, .mural .tabla-sectores th.sep { border-left: 0.5mm solid var(--m-costa); }
+.mural .m-matriz .nota { font-size: 10pt; line-height: 1.25; margin: 1.6mm 0 0; }
+.mural .m-matriz .aviso { font-weight: 700; color: var(--m-sh1); }
+.mural .m-matriz .fuente { font-size: 8pt; line-height: 1.25; color: #4a5866; margin-top: 1.2mm; }
+
+/* ---------- Calendario (pieza 9) ---------- */
+.mural .m-calendario h2 { font-size: 14pt; margin: 0 0 1mm; }
+.mural .tabla-calendario { width: 100%; border-collapse: collapse; table-layout: fixed; }
+.mural .tabla-calendario col.et { width: 56mm; }
+.mural .tabla-calendario th, .mural .tabla-calendario td { padding: 0; font-size: 10pt; line-height: 1.1; text-align: center; vertical-align: middle; }
+.mural .tabla-calendario thead th { font-weight: 700; color: var(--m-costa); }
+.mural .tabla-calendario thead tr.estacion th { font-size: 8pt; letter-spacing: 0.04em; text-transform: uppercase; border-bottom: 0.25mm solid var(--m-costa); padding-bottom: 0.4mm; }
+.mural .tabla-calendario thead tr.estacion th.verano { background: #fbe6c8; }
+.mural .tabla-calendario thead tr.estacion th.otono { background: #f1dcc8; }
+.mural .tabla-calendario thead tr.estacion th.invierno { background: #dbe6f1; }
+.mural .tabla-calendario thead tr.estacion th.primavera { background: #e0efd4; }
+.mural .tabla-calendario tbody td { height: 4.7mm; border: 0.2mm solid white; }
+.mural .tabla-calendario tbody td.et { text-align: left; white-space: nowrap; overflow: hidden; border: 0; border-bottom: 0.2mm solid #d2dbe3; }
+.mural .tabla-calendario tbody td.et .z { color: #4a5866; }
+.mural .tabla-calendario tbody td.et .glifo-suelto { margin-right: 1mm; vertical-align: -0.6mm; }
+.mural .tabla-calendario tbody td.vacio { background: #f1f4f7; }
+.mural .tabla-calendario tbody td.pico { outline: 0.45mm solid #1d2a36; outline-offset: -0.45mm; font-weight: 800; }
+.mural .tabla-calendario tbody tr.grupo td { height: 5mm; font-size: 10pt; font-weight: 700; color: var(--m-costa); text-align: left; border: 0; border-bottom: 0.3mm solid var(--m-costa); padding-top: 1mm; }
+.mural .m-calendario .nota { font-size: 10pt; line-height: 1.25; margin: 1.4mm 0 0; }
+.mural .m-calendario .fuente { font-size: 8pt; line-height: 1.25; color: #4a5866; margin-top: 1mm; }
+.mural .leyenda .glifos-leyenda { display: flex; flex-wrap: wrap; gap: 0.8mm 3.2mm; }
+.mural .leyenda .glifos-leyenda span { white-space: nowrap; }
+.mural .m-chatham .mapa { display: block; }
+.mural .g-esqui .fondo { fill: var(--s-alojamiento); }
+.mural .m-datos h2 { font-size: 13pt; margin: 0 0 1.2mm; }
+.mural .m-datos ul { margin: 0; padding-left: 4.5mm; font-size: 10.5pt; line-height: 1.3; }
+.mural .m-datos li { margin-bottom: 1mm; }

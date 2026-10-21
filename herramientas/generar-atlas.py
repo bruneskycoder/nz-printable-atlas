@@ -9,6 +9,8 @@
 Después: node herramientas/construir.mjs hojas/nz-a/*.html
 Datos: datos/nz/ (geografía, ver geo-nz.py) y datos/regiones.json (cifras con fuente).
 """
+import json
+import re
 import sys
 
 from shapely.geometry import LineString, box
@@ -16,6 +18,8 @@ from shapely.ops import polylabel, unary_union
 
 from atlas_nz import (MURAL_ESCALA, MURAL_X0, MURAL_Y0, ORDEN_REGIONES, PT, RAIZ, Encuadre, caja_rotulo, capa,
                       esc, nombre_region, recortar, relieve_mural_ventana, rotulo_punto, ruta, tabla)
+from bloques_mural import GLIFOS_MAPA, principales
+from glifos import glifo_svg
 
 FECHA = '2026-10-21'
 VERSION = 2
@@ -172,7 +176,9 @@ def elementos_mural(C):
         rot = f' transform="rotate({r["rot"]} {x:.2f} {y:.2f})"' if r['rot'] else ''
         items.append((caja(r['clase'], x, y, r['t'], 'middle', r['rot']),
                       f'<text class="{r["clase"]}" x="{x:.2f}" y="{y:.2f}" text-anchor="middle"{rot}>{esc(r["t"])}</text>'))
-    # Regiones: número y nombre
+    # Regiones: número, nombre y glifos de sector
+    sectores = {s['clave']: s for s in json.loads((RAIZ / 'datos' / 'sectores-nz.json').read_text())['sectores']}
+    tops = {k: principales(sectores[k]) for k, _ in GLIFOS_MAPA}
     for i, iso in enumerate(ORDEN_REGIONES, start=1):
         g = C['regiones'][iso]
         mayor = max(g.geoms, key=lambda h: h.area) if g.geom_type == 'MultiPolygon' else g
@@ -184,7 +190,16 @@ def elementos_mural(C):
         svg = (f'<circle class="reg-c" cx="{x:.2f}" cy="{y:.2f}" r="2.3"/>'
                f'<text class="reg-num" x="{x:.2f}" y="{y + 1.12:.2f}" text-anchor="middle">{i}</text>'
                f'<text class="reg-n" x="{x:.2f}" y="{y + 6.4:.2f}" text-anchor="middle">{esc(nombre)}</text>')
-        items.append((unir_cajas(caja('reg-n', x, y + 6.4, nombre, 'middle'), (x - 2.3, y - 2.3, x + 2.3, y + 2.3)), svg))
+        cajas = [caja('reg-n', x, y + 6.4, nombre, 'middle'), (x - 2.3, y - 2.3, x + 2.3, y + 2.3)]
+        # Glifos de los sectores en los que la región está entre las 4 primeras del país
+        mios = [k for k, _ in GLIFOS_MAPA if iso in tops[k]]
+        for j, k in enumerate(mios):
+            gx = x + (j - (len(mios) - 1) / 2) * 4.3
+            svg += glifo_svg(k, gx, y + 10.8, 1.95)
+        if mios:
+            ancho = (len(mios) - 1) * 4.3 / 2 + 2
+            cajas.append((x - ancho, y + 8.8, x + ancho, y + 12.8))
+        items.append((unir_cajas(*cajas), svg))
     # Ciudades: el avión va del lado contrario al rótulo
     for c in tabla('lugares')['lugares']:
         if c['n'] in ajustes['lugares_ocultar']:
@@ -293,6 +308,22 @@ def codigo_pieza(n, c, r, vx, vy):
     return f'<text class="pieza-t" x="{vx + IMG_W - 3}" y="{vy + IMG_H - 3}" text-anchor="end">{t}</text>'
 
 
+def glifos_tapados(items):
+    """Avisa si una fila de glifos de sector se pisa con otro rótulo o símbolo del mapa."""
+    for i, ((a0, b0, a1, b1), svg) in enumerate(items):
+        if 'class="glifo' not in svg:
+            continue
+        fila = svg[svg.index('<g class="glifo'):]
+        pos = re.findall(r'<g class="glifo[^"]*" transform="translate\(([\d.]+) ([\d.]+)\)', fila)
+        xs, ys = [float(x) for x, _ in pos], [float(y) for _, y in pos]
+        g0, g1, h0, h1 = min(xs), max(xs) + 3.9, min(ys), max(ys) + 3.9
+        nombre = re.search(r'class="reg-n"[^>]*>([^<]+)', svg).group(1)
+        for j, ((c0, d0, c1, d1), otro) in enumerate(items):
+            if j != i and c0 < g1 and g0 < c1 and d0 < h1 and h0 < d1:
+                texto = re.findall(r'>([^<>]+)</text>', otro)
+                print(f'  ! los glifos de {nombre} se pisan con {texto[0] if texto else otro[:40]}')
+
+
 def cajas_que_cruzan(items):
     """Avisa de rótulos que quedarían partidos por una junta (la línea de corte de la pieza que va encima)."""
     for (x0, y0, x1, y1), svg in items:
@@ -344,6 +375,7 @@ def mural():
     C = capas_mural()
     items = elementos_mural(C)
     cajas_que_cruzan(items)
+    glifos_tapados(items)
     bls = bloques(C, E_MURAL)
     revisar_bloques(bls)
     (DESTINO / 'relieve').mkdir(parents=True, exist_ok=True)
