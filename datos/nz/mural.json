@@ -1,0 +1,190 @@
+{
+ "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro.",
+ "rotulos_mover": {
+  "TASMAN SEA": {
+   "x": 250,
+   "y": 340,
+   "rot": 0
+  },
+  "PACIFIC OCEAN": {
+   "x": 492,
+   "y": 470,
+   "rot": 0
+  },
+  "TE IKA-A-MĀUI": {
+   "x": 470,
+   "y": 58,
+   "rot": 0
+  },
+  "North Island": {
+   "x": 470,
+   "y": 70,
+   "rot": 0
+  },
+  "TE WAIPOUNAMU": {
+   "x": 288,
+   "y": 770,
+   "rot": 0
+  },
+  "South Island": {
+   "x": 288,
+   "y": 782,
+   "rot": 0
+  },
+  "SOUTHERN ALPS": {
+   "x": 232,
+   "y": 508,
+   "rot": -37
+  },
+  "Waitaki": {
+   "x": 170,
+   "y": 636,
+   "rot": 15
+  },
+  "FIORDLAND": {
+   "x": 34,
+   "y": 690,
+   "rot": -55
+  }
+ },
+ "lugares_pos": {
+  "Auckland": "E",
+  "Whangārei": "O",
+  "Pukekohe": "E",
+  "Whanganui": "E",
+  "Paraparaumu": "E",
+  "Hokitika": "E",
+  "Tekapo": "S",
+  "Dunedin": "O",
+  "Porirua": "O",
+  "Wellington": "O"
+ },
+ "lugares_ocultar": [
+  "Raglan"
+ ],
+ "picos_pos": {
+  "Aoraki / Mount Cook": "O"
+ },
+ "regiones_ajuste": {
+  "CAN": [
+   16,
+   -21
+  ],
+  "GIS": [
+   -6,
+   25
+  ],
+  "NTL": [
+   -14,
+   -18
+  ]
+ },
+ "parques": [
+  {
+   "nombre": "Fiordland National Park",
+   "t": "Fiordland NP",
+   "x": 52,
+   "y": 650,
+   "rot": -55
+  },
+  {
+   "nombre": "Mount Aspiring National Park",
+   "t": "Mount Aspiring NP",
+   "x": 97,
+   "y": 598,
+   "rot": -50
+  },
+  {
+   "nombre": "Westland National Park/Tai Poutini National Park",
+   "t": "Westland Tai Poutini NP",
+   "x": 126,
+   "y": 556,
+   "rot": -40,
+   "guia": [
+    149,
+    558
+   ]
+  },
+  {
+   "nombre": "Aoraki/Mount Cook National Park",
+   "t": "Aoraki / Mount Cook NP",
+   "x": 170,
+   "y": 566,
+   "rot": -60
+  },
+  {
+   "nombre": "Arthur's Pass National Park",
+   "t": "Arthur's Pass NP",
+   "x": 226,
+   "y": 524,
+   "rot": -35
+  },
+  {
+   "nombre": "Paparoa National Park",
+   "t": "Paparoa NP",
+   "x": 208,
+   "y": 474,
+   "rot": -70
+  },
+  {
+   "nombre": "Kahurangi National Park",
+   "t": "Kahurangi NP",
+   "x": 252,
+   "y": 420,
+   "rot": -60
+  },
+  {
+   "nombre": "Abel Tasman National Park",
+   "t": "Abel Tasman NP",
+   "x": 297,
+   "y": 397.5,
+   "rot": 0,
+   "guia": [
+    281,
+    404
+   ]
+  },
+  {
+   "nombre": "Nelson Lakes National Park",
+   "t": "Nelson Lakes NP",
+   "x": 266,
+   "y": 471,
+   "rot": -50
+  },
+  {
+   "nombre": "Rakiura National Park",
+   "t": "Rakiura NP",
+   "x": 73,
+   "y": 768,
+   "rot": -50
+  },
+  {
+   "nombre": "Tongariro National Park",
+   "t": "Tongariro NP",
+   "x": 393,
+   "y": 306.5,
+   "rot": 0
+  },
+  {
+   "nombre": "Whanganui National Park",
+   "t": "Whanganui NP",
+   "x": 371,
+   "y": 327,
+   "rot": -70
+  },
+  {
+   "nombre": "Te Papa-Kura-o-Taranaki (formerly Egmont National Park)",
+   "t": "Te Papa-Kura-o-Taranaki",
+   "x": 316,
+   "y": 337,
+   "rot": 0,
+   "guia": [
+    327,
+    318
+   ]
+  }
+ ],
+ "rotulos_ocultar": [
+  "Whanganui"
+ ]
+}

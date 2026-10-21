@@ -22,10 +22,16 @@ _A_NZTM = Transformer.from_crs('EPSG:4326', NZTM, always_xy=True)
 
 PT = 25.4 / 72  # mm por punto tipográfico
 
-# Grilla del relieve maestro (herramientas/geo-nz.py): mural a 1:2.100.000
+# Grilla del relieve maestro (herramientas/geo-nz.py): mural v1 a 1:2.100.000.
+# Lo usan las fichas, que remuestrean a su escala.
 RELIEVE_ESCALA = 2_100_000
 RELIEVE_X0, RELIEVE_Y0 = 1_018_300, 6_238_000
 RELIEVE_PX_MM = 0.125
+
+# Mural v2: 9 A4 verticales (3 × 3) a 1:1.900.000. El relieve maestro del mural
+# (relieve-mural.png) usa exactamente esta grilla.
+MURAL_ESCALA = 1_900_000
+MURAL_X0, MURAL_Y0 = 1_067_180, 6_241_810
 
 OCRE = np.array([154, 92, 22], dtype=np.float32)
 # Tinta ocre por clase de altura: <500, 500–1000, 1000–1500, 1500–2000, >2000 m
@@ -210,3 +216,37 @@ def relieve_ventana(x_mm, y_mm, ancho_mm, alto_mm, encuadre=None, px_mm=None):
     ix = np.clip(((X - RELIEVE_X0) / paso).astype(int), 0, m.shape[1] - 1)
     iy = np.clip(((RELIEVE_Y0 - Y) / paso).astype(int), 0, m.shape[0] - 1)
     return colorear_relieve(m[iy[:, None], ix[None, :]])
+
+
+# ---------------------------------------------------------------------------
+# Relieve del mural v2: mar celeste y tintas hipsométricas continuas
+MAR_MURAL = np.array([206, 226, 240], dtype=np.float32)
+# Tintas por altura (m): de crema en la costa a marrón en altura y gris nieve arriba de 2400 m
+HIPSO = [
+    (0, (243, 240, 225)), (250, (238, 232, 208)), (600, (228, 214, 180)), (1000, (214, 193, 152)),
+    (1500, (196, 170, 132)), (2000, (182, 160, 134)), (2400, (214, 210, 206)), (3000, (240, 240, 242)),
+]
+
+
+@lru_cache(maxsize=1)
+def relieve_mural_maestro():
+    Image.MAX_IMAGE_PIXELS = None
+    return np.asarray(Image.open(DATOS / 'relieve-mural.png'))
+
+
+def relieve_mural_ventana(x_mm, y_mm, ancho_mm, alto_mm, sombra_max=0.5):
+    """Relieve del mural v2 coloreado para una ventana en mm del mural (incluye el mar)."""
+    m = relieve_mural_maestro()
+    x0, y0 = round(x_mm / RELIEVE_PX_MM), round(y_mm / RELIEVE_PX_MM)
+    w, h = round(ancho_mm / RELIEVE_PX_MM), round(alto_mm / RELIEVE_PX_MM)
+    a = m[y0:y0 + h, x0:x0 + w]
+    sombra = a[..., 0].astype(np.float32) / 255
+    z = a[..., 1].astype(np.float32) * 15
+    tierra = a[..., 2] > 0
+    alturas = np.array([c for c, _ in HIPSO], dtype=np.float32)
+    colores = np.array([c for _, c in HIPSO], dtype=np.float32)
+    rgb = np.dstack([np.interp(z, alturas, colores[:, i]) for i in range(3)])
+    rgb *= (1 - sombra_max * sombra)[..., None]
+    rgb = np.where(tierra[..., None], rgb, MAR_MURAL)
+    return Image.fromarray(rgb.clip(0, 255).astype(np.uint8), 'RGB')
+

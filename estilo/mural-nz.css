@@ -1,0 +1,66 @@
+/* Mapa mural de Nueva Zelanda, versión 2 (NZ-A-00, 9 A4 verticales).
+   Excepción a las cuatro tintas y al 20 % de tinta, pedida para el mural
+   (ver PLAN-mural-nz.md, «Paleta del mural»): mar celeste, tintas de altura,
+   parques en verde, límites en violeta y un color por sector. Todo va bajo
+   .mural, así las fichas NZ-A-01 a 16 no cambian. */
+
+.mural {
+  --m-mar: #cee2f0;
+  --m-agua: #2a69a8;
+  --m-lago: #b2d2ea;
+  --m-costa: #1f3a55;
+  --m-parque: #2f8a3a;
+  --m-parque-t: #1e6a29;
+  --m-limite: #6f3a96;
+  --m-region: #4d2369;
+  --m-sh1: #c8261a;
+  --m-sh: #dc5a22;
+  /* Sectores: el mismo color en los glifos, la matriz y el calendario */
+  --s-lecheria: #3a6fb7;
+  --s-ovinos: #8a7a36;
+  --s-vacunos: #8c3a1d;
+  --s-vid: #7b2352;
+  --s-fruta: #e0751a;
+  --s-forestal: #23603a;
+  --s-turismo: #12858a;
+  --s-poblacion: #4a4a4a;
+}
+
+/* ---------- Mapa ---------- */
+.mural .mapa .reticula { stroke: #9dbbd3; stroke-width: 0.12; }
+.mural .mapa .ola { stroke: var(--m-agua); }
+.mural .mapa .lago { fill: var(--m-lago); stroke: var(--m-agua); stroke-width: 0.18; }
+.mural .mapa .rio { stroke: var(--m-agua); stroke-width: 0.34; }
+.mural .mapa .costa { stroke: var(--m-costa); stroke-width: 0.28; }
+.mural .mapa .limite { stroke: var(--m-limite); stroke-width: 0.5; stroke-dasharray: 1.8 0.7 0.35 0.7; }
+.mural .mapa .parque { fill: var(--m-parque); fill-opacity: 0.2; stroke: var(--m-parque); stroke-width: 0.35; stroke-dasharray: 1.1 0.5; stroke-linejoin: round; }
+.mural .mapa .ruta1-borde { fill: none; stroke: white; stroke-width: 1.05; stroke-linecap: round; stroke-linejoin: round; }
+.mural .mapa .ruta1 { stroke: var(--m-sh1); stroke-width: 0.62; }
+.mural .mapa .ruta2 { stroke: var(--m-sh); stroke-width: 0.32; }
+.mural .mapa .ferry { stroke: #1d4f86; stroke-width: 0.5; stroke-dasharray: 1.6 0.8; }
+.mural .mapa .marco { stroke: var(--m-costa); }
+
+.mural .mapa .reg-c { fill: var(--m-region); }
+.mural .mapa text.reg-n { fill: var(--m-region); }
+.mural .mapa text.parque-n { font-style: italic; font-weight: 700; font-size: 3.0px; letter-spacing: 0.2px; fill: var(--m-parque-t); }
+/* Rótulos sobre el mar: el halo es del color del mar, no blanco */
+.mural .mapa text.mar, .mural .mapa text.agua, .mural .mapa text.grado { stroke: var(--m-mar); }
+.mural .mapa text.mar, .mural .mapa text.agua { fill: var(--m-agua); }
+.mural .mapa text.grado { fill: #4f6b84; }
+
+/* ---------- Bloques sobre el mar: recuadro blanco ---------- */
+.mural .bloque { box-sizing: border-box; background: white; padding: 3mm 3.5mm; border: 0.3mm solid var(--m-costa); border-radius: 1.2mm; }
+.mural .bloque.m-titulo { border: 0; background: transparent; padding: 0; }
+.mural .bloque.m-fuentes { padding: 2mm 3mm; }
+.mural .bloque h2 { color: var(--m-costa); }
+
+/* Leyenda: tintas de altura y escala */
+.mural .leyenda h3 { font-size: 11pt; margin: 2.4mm 0 1mm; color: var(--m-costa); }
+.mural .leyenda .tintas { display: flex; align-items: flex-end; gap: 0; margin: 0.6mm 0; }
+.mural .leyenda .tintas div { flex: 1; font-size: 10pt; text-align: left; line-height: 1.1; }
+.mural .leyenda .tintas div.u { flex: 0 0 auto; padding-left: 1mm; }
+.mural .leyenda .tintas i { display: block; height: 5mm; border-top: 0.25mm solid #777; border-bottom: 0.25mm solid #777; margin-bottom: 0.8mm; }
+.mural .leyenda .tintas div:first-child i { border-left: 0.25mm solid #777; }
+.mural .leyenda .tintas div:nth-last-child(2) i { border-right: 0.25mm solid #777; }
+.mural .mapa .guia-parque { fill: none; stroke: var(--m-parque-t); stroke-width: 0.25; }
+.mural .mapa .guia-parque-p { fill: var(--m-parque-t); }

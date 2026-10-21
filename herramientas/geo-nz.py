@@ -2,19 +2,23 @@
 """Base cartográfica de Nueva Zelanda para el atlas (lote 6).
 
     python3 herramientas/geo-nz.py            # baja lo que falte y procesa todo
-    python3 herramientas/geo-nz.py --relieve  # solo rehace el relieve
+    python3 herramientas/geo-nz.py --relieve  # solo rehace los dos relieves
+    python3 herramientas/geo-nz.py --parques  # solo baja los parques nacionales del DOC
 
 Fuentes (se bajan a cache/, que no se sube al repositorio):
   - Regiones: geoBoundaries gbOpen NZL ADM1 (Stats NZ, límites 2017), CC BY 4.0.
   - Lagos, ríos y rutas: Natural Earth 1:10 millones, dominio público.
   - Relieve: Terrain Tiles de AWS (Mapzen/Tilezen), formato terrarium, zoom 9.
     En Nueva Zelanda usan el modelo de LINZ (CC BY 4.0), SRTM y ETOPO1.
+  - Parques nacionales: DOC, «DOC Public Conservation Land» (NaPALIS), CC BY 4.0.
 
 Salida en datos/nz/ (sí se sube):
   - regiones.json, regiones-chico.json, chatham.json, lagos.json, rios.json,
     rutas.json: GeoJSON en NZTM2000 (EPSG:2193), en metros.
-  - relieve.png: sombreado del relieve sobre la grilla del mural
-    (0,125 mm por píxel a escala 1:2.100.000, o sea 262,5 m).
+  - relieve.png: sombreado del relieve sobre la grilla del mural v1
+    (0,125 mm por píxel a escala 1:2.100.000, o sea 262,5 m). Lo usan las fichas.
+  - relieve-mural.png: lo mismo sobre la grilla del mural v2 (1:1.900.000,
+    237,5 m por píxel), con la altura continua para las tintas hipsométricas.
 
 Requiere: Node con mapshaper (npm install), Python con numpy, pyproj y Pillow.
 """
@@ -34,15 +38,21 @@ MAPSHAPER = RAIZ / 'node_modules' / '.bin' / 'mapshaper'
 NZTM = '+proj=tmerc +lat_0=0 +lon_0=173 +k=0.9996 +x_0=1600000 +y_0=10000000 +ellps=GRS80 +units=m +no_defs'
 CITM = '+proj=tmerc +lat_0=-44 +lon_0=-176.5 +k=1 +x_0=3500000 +y_0=10000000 +ellps=GRS80 +units=m +no_defs'
 
+# Parques nacionales: capa vigente de tierras de conservación del DOC (NaPALIS), en NZTM
+DOC = ('https://services1.arcgis.com/3JjYDyG3oajxU6HO/arcgis/rest/services/DOC_Public_Conservation_Land_FHV/'
+       'FeatureServer/0/query?where=Type%3D%27NATIONAL_PARK%27&outFields=Name,Legislation,Start_Date'
+       '&outSR=2193&maxAllowableOffset=60&geometryPrecision=0&f=geojson')
 GEOB = 'https://media.githubusercontent.com/media/wmgeolab/geoBoundaries/main/releaseData/gbOpen/NZL/ADM1/geoBoundaries-NZL-ADM1.geojson'
 NE = 'https://raw.githubusercontent.com/nvkelso/natural-earth-vector/master/geojson/{}.geojson'
 TERRENO = 'https://elevation-tiles-prod.s3.amazonaws.com/terrarium/9/{x}/{y}.png'
 
-# Grilla del mural (ver herramientas/atlas.py): origen arriba a la izquierda en NZTM
-ESCALA = 2_100_000
-X0, Y0 = 1_018_300, 6_238_000
-MURAL_MM = (544, 730)
+# Grillas de los relieves maestros: origen arriba a la izquierda en NZTM.
+# (escala, x0, y0, ancho y alto en mm, archivo). La v2 es la de atlas_nz.MURAL_*.
 PX_MM = 0.125
+GRILLAS = {
+    'v1': (2_100_000, 1_018_300, 6_238_000, (544, 730), 'relieve.png'),
+    'mural': (1_900_000, 1_067_180, 6_241_810, (550, 811), 'relieve-mural.png'),
+}
 
 
 def bajar(url, destino):
@@ -97,7 +107,23 @@ def vectores():
         print(f'  {f.relative_to(RAIZ)}: {f.stat().st_size // 1024} KB')
 
 
-def relieve():
+def parques():
+    """Los 13 parques nacionales del DOC, simplificados para el mural (datos/nz/parques.json)."""
+    crudo = CACHE / 'geo' / 'doc-parques.geojson'
+    bajar(DOC, crudo)
+    d = json.loads(crudo.read_text())
+    # «Land held for National Park Purposes» es tierra reservada, no un parque nacional
+    d['features'] = [f for f in d['features'] if f['properties']['Name'].endswith(('National Park', 'Park)'))]
+    salida = CACHE / 'geo' / 'doc-parques-filtrado.geojson'
+    salida.write_text(json.dumps(d))
+    mapshaper(str(salida), '-each', 'nombre = Name', '-filter-fields', 'nombre',
+              '-simplify', 'interval=150', 'keep-shapes', '-filter-islands', 'min-area=2000000',
+              '-o', str(DATOS / 'parques.json'), 'precision=10', 'format=geojson')
+    n = len(json.loads((DATOS / 'parques.json').read_text())['features'])
+    print(f'  datos/nz/parques.json: {n} parques, {(DATOS / "parques.json").stat().st_size // 1024} KB')
+
+
+def relieve(grilla):
     import numpy as np
     from PIL import Image, ImageDraw
     from pyproj import Transformer
@@ -114,7 +140,8 @@ def relieve():
             a = np.asarray(Image.open(carpeta / f'9-{x}-{y}.png').convert('RGB'), dtype=np.float32)
             mosaico[j * 256:(j + 1) * 256, i * 256:(i + 1) * 256] = a[..., 0] * 256 + a[..., 1] + a[..., 2] / 256 - 32768
 
-    # 2. Remuestreo a la grilla del mural, en NZTM
+    # 2. Remuestreo a la grilla, en NZTM
+    ESCALA, X0, Y0, MURAL_MM, ARCHIVO = GRILLAS[grilla]
     ancho, alto = round(MURAL_MM[0] / PX_MM), round(MURAL_MM[1] / PX_MM)
     paso = PX_MM * ESCALA / 1000  # metros por píxel
     gx = X0 + (np.arange(ancho) + 0.5) * paso
@@ -143,6 +170,13 @@ def relieve():
                 dib.polygon([a_px(*c) for c in hueco], fill=0)
     tierra = np.asarray(mascara) > 0
     z = np.where(tierra, np.maximum(z, 0), 0)
+    if grilla != 'v1':
+        # Los Terrain Tiles traen algunos píxeles sueltos de 4000–5000 m (en Kahurangi o
+        # Banks Peninsula, donde no hay nada de esa altura): se bajan al máximo de sus vecinos
+        # (también grupitos de 2 × 2: se compara con el anillo a 2 píxeles, unos 475 m)
+        anillo = [(dy, dx) for dy in range(-2, 3) for dx in range(-2, 3) if max(abs(dy), abs(dx)) == 2]
+        vecinos = np.max([np.roll(z, d, axis=(0, 1)) for d in anillo], axis=0)
+        z = np.where(z > vecinos + 900, vecinos, z)
 
     # 4. Sombreado (luz del noroeste, 45°), con exageración vertical leve
     dzdy, dzdx = np.gradient(z * 1.6, paso)
@@ -152,19 +186,29 @@ def relieve():
     luz = np.sin(alt) * np.cos(pend) + np.cos(alt) * np.sin(pend) * np.cos(azi - asp)
     plano = math.sin(alt)
     sombra = np.clip((plano - luz) / plano, 0, 1) ** 0.85
-    # Canal 0: sombra (0–255); canal 1: altura en clases para tintas; se guardan en un PNG RGB
-    clases = np.digitize(z, [500, 1000, 1500, 2000]).astype(np.uint8)
+    # Canal 0: sombra (0–255); canal 2: tierra. Canal 1: en la v1, la altura en
+    # clases (×50) para las tintas ocre; en el mural v2, la altura continua en
+    # pasos de 15 m (hasta 3825 m) para las tintas hipsométricas.
+    if grilla == 'v1':
+        altura = np.where(tierra, np.digitize(z, [500, 1000, 1500, 2000]) * 50, 0)
+    else:
+        altura = np.where(tierra, np.clip(np.round(z / 15), 0, 255), 0)
     rgb = np.dstack([
         (sombra * 255 * tierra).astype(np.uint8),
-        np.where(tierra, clases * 50, 0).astype(np.uint8),
+        altura.astype(np.uint8),
         np.asarray(mascara),
     ])
-    Image.fromarray(rgb, 'RGB').save(DATOS / 'relieve.png', optimize=True)
-    print(f'  datos/nz/relieve.png: {ancho}×{alto} px, altura máxima {z.max():.0f} m, '
-          f'{(DATOS / "relieve.png").stat().st_size // 1024} KB')
+    Image.fromarray(rgb, 'RGB').save(DATOS / ARCHIVO, optimize=True)
+    print(f'  datos/nz/{ARCHIVO}: {ancho}×{alto} px, altura máxima {z.max():.0f} m, '
+          f'{(DATOS / ARCHIVO).stat().st_size // 1024} KB')
 
 
 if __name__ == '__main__':
+    if '--parques' in sys.argv:
+        parques()
+        sys.exit()
     if '--relieve' not in sys.argv:
         vectores()
-    relieve()
+        parques()
+    for g in GRILLAS:
+        relieve(g)
