@@ -1,7 +1,7 @@
 # Plan: mapa mural de Nueva Zelanda, versión 2 (`NZ-A-00`)
 
 **Nivel:** profundo. Suma varias fuentes externas (LINZ, DOC, Work and Income, estadísticas sectoriales), una de ellas con clave, y cambia la grilla del mural.
-**Estado:** borrador, a la espera de tu OK.
+**Estado:** aprobado (2026-10-21), en ejecución.
 **Última actualización:** 2026-10-21
 
 ## Objetivo
@@ -44,8 +44,14 @@ Mejorar el mural `NZ-A-00` (versión 1: 8 A4 apaisados, 1:2.100.000) tomando del
 - **Horticultura:** la encuesta agropecuaria de Stats NZ de 2025 no incluyó preguntas de horticultura. Hay que usar la última edición que sí las tenga, o una fuente de la industria.
 
 **Supuestos:**
-- **Clave de LINZ:** la cargás como secreto del entorno, con el nombre `LINZ_API_KEY`. Una sesión nueva la toma; esta no.
-- **Capas de LINZ** (el número de cada una se confirma al bajarla): rutas, ríos y lagos de la topografía 1:500k, y nombres del Gazetteer (capa 51681). Supongo que las rutas traen el número de State Highway.
+- **Clave de LINZ:** va como secreto de GitHub Actions (`LINZ_API_KEY`). La tarea `.github/workflows/linz.yml` baja las capas y las publica en la rama `datos-linz`; desde la sesión solo se leen los datos, nunca la clave.
+- **Capas de LINZ** (verificadas en el catálogo el 2026-10-21): la serie Topo 1:500k está discontinuada, así que se usa la 1:250k:
+  - rutas (50184, con número de State Highway en `hway_num`);
+  - ríos (50182);
+  - lagos (50168);
+  - costa (51559);
+  - nombres del Gazetteer (51681).
+  - El pedido está en `datos/nz/linz-pedido.json`.
 - **Ovinos y bovinos:** Hawke's Bay y Gisborne están entre las zonas principales de la Isla Norte. Es inferencia; se verifica con Stats NZ.
 
 ## Decisiones tomadas con vos
@@ -54,7 +60,8 @@ Mejorar el mural `NZ-A-00` (versión 1: 8 A4 apaisados, 1:2.100.000) tomando del
 |---|---|
 | Formato | Mural casero de A4, un poco más grande que la v1 |
 | Capa laboral | Matriz región × sector en el mar, más 2 o 3 glifos chicos junto al número de cada región |
-| Exactitud | Clave gratuita de LINZ para rutas, ríos, lagos y nombres |
+| Exactitud | Clave gratuita de LINZ para rutas, ríos, lagos y nombres, cargada como secreto de GitHub |
+| Color y tinta | Excepción para el mural: más colores y más tinta, si se entiende mejor y queda más lindo (ver «Paleta del mural») |
 | Alcance | Solo el mural; las fichas, después |
 
 ## Tamaño: 9 A4 verticales en 3 × 3 (recomendado)
@@ -73,6 +80,23 @@ Las tres grillas comparadas usan el mismo margen de 10 mm y la misma solapa de 1
 - **Dónde caen los paneles:**
   - la pieza 1 (noroeste) y la 9 (sudeste) quedan casi todo mar;
   - la 2 y la 4 (mar de Tasmania) y la 8 tienen bastante mar libre.
+
+## Paleta del mural (excepción a las cuatro tintas)
+
+Pediste más color y más tinta para que se entienda mejor y quede más lindo. Las reglas para el mural:
+- **Mar celeste claro.** Los paneles van en recuadros blancos sobre el mar.
+- **Tierra en un tono neutro claro**, con relieve sombreado y tintas de altura del ocre al marrón.
+- **Parques nacionales en verde**, con trama y borde.
+- **Límites de región en violeta.**
+- **Rutas:** la State Highway 1 en rojo con borde; las demás State Highways, más finas.
+- **Ríos y lagos en azul.**
+- **Un color propio por sector, igual en los glifos, la matriz y el calendario.** Siempre con forma y rótulo, para que no dependa solo del color.
+- **Tinta:**
+  - el límite por pieza pasa del 20 % al 35 %, solo para el mural;
+  - las demás hojas siguen con su regla;
+  - el chequeo mide cada pieza y frena por encima del 35 %;
+  - **riesgo:** el papel de 75 g se puede ondular con tanta tinta; si pasa, conviene papel de 90 g o más.
+- **Alcance de los estilos:** van en una clase propia del mural, así las fichas no cambian.
 
 ## Reutilización
 
@@ -134,7 +158,7 @@ Las tres grillas comparadas usan el mismo margen de 10 mm y la misma solapa de 1
   - Verificación: el chequeo automático pasa (10 pt, nada a menos de 8 mm del borde, sin encimados).
 - [ ] 6. **Rasgos y destinos faltantes.**
   - Verificación: posición contra el Gazetteer o el DOC; ningún rótulo en el mar ni en otra región.
-- [ ] 7. **LINZ** (necesita la clave, en una sesión nueva): rutas con número, ríos, lagos y el chequeo de nombres.
+- [ ] 7. **LINZ** (necesita el secreto de GitHub): rutas con número, ríos, lagos, costa y el chequeo de nombres.
   - Verificación: SH1 continua de Cape Reinga a Bluff, con el corte del estrecho; informe de nombres sin diferencias pendientes.
 - [ ] 8. **Prueba en gris:** vista previa en escala de grises revisada; rutas, ríos y parques se distinguen.
 - [ ] 9. **Exportar:**
@@ -142,7 +166,7 @@ Las tres grillas comparadas usan el mismo margen de 10 mm y la misma solapa de 1
   - una página única de 55 × 81 cm;
   - README (armado 3 × 3, fuentes) y `PLAN.md` actualizados.
 
-Los pasos 1 a 6 y 8 no dependen de la clave: se hacen en esta sesión. El 7 se hace en la sesión con la clave, y después se repiten el 8 y el 9.
+Los pasos 1 a 6 y 8 no dependen de la clave. El 7 empieza cuando la tarea de GitHub deja los datos en la rama `datos-linz`, y después se repiten el 8 y el 9.
 
 ## Riesgos
 
@@ -153,7 +177,7 @@ Los pasos 1 a 6 y 8 no dependen de la clave: se hacen en esta sesión. El 7 se h
 | No hay dato regional de horticultura reciente. | Usar el último disponible, con su año a la vista; si no existe, la columna se va. |
 | Las regiones forestales y las de LIC no coinciden con las 16 regiones. | Celdas agrupadas, con nota. |
 | Las rutas de LINZ sin número de State Highway. | Identificar la SH1 por nombre o por la red de NZTA; si no se puede, la SH1 va destacada sin escudos. |
-| El verde y la trama de los parques suben la tinta. | Trama clara; la medición de tinta por pieza frena si pasa el 20 %. |
+| La tinta extra ondula el papel de 75 g. | Límite del 35 % por pieza, medido; si se ondula, papel de 90 g o más. |
 | Las fichas dicen «pieza N» con la numeración vieja. | Se regeneran solo para esa línea, con los datos sin tocar. |
 
 ## Verificación final
@@ -177,3 +201,6 @@ Los pasos 1 a 6 y 8 no dependen de la clave: se hacen en esta sesión. El 7 se h
 - 2026-10-21 — Se analizó el brief contra el mural v1. Se adopta lo que agrega exactitud o utilidad; se descarta lo que repite, satura o no se puede verificar (ver «Fuera de alcance»).
 - 2026-10-21 — Formato: mural A4 en 3 × 3 vertical a 1:1.900.000, en lugar del A1 del brief. Elegiste A4 «un poco más grande»; de las tres grillas medidas, es la que más agranda el mapa por hoja.
 - 2026-10-21 — Capa laboral: matriz con porcentajes oficiales y glifos con regla impresa. El brief pedía íconos por zona, pero la ubicación de un ícono dentro de una región sugiere una precisión que el dato no tiene.
+- 2026-10-21 — Plan aprobado. Excepción de color y tinta para el mural (ver «Paleta del mural»).
+- 2026-10-21 — La clave de LINZ va como secreto de GitHub Actions, no del entorno. Es más simple de cargar y no hace falta una sesión nueva.
+- 2026-10-21 — LINZ discontinuó la serie 1:500k: se usa la 1:250k (CC BY 4.0) y se simplifica.

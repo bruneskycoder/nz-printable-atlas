@@ -1,0 +1,15 @@
+{
+ "_nota": "Capas del LINZ Data Service para el mapa mural NZ-A-00 v2 (todas CC BY 4.0). Las baja herramientas/linz-bajar.py desde la tarea de GitHub .github/workflows/linz.yml, que publica el resultado en la rama datos-linz. La serie Topo 1:500k está discontinuada (deprecated) en LINZ: se usa la 1:250k y se simplifica con Mapshaper. 'filtro' es CQL; 'campos' son los atributos que se guardan.",
+ "capas": [
+  {"archivo": "rutas", "capa": 50184, "srs": "EPSG:2193", "filtro": "hway_num <> ''",
+   "campos": ["hway_num", "name", "macronated", "lane_count", "status"]},
+  {"archivo": "rios", "capa": 50182, "srs": "EPSG:2193", "campos": []},
+  {"archivo": "lagos", "capa": 50168, "srs": "EPSG:2193",
+   "campos": ["name", "macronated", "grp_name", "elevation"]},
+  {"archivo": "costa", "capa": 51559, "srs": "EPSG:2193",
+   "campos": ["name", "macronated", "grp_name"]},
+  {"archivo": "nombres", "capa": 51681, "srs": "EPSG:4326",
+   "campos": ["name", "status", "feat_type", "maori_name", "region", "height", "label_hierarchy",
+              "land_district", "territorial_authority", "crd_latitude", "crd_longitude"]}
+ ]
+}

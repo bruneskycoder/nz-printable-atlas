@@ -1,0 +1,44 @@
+# Baja las capas de LINZ del mapa mural (datos/nz/linz-pedido.json) con el
+# secreto LINZ_API_KEY y las publica en la rama datos-linz, aparte del código.
+# Corre sola cuando cambia el pedido, el script o este archivo; también se puede
+# lanzar a mano desde la pestaña Actions.
+name: Datos de LINZ
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/linz.yml'
+      - 'herramientas/linz-bajar.py'
+      - 'datos/nz/linz-pedido.json'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: datos-linz
+
+jobs:
+  bajar:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Bajar las capas de LINZ
+        env:
+          LINZ_API_KEY: ${{ secrets.LINZ_API_KEY }}
+        run: python3 herramientas/linz-bajar.py datos/nz/linz-pedido.json salida-linz
+
+      # La rama datos-linz guarda solo la última bajada: cada corrida la reemplaza
+      - name: Publicar en la rama datos-linz
+        env:
+          TOKEN: ${{ github.token }}
+        run: |
+          cd salida-linz
+          git init -q -b datos-linz
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -q -m "Capas de LINZ bajadas el $(date -u +%F) desde ${GITHUB_REF_NAME} (${GITHUB_SHA::7})"
+          git push -q -f "https://x-access-token:${TOKEN}@github.com/${GITHUB_REPOSITORY}.git" datos-linz
