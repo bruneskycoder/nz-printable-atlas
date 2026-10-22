@@ -338,7 +338,7 @@ def frente(r, D, destino, F):
         especie = (f'<section class="especie">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
                    f'<p class="credito" data-meta>{cur["credito"]}</p></div></section>')
     mi = f'En māori, la región se llama <b>{esc(r["mi"])}</b>. ' if r.get('mi') else ''
-    te_ara = F('Te Ara, la enciclopedia de Nueva Zelanda.')
+    te_ara = F('Te Ara, enciclopedia de NZ.')
     return (f'<div class="hoja ficha2 mural" data-tinta-max="40">'
             '<header class="cabecera"><div>'
             f'<span class="coleccion">Atlas de Nueva Zelanda · región {r["n"]} de 16 · {isla}</span>'
@@ -355,22 +355,92 @@ def frente(r, D, destino, F):
             f'<span>Mural NZ-A-00, pieza {pieza_mural(r)} · fuentes numeradas al dorso</span></footer></div>')
 
 
+CULTIVO_ES = {'Apples': 'manzana', 'Pears': 'pera', 'Kiwifruit': 'kiwi', 'Berries': 'frutos rojos', 'Capsicum': 'pimiento',
+              'Tomatoes': 'tomate', 'Grapes': 'uva', 'General vegetables': 'hortalizas', 'Apricots': 'damasco',
+              'Nectarines': 'nectarina', 'Peaches': 'durazno', 'Plums': 'ciruela', 'Asparagus': 'espárrago',
+              'Cherries': 'cereza', 'Avocado': 'palta', 'Citrus': 'cítricos', 'Kumara': 'batata',
+              'Persimmons': 'caqui', 'Hops': 'lúpulo'}
+TAREA_ES = {'C': 'cosecha', 'P': 'poda', 'R': 'raleo', 'M': 'mantenimiento'}
+MES_ABR = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.']
+
+
+def rango_meses(meses):
+    """[2, 3, 4, 5] -> «feb.–may.»; los tramos pueden cruzar el año (dic.–feb.)."""
+    if len(meses) == 12:
+        return 'todo el año'
+    tramos, actual = [], []
+    for m in range(1, 13):
+        if m in meses:
+            actual.append(m)
+        elif actual:
+            tramos.append(actual)
+            actual = []
+    if actual:
+        if tramos and tramos[0][0] == 1:
+            tramos[0] = actual + tramos[0]
+        else:
+            tramos.append(actual)
+    txt = [MES_ABR[t[0] - 1] if len(t) == 1 else f'{MES_ABR[t[0] - 1]}–{MES_ABR[t[-1] - 1]}' for t in tramos]
+    return y_lista(txt)
+
+
+def y_lista(cosas):
+    return cosas[0] if len(cosas) == 1 else ', '.join(cosas[:-1]) + ' y ' + cosas[-1]
+
+
+def cultivos_region(r, clave):
+    """Cultivos que Work and Income publica para la región: uva para el viñedo, el resto para fruta y hortalizas.
+    Los que comparten zonas y meses van juntos (manzana y pera)."""
+    cal = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())
+    grupos = {}
+    for c in cal['por_region'].get(r['iso'], []):
+        if (c['cultivo'] == 'Grapes') != (clave == 'vid'):
+            continue
+        g = grupos.setdefault((tuple(c['zonas']), json.dumps(c['meses'])), {'zonas': c['zonas'], 'meses': c['meses'], 'cultivos': []})
+        g['cultivos'].append(CULTIVO_ES[c['cultivo']])
+    return sorted(grupos.values(), key=lambda g: -sum(1 for m in g['meses'] if m and m['pico']))
+
+
 def tira_meses(r, clave):
-    """Los 12 meses de la fila del calendario de Work and Income que corresponde a un puesto, o None."""
+    """Franja de 12 meses de un puesto y detalle por cultivo, del calendario de Work and Income, o (None, '')."""
     if not clave:
-        return None
+        return None, ''
+    if clave in ('fruta', 'vid'):
+        grupos = cultivos_region(r, clave)
+        if grupos:
+            meses = [None] * 12
+            for g in grupos:
+                for i, m in enumerate(g['meses']):
+                    if m:
+                        meses[i] = {'pico': m['pico'] or bool(meses[i] and meses[i]['pico'])}
+            frases = []
+            for g in grupos[:3]:
+                partes = []
+                for t in 'CPRM':
+                    todos = [i + 1 for i, m in enumerate(g['meses']) if m and m['t'][:1] == t]
+                    pico = [i for i in todos if g['meses'][i - 1]['pico']]
+                    if t == 'C' and todos:
+                        partes.append(f'cosecha {rango_meses(todos)}' + (f', pico {rango_meses(pico)}' if pico and pico != todos else ''))
+                    elif pico:
+                        partes.append(f'{TAREA_ES[t]}, pico {rango_meses(pico)}')
+                zonas = f' ({y_lista(g["zonas"])})' if len(g['zonas']) <= 3 else ''
+                frases.append(f'{y_lista(g["cultivos"]).capitalize()}{zonas}: {"; ".join(partes).rstrip(".")}.')
+            if len(grupos) > 3:
+                frases.append(f'También {y_lista([c for g in grupos[3:] for c in g["cultivos"]])}.')
+            sector = 'vid' if clave == 'vid' else 'fruta'
+            celdas = ''.join('<i></i>' if not m else
+                             f'<i class="si{" pico" if m["pico"] else ""}" style="background:var(--s-{sector})"></i>' for m in meses)
+            return celdas, ' '.join(frases)
+        if clave == 'fruta':
+            return None, ''
     cal = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())
     for f in cal['filas']:
-        if clave == 'fruta':
-            ok = f['fuente'] == 'winz-calendario' and r['iso'] in ZONA_REGION.get(f['zona'], [])
-        else:
-            ok = f['fuente'] == 'winz-general' and f['sector'] == clave
-        if ok:
+        if f['fuente'] == 'winz-general' and f['sector'] == clave:
             sector = {'turismo': 'alojamiento', 'esqui': 'alojamiento'}.get(f['sector'], f['sector'])
             return ''.join('<i></i>' if not m else
                            f'<i class="si{" pico" if m["pico"] else ""}" style="background:var(--s-{sector})"></i>'
-                           for m in f['meses'])
-    return None
+                           for m in f['meses']), ''
+    return None, ''
 
 
 def dorso(r, D, F):
@@ -398,19 +468,21 @@ def dorso(r, D, F):
     meses = ''.join(f'<span data-meta>{m}</span>' for m in MESES)
     filas_p = ''
     for x in puestos:
-        tira = tira_meses(r, x.get('calendario'))
+        tira, detalle = tira_meses(r, x.get('calendario'))
         tira = (f'<div class="tira">{tira}</div>' if tira
-                else f'<div class="tira vacia" data-meta>{"sin calendario oficial" if x.get("calendario") else "todo el año"}</div>')
+                else f'<div class="tira vacia" data-meta>{"Work and Income no la incluye" if x.get("calendario") else "todo el año"}</div>')
+        detalle = f'<p class="cultivos">{detalle}</p>' if detalle else ''
         filas_p += (f'<div class="puesto"><div class="t"><b>{esc(x["titulo"])}</b> <span class="es">{esc(x["es"])}</span></div>{tira}'
-                    f'<p><span class="cont">{x["continuidad"].rstrip(".")}.</span> {x["requisitos"]}</p>'
+                    f'{detalle}<p><span class="cont">{x["continuidad"].rstrip(".")}.</span> {x["requisitos"]}'
+                    f'{" " + x["nota"] + F(x["fuente_nota"]) if x.get("nota") else ""}</p>'
                     f'<p class="confirmar"><span>Confirmá:</span> {x["confirmar"]}.</p></div>')
     temporadas = ('<section class="temporadas"><h2>Temporadas y puestos para investigar ' + etq('ori') + '</h2>'
-                  '<p class="bajada">Meses en que Work and Income indica trabajo disponible (no son fechas de contratación); '
-                  'con borde, los de más trabajo. Requisitos según Tahatū Career Navigator'
+                  '<p class="bajada">Meses con trabajo según Work and Income (no son fechas de contratación); '
+                  'con borde, los de más trabajo. Requisitos: Tahatū Career Navigator'
                   f'{F("Work and Income, calendario de temporada; PickNZ.")}{F(practico["fuente_puestos"])}.</p>'
                   f'<div class="meses"><span></span><div>{meses}</div></div>{filas_p}'
-                  f'<p class="nota">{etq("rec")} Se contrata antes de que empiece la temporada: buscá unas semanas antes. '
-                  'Es una línea de investigación, no una lista de vacantes.</p></section>')
+                  f'<p class="nota">{etq("rec")} Buscá unas semanas antes de que empiece cada temporada. '
+                  'Son pistas para investigar, no vacantes.</p></section>')
     # 3. Vivienda: alquiler local, con su categoría, su fecha y su estado provisional
     viv = practico.get('vivienda', {}).get(r['iso'], {})
     sal = practico['salario_minimo']
@@ -461,16 +533,16 @@ def dorso(r, D, F):
                  f'<h3>Km desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
                  f'<ul class="km">{km}</ul>{extras}'
                  f'<p class="nota">{etq("rec")} {practico["vehiculo"]}'
-                 f'{F("Sitios oficiales de aeropuertos, KiwiRail, InterCity, ferris y buses urbanos.")}</p></section>')
+                 f'{F("Sitios oficiales de cada servicio de transporte.")}</p></section>')
     return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
             f'<header class="cabecera-dorso"><h1>{nombre}</h1><span>trabajo, vivienda, clima y movilidad</span>'
             f'<span class="cod" data-meta>{codigo} · dorso · v{VERSION} · {FECHA}</span></header>'
             f'<div class="columnas"><div class="izq">{sectores_html}{temporadas}'
-            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación · {etq("calc")} cuenta '
-            f'con datos de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía.</p></div>'
+            f'<p class="tipos" data-meta>{etq("dato")} organismo público · {etq("est")} aproximación · {etq("calc")} con datos '
+            f'de la ficha · {etq("rec")} consejo · {etq("ori")} sin garantía</p></div>'
             f'<div class="der">{vivienda}{clima}{movilidad}'
-            f'<section class="fuentes"><h2>Fuentes <span class="donde" data-meta>consultadas el 21 y 22 oct. 2026 · completas, '
-            f'con enlaces y cálculos, en NZ-A-fuentes.pdf</span></h2><p class="lista" data-meta>{F.html()} · Stats NZ y NIWA, '
+            f'<section class="fuentes"><h2>Fuentes <span class="donde" data-meta>consultadas el 21 y 22 oct. 2026 · '
+            f'con enlaces en NZ-A-fuentes.pdf</span></h2><p class="lista" data-meta>{F.html()} · Stats NZ y NIWA, '
             'vía Figure.NZ.</p></section></div></div></div>')
 
 

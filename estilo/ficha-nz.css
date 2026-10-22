@@ -213,7 +213,7 @@
 .ficha2 .trabajo h2, .ficha2 .temporadas h2 { display: flex; align-items: center; gap: 2mm; color: #2f6e44; border-color: #2f6e44; font-size: 13pt; }
 .ficha2 .meses { display: grid; grid-template-columns: 1fr 48mm; font-size: 8pt; color: #5b6a77; margin-top: 1mm; }
 .ficha2 .meses div, .ficha2 .tira { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.4mm; text-align: center; }
-.ficha2 .puesto { display: grid; grid-template-columns: 1fr 48mm; column-gap: 2mm; border-top: 0.2mm solid rgba(31, 58, 85, 0.18); padding: 0.8mm 0; }
+.ficha2 .puesto { display: grid; grid-template-columns: 1fr 48mm; column-gap: 2mm; border-top: 0.2mm solid rgba(31, 58, 85, 0.18); padding: 0.6mm 0; }
 .ficha2 .puesto .t { grid-column: 1; font-size: 10pt; }
 .ficha2 .puesto .tira { grid-column: 2; grid-row: 1; align-self: center; height: 3.6mm; }
 .ficha2 .puesto .tira i { background: rgba(120, 100, 70, 0.12); border-radius: 0.5mm; }
@@ -233,3 +233,4 @@
 .ficha2 .clima.fila3 .ic { display: inline-block; width: 3.6mm; height: 3.6mm; margin-right: 1mm; vertical-align: -0.3mm; }
 .ficha2 .clima.fila3 > div > span { display: block; font-size: 10pt; line-height: 1.2; }
 .ficha2 .izq .tipos { margin-top: 1mm; }
+.ficha2 .puesto p.cultivos { color: #2f4a33; }

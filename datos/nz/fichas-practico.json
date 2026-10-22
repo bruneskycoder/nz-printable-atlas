@@ -23,7 +23,9 @@
    "requisitos": "Sin experiencia. En empaque, a veces licencia de autoelevador.",
    "continuidad": "Por temporada",
    "confirmar": "forma de pago (por hora o por cantidad), alojamiento y transporte al campo",
-   "calendario": "fruta"
+   "calendario": "fruta",
+   "nota": "El empaque arranca con la cosecha y puede seguir meses después.",
+   "fuente_nota": "Avisos de empleo de packhouses (Find a Job), oct. 2026."
   },
   {
    "sectores": [

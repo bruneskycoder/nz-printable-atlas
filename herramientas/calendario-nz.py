@@ -11,7 +11,8 @@ Fuentes (se bajan a cache/calendario/):
   - PickNZ, «Work and play in Marlborough»: viñedos casi todo el año (sin meses).
 
 Las filas de fruta salen de los meses que publica Work and Income para esa región
-y ese cultivo, sin extrapolar a otras regiones. Las ventanas generales se
+y ese cultivo, sin extrapolar a otras regiones. Además, «por_region» guarda todos los
+cultivos de cada región tal como los publica Work and Income, para las fichas regionales. Las ventanas generales se
 transcriben de la página y el script verifica que el texto siga ahí.
 """
 import html
@@ -43,6 +44,14 @@ FRUTA = [
     ('Uva', 'Wairarapa', 'vid', 'Wellington', ['Grapes']),
     ('Hortalizas', 'Horowhenua', 'hortalizas', 'Manawatu-Whanganui', ['General vegetables']),
 ]
+# Región de Work and Income -> regiones (consejo regional). Sus huertos de «Nelson» están
+# en buena parte en el distrito de Tasman, así que cuentan para las dos fichas.
+REGION_ISO = {'Northland': ['NTL'], 'Auckland': ['AUK'], 'Waikato': ['WKO'], 'Bay of Plenty': ['BOP'],
+              'Gisborne': ['GIS'], 'Hawkes Bay': ['HKB'], 'Manawatu-Whanganui': ['MWT'], 'Wellington': ['WGN'],
+              'Nelson': ['NLS', 'TAS'], 'Tasman': ['TAS'], 'Marlborough': ['MBH'], 'Canterbury': ['CAN'], 'Otago': ['OTA']}
+# Erratas de la página
+CORRIGE = {'Cheries': 'Cherries', 'Western Bay of Pleny': 'Western Bay of Plenty', 'Ōpōiki': 'Ōpōtiki',
+           'Central Hawkes Bay': "Central Hawke's Bay", 'Whangarei': 'Whangārei', 'Whakatane': 'Whakatāne'}
 # Tareas, de la que más gente pide a la que menos: la celda muestra la primera que aparezca
 TAREAS = [('picking', 'C'), ('pruning', 'P'), ('thinning', 'R'), ('maintenance', 'M')]
 
@@ -116,6 +125,27 @@ def fila_fruta(regs, etiqueta, zona, sector, region, cultivos):
             'zonas_winz': sorted(zonas), 'meses': meses}
 
 
+def por_region(regs):
+    """Cada cultivo de cada región, con sus zonas y, por mes, las tareas (letras de TAREAS) y si es pico."""
+    cultivos = {}
+    for mes, reg, z, cultivo, tareas, pico in regs:
+        if reg not in REGION_ISO:
+            raise SystemExit(f'Región nueva en Work and Income: «{reg}»; agregarla a REGION_ISO')
+        c = cultivos.setdefault((reg, CORRIGE.get(cultivo, cultivo)), {'zonas': set(), 'meses': [None] * 12})
+        c['zonas'].add(CORRIGE.get(z, z))
+        letras = ''.join(t for clave, t in TAREAS if clave in tareas)
+        m = c['meses'][mes - 1] or {'t': '', 'pico': False}
+        m['t'] = ''.join(t for _, t in TAREAS if t in m['t'] + letras)
+        m['pico'] = m['pico'] or pico
+        c['meses'][mes - 1] = m
+    salida = {}
+    for (reg, cultivo), c in sorted(cultivos.items()):
+        for iso in REGION_ISO[reg]:
+            salida.setdefault(iso, []).append({'region_winz': reg, 'cultivo': cultivo, 'zonas': sorted(c['zonas']),
+                                               'meses': c['meses']})
+    return salida
+
+
 def main():
     regs = registros(bajar(URL_CAL, 'calendario.html'))
     general = texto(bajar(URL_GEN, 'general.html'))
@@ -128,6 +158,8 @@ def main():
                       'meses': [{'t': 'V', 'pico': m in picos} if m in meses else None for m in range(1, 13)]})
     if 'almost all year round' not in pick.lower():
         raise SystemExit('PickNZ ya no dice que en Marlborough hay trabajo de viñedo casi todo el año')
+    # La fecha de consulta es la de la copia guardada, no la de hoy
+    consultado = date.fromtimestamp((CACHE / 'calendario.html').stat().st_mtime).isoformat()
     actualizada = re.search(r'Updated on (\d+ \w+ \d{4})', general)
     SALIDA.write_text(json.dumps({
         '_nota': ('Calendario de trabajo estacional del mapa mural. Tareas: C = cosecha (picking), P = poda (pruning), '
@@ -135,7 +167,7 @@ def main():
                   '«pico» = mes con más trabajo según Work and Income (en negrita en su calendario). '
                   'Ventanas orientativas: varían según cultivo, clima, empleador y año. '
                   'Generado por herramientas/calendario-nz.py.'),
-        'consultado': date.today().isoformat(),
+        'consultado': consultado,
         'fuentes': {
             'winz-calendario': f'Work and Income, «Fruit and vegetable seasonal work» ({URL_CAL}).',
             'winz-general': f'Work and Income, «Finding seasonal work», actualizada el {actualizada.group(1) if actualizada else "?"} ({URL_GEN}).',
@@ -143,6 +175,7 @@ def main():
         },
         'registros_winz': len(regs),
         'filas': filas,
+        'por_region': por_region(regs),
     }, ensure_ascii=False, indent=1) + '\n')
     for f in filas:
         celdas = ''.join((m['t'].lower() if not m['pico'] else m['t']) if m else '·' for m in f['meses'])

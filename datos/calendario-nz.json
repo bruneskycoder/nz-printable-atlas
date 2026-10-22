@@ -877,5 +877,2436 @@
     null
    ]
   }
- ]
+ ],
+ "por_region": {
+  "AUK": [
+   {
+    "region_winz": "Auckland",
+    "cultivo": "Berries",
+    "zonas": [
+     "Helensville",
+     "Mangere",
+     "Omaha",
+     "Waiuku"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Auckland",
+    "cultivo": "Capsicum",
+    "zonas": [
+     "Warkworth"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Auckland",
+    "cultivo": "Grapes",
+    "zonas": [
+     "Auckland",
+     "Waiheke Island"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Auckland",
+    "cultivo": "Kiwifruit",
+    "zonas": [
+     "Ardmore",
+     "Pukekohe"
+    ],
+    "meses": [
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Auckland",
+    "cultivo": "Tomatoes",
+    "zonas": [
+     "Mangere",
+     "Tuakau"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   }
+  ],
+  "BOP": [
+   {
+    "region_winz": "Bay of Plenty",
+    "cultivo": "Kiwifruit",
+    "zonas": [
+     "Kawerau",
+     "Western Bay of Plenty",
+     "Whakatāne",
+     "Ōpōtiki"
+    ],
+    "meses": [
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     null,
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     }
+    ]
+   }
+  ],
+  "CAN": [
+   {
+    "region_winz": "Canterbury",
+    "cultivo": "Apples",
+    "zonas": [
+     "South Canterbury"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Canterbury",
+    "cultivo": "General vegetables",
+    "zonas": [
+     "Mid-Canterbury",
+     "Selwyn"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Canterbury",
+    "cultivo": "Grapes",
+    "zonas": [
+     "Hurunui"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Canterbury",
+    "cultivo": "Pears",
+    "zonas": [
+     "South Canterbury"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   }
+  ],
+  "GIS": [
+   {
+    "region_winz": "Gisborne",
+    "cultivo": "Apples",
+    "zonas": [
+     "Gisborne"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Gisborne",
+    "cultivo": "Pears",
+    "zonas": [
+     "Gisborne"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   }
+  ],
+  "HKB": [
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Apples",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Apricots",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Nectarines",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Peaches",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Pears",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Hawkes Bay",
+    "cultivo": "Plums",
+    "zonas": [
+     "Central Hawke's Bay"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   }
+  ],
+  "MWT": [
+   {
+    "region_winz": "Manawatu-Whanganui",
+    "cultivo": "Asparagus",
+    "zonas": [
+     "Horowhenua",
+     "Rangitikei"
+    ],
+    "meses": [
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Manawatu-Whanganui",
+    "cultivo": "Berries",
+    "zonas": [
+     "Whanganui"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Manawatu-Whanganui",
+    "cultivo": "General vegetables",
+    "zonas": [
+     "Horowhenua"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     },
+     {
+      "t": "CM",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Manawatu-Whanganui",
+    "cultivo": "Grapes",
+    "zonas": [
+     "Horowhenua"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   }
+  ],
+  "MBH": [
+   {
+    "region_winz": "Marlborough",
+    "cultivo": "Cherries",
+    "zonas": [
+     "Marlborough"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   }
+  ],
+  "NLS": [
+   {
+    "region_winz": "Nelson",
+    "cultivo": "Apples",
+    "zonas": [
+     "Nelson"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Nelson",
+    "cultivo": "Pears",
+    "zonas": [
+     "Nelson"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   }
+  ],
+  "TAS": [
+   {
+    "region_winz": "Nelson",
+    "cultivo": "Apples",
+    "zonas": [
+     "Nelson"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Nelson",
+    "cultivo": "Pears",
+    "zonas": [
+     "Nelson"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Tasman",
+    "cultivo": "Hops",
+    "zonas": [
+     "Tasman"
+    ],
+    "meses": [
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     null,
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   }
+  ],
+  "NTL": [
+   {
+    "region_winz": "Northland",
+    "cultivo": "Avocado",
+    "zonas": [
+     "Far North",
+     "Whangārei"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Northland",
+    "cultivo": "Berries",
+    "zonas": [
+     "Far North",
+     "Whangārei"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Northland",
+    "cultivo": "Citrus",
+    "zonas": [
+     "Kerikeri"
+    ],
+    "meses": [
+     {
+      "t": "CR",
+      "pico": false
+     },
+     {
+      "t": "CR",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "CP",
+      "pico": false
+     },
+     {
+      "t": "CP",
+      "pico": false
+     },
+     {
+      "t": "CP",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Northland",
+    "cultivo": "Kiwifruit",
+    "zonas": [
+     "Far North"
+    ],
+    "meses": [
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Northland",
+    "cultivo": "Kumara",
+    "zonas": [
+     "Kaipara"
+    ],
+    "meses": [
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "M",
+      "pico": false
+     },
+     null,
+     {
+      "t": "M",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Northland",
+    "cultivo": "Persimmons",
+    "zonas": [
+     "Far North",
+     "Whangārei"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null
+    ]
+   }
+  ],
+  "OTA": [
+   {
+    "region_winz": "Otago",
+    "cultivo": "Apples",
+    "zonas": [
+     "Central Otago"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Apricots",
+    "zonas": [
+     "Central Otago",
+     "Queenstown Lakes"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Cherries",
+    "zonas": [
+     "Central Otago",
+     "Queenstown Lakes"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     {
+      "t": "C",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Nectarines",
+    "zonas": [
+     "Central Otago",
+     "Queenstown Lakes"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Peaches",
+    "zonas": [
+     "Central Otago",
+     "Queenstown Lakes"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Pears",
+    "zonas": [
+     "Central Otago"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Otago",
+    "cultivo": "Plums",
+    "zonas": [
+     "Central Otago",
+     "Queenstown Lakes"
+    ],
+    "meses": [
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     null,
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     null,
+     null,
+     null,
+     null
+    ]
+   }
+  ],
+  "WKO": [
+   {
+    "region_winz": "Waikato",
+    "cultivo": "Kiwifruit",
+    "zonas": [
+     "Hauraki",
+     "Thames/Coromandel",
+     "Waikato"
+    ],
+    "meses": [
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     }
+    ]
+   }
+  ],
+  "WGN": [
+   {
+    "region_winz": "Wellington",
+    "cultivo": "Apples",
+    "zonas": [
+     "Wairarapa"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   },
+   {
+    "region_winz": "Wellington",
+    "cultivo": "Grapes",
+    "zonas": [
+     "Wairarapa"
+    ],
+    "meses": [
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "RM",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": false
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "PM",
+      "pico": true
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     },
+     {
+      "t": "M",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Wellington",
+    "cultivo": "Kiwifruit",
+    "zonas": [
+     "Wairarapa"
+    ],
+    "meses": [
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": true
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     },
+     {
+      "t": "PR",
+      "pico": false
+     }
+    ]
+   },
+   {
+    "region_winz": "Wellington",
+    "cultivo": "Pears",
+    "zonas": [
+     "Wairarapa"
+    ],
+    "meses": [
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "C",
+      "pico": true
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "P",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": false
+     },
+     {
+      "t": "R",
+      "pico": true
+     },
+     {
+      "t": "R",
+      "pico": true
+     }
+    ]
+   }
+  ]
+ }
 }
