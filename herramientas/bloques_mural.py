@@ -115,7 +115,7 @@ def matriz():
                 continue
             tinte = min(62, round(v * 1.7))
             clase = ('top ' if iso in tops[s['clave']] else '') + ('oscuro' if tinte > 44 else '')
-            celdas.append(f'<td class="{clase}{sep}" style="background:color-mix(in srgb, var(--s-{s["clave"]}) {tinte}%, white)">'
+            celdas.append(f'<td class="{clase}{sep}" style="background:color-mix(in srgb, var(--s-{s["clave"]}) {tinte}%, transparent)">'
                           f'{num(v)}</td>')
         filas.append('<tr>' + ''.join(celdas) + '</tr>')
     return ('<h2>What does each region produce?</h2>'
@@ -160,7 +160,7 @@ def calendario():
             letra = '' if m['t'] == 'V' else LETRA_EN[m['t']]
             color = 'white' if tinte >= 60 else '#1d2a36'
             sector = {'turismo': 'alojamiento', 'esqui': 'alojamiento'}.get(f['sector'], f['sector'])
-            celdas.append(f'<td class="{"pico" if m["pico"] else ""}" style="background:color-mix(in srgb, var(--s-{sector}) {tinte}%, white);'
+            celdas.append(f'<td class="{"pico" if m["pico"] else ""}" style="background:color-mix(in srgb, var(--s-{sector}) {tinte}%, transparent);'
                           f'color:{color}">{letra}</td>')
         filas.append('<tr>' + ''.join(celdas) + '</tr>')
     return ('<h2>When is there seasonal work?</h2>'
@@ -236,7 +236,7 @@ def bloques(C, E):
                  f'<div><b>{superficie:,}</b>km² in the 16 regions</div>'
                  '<div><b>16</b>regions</div><div><b>13</b>national parks</div></div>')
     escala_txt = f'1:{MURAL_ESCALA:,}'
-    b.append(Bloque('m-titulo', 8, 8, 164, 70, (
+    b.append(Bloque('m-titulo n0', 8, 8, 164, 70, (
         '<span class="coleccion">Atlas of New Zealand · NZ-A-00 · wall map in 9 pieces</span>'
         '<h1>New Zealand</h1>'
         '<p>The 16 regions, the terrain, the national parks, the towns and the highways. '
@@ -263,7 +263,7 @@ def bloques(C, E):
         (muestra('<path class="pico" d="M4.5 0.9 L5.65 2.95 L3.35 2.95 Z"/>'), 'Peak, with its height'),
         (muestra('<rect class="lago" x="1.5" y="0.6" width="6" height="3.3" rx="1.2"/>'), 'Lake'),
     ]
-    b.append(Bloque('leyenda', 8, 66, 164, 131, (
+    b.append(Bloque('leyenda n1', 8, 66, 164, 131, (
         '<h2>How to read the map</h2><div class="filas">'
         + ''.join(f'<div class="f">{s}<span>{t}</span></div>' for s, t in filas)
         + '</div>'
@@ -276,19 +276,19 @@ def bloques(C, E):
           'table below). Construction, maintenance, logistics and drafting follow the population: '
           'more people, more work.</p>'
         + '<p class="nota">Town sizes: approximate category, from Stats NZ\'s 2023 Census. Names are the English names '
-          'on the official NZ Gazetteer (LINZ); their Māori names are in the box below.</p>')))
+          'on the official NZ Gazetteer (LINZ); their Māori names are listed below.</p>')))
 
-    b.append(Bloque('m-maori', 8, 201, 164, 58, nombres_maori()))
+    b.append(Bloque('m-maori n2', 8, 201, 164, 58, nombres_maori()))
 
-    b.append(Bloque('m-matriz', 8, 276, 164, 250, matriz()))
-    b.append(Bloque('m-calendario', 372, 548, 166, 132, calendario()))
+    b.append(Bloque('m-matriz n1', 8, 276, 164, 250, matriz()))
+    b.append(Bloque('m-calendario n1', 372, 548, 166, 132, calendario()))
 
     # Chatham Islands (pieza 9), a la misma escala
     ch = [g for _, g in capa('chatham')]
     citm = Encuadre(MURAL_ESCALA, 3_468_000, 10_036_000)
     geo = unary_union([citm.geom(g) for g in ch])
     minx, miny, maxx, maxy = geo.bounds
-    b.append(Bloque('m-chatham', 462, 345, 84, 80, (
+    b.append(Bloque('m-chatham n2', 462, 345, 84, 80, (
         f'<svg class="mapa" viewBox="{minx - 3:.1f} {miny - 3:.1f} {maxx - minx + 6:.1f} {maxy - miny + 6:.1f}" '
         f'style="width:{maxx - minx + 6:.1f}mm;height:{maxy - miny + 6:.1f}mm;margin:0 auto 1.5mm">'
         f'<path class="lago" style="fill:none" d="{ruta(geo.buffer(1.0).boundary)}"/>'
@@ -297,7 +297,7 @@ def bloques(C, E):
         'Drawn at the same scale as the map, but moved from their real place. They are not one of the 16 regions: '
         'they have their own council.</p>')))
 
-    b.append(Bloque('m-armado', 8, 465, 164, 53, (
+    b.append(Bloque('m-armado n4', 8, 465, 164, 53, (
         '<h2>How to put the map together</h2><ol>'
         '<li><b>Test join first.</b> Print only pieces 2 and 3 at actual size (100%), single-sided, and join them as in '
         'step 3. If the ▶◀ marks are less than 1 mm apart, print the other seven.</li>'
@@ -308,7 +308,7 @@ def bloques(C, E):
         '<li><b>Join the rows</b> from top to bottom: the lower row goes on top, with the ▲▼ marks lined up.</li>'
         '</ol>')))
 
-    b.append(Bloque('m-datos', 372, 690, 166, 47, (
+    b.append(Bloque('m-datos n2', 372, 690, 166, 47, (
         '<h2>Good to know</h2><ul>'
         '<li><b>Southern Hemisphere seasons:</b> summer from December to February, autumn from March to May, winter from '
         'June to August and spring from September to November.</li>'
@@ -318,7 +318,7 @@ def bloques(C, E):
         'facts in the curiosity boxes, on 2026-10-22; population from the 2023 Census.</li>'
         '</ul>')))
 
-    b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 67, (
+    b.append(Bloque('m-fuentes n4" data-meta="', 462, 432, 84, 67, (
         '<b>Sources.</b> Region boundaries: Stats NZ (2017) via geoBoundaries, CC BY 4.0. '
         'National parks: Department of Conservation, “DOC Public Conservation Land” (NaPALIS), CC BY 4.0, accessed 2026-10-21. '
         'State Highways and lakes: LINZ, Topo 1:250k, CC BY 4.0, downloaded 2026-10-22. '
@@ -342,6 +342,33 @@ def bloques(C, E):
 CUR = json.loads((RAIZ / 'datos' / 'nz' / 'curiosidades.json').read_text())
 
 
+def imagen_lapiz(slug, ancho_px, vineta=0.0):
+    """Versión a lápiz de imagenes/<slug>/maestra.jpg: el trazo sale de una sobreexposición de color (gris sobre su
+    negativo desenfocado) y queda en grafito con transparencia, así se apoya en el mar sin recuadro. 'vineta'
+    (0 a 1) desvanece los bordes hacia afuera. Devuelve la ruta relativa a hojas/nz-a/ y salida/pruebas/."""
+    import numpy as np
+    from PIL import Image, ImageFilter
+    destino = RAIZ / 'hojas' / 'nz-a' / 'img' / f'{slug}-lapiz.png'
+    if not destino.exists():
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        im = Image.open(RAIZ / 'imagenes' / slug / 'maestra.jpg').convert('L')
+        im = im.resize((ancho_px, round(im.height * ancho_px / im.width)), Image.LANCZOS)
+        g = np.asarray(im).astype(float)
+        borroso = np.asarray(Image.fromarray((255 - g).astype('uint8')).filter(ImageFilter.GaussianBlur(ancho_px / 150)))
+        trazo = np.clip(g * 255 / np.maximum(1, 255 - borroso.astype(float)), 0, 255)
+        oscuro = np.clip((250 - trazo) / 105, 0, 1) ** 0.75
+        if vineta:
+            h, w = oscuro.shape
+            yy, xx = np.mgrid[0:h, 0:w]
+            r = np.hypot((xx - w / 2) / (w / 2), (yy - h / 2) / (h / 2))
+            oscuro *= np.clip((1 - r) / vineta, 0, 1) ** 0.7
+        rgba = np.zeros(oscuro.shape + (4,), dtype='uint8')
+        rgba[..., :3] = (58, 48, 40)  # grafito cálido
+        rgba[..., 3] = (oscuro * 235).astype('uint8')
+        Image.fromarray(rgba, 'RGBA').save(destino, optimize=True)
+    return f'../../hojas/nz-a/img/{slug}-lapiz.png'
+
+
 def imagen_mural(slug, ancho_px):
     """Copia reducida de imagenes/<slug>/maestra.jpg para el mural (unos 350 ppp a su tamaño impreso), así el PDF
     no carga la maestra entera. La ruta sirve para hojas/nz-a/ y para salida/pruebas/ (las dos a dos niveles)."""
@@ -357,23 +384,24 @@ def imagen_mural(slug, ancho_px):
 def curiosidades():
     out = []
     k = CUR['kiwi']
-    ave = f'<img class="ave" src="{imagen_mural(k["ave"]["imagen"], 600)}" alt="">' if k['ave'].get('imagen') else ''
-    out.append(Bloque('m-kiwi', 414, 68, 128, 101, (
+    ave = f'<img class="ave" src="{imagen_lapiz(k["ave"]["imagen"], 700, vineta=0.35)}" alt="">'
+    fruta = f'<img class="fruta" src="{imagen_lapiz(k["fruta"]["imagen"], 500, vineta=0.2)}" alt="">'
+    out.append(Bloque('m-kiwi n3', 436, 70, 106, 125, (
         '<h2>Kiwi, kiwi and Kiwis</h2>'
         f'<div class="fila">{ave}<p>{k["ave"]["texto"]}</p></div>'
-        f'<div class="fila">{dibujo_kiwifruit(30)}<p>{k["fruta"]["texto"]}</p></div>'
+        f'<div class="fila inversa"><p>{k["fruta"]["texto"]}</p>{fruta}</div>'
         f'<p class="gente">{k["gente"]["texto"]}</p>'
         + (f'<p class="credito" data-meta>{k["ave"]["credito"]}</p>' if k['ave'].get('credito') else ''))))
-    out.append(Bloque('m-geo', 186, 274, 112, 64, (
+    out.append(Bloque('m-geo n3', 186, 274, 112, 64, (
         '<h2>A young, restless land</h2><dl>'
         + ''.join(f'<dt>{g["t"]}</dt><dd>{g["texto"]}</dd>' for g in CUR['geografia']) + '</dl>')))
-    out.append(Bloque('m-slang', 238, 681, 118, 47, (
+    out.append(Bloque('m-slang n3', 238, 681, 118, 47, (
         '<h2>Kiwi English you will hear</h2><div class="pares">'
         + ''.join(f'<div><b>{w}</b> {s}</div>' for w, s in CUR['slang']) + '</div>')))
-    out.append(Bloque('m-historia', 238, 590, 118, 86, (
+    out.append(Bloque('m-historia n3', 238, 590, 118, 86, (
         '<h2>A short history</h2><dl>'
         + ''.join(f'<dt>{h["anio"]}</dt><dd>{h["texto"]}</dd>' for h in CUR['historia']) + '</dl>')))
-    out.append(Bloque('m-notas', 372, 741, 166, 61, (
+    out.append(Bloque('m-notas n2', 372, 741, 166, 61, (
         '<h2>On the map</h2><dl>'
         + ''.join(f'<dt><span class="cur-l">{n["letra"]}</span></dt><dd><b>{n["lugar"]}.</b> {n["texto"]}</dd>'
                   for n in CUR['mapa']) + '</dl>')))

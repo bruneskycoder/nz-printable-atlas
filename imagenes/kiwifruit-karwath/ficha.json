@@ -1,0 +1,35 @@
+{
+  "slug": "kiwifruit-karwath",
+  "titulo": "Kiwi aka",
+  "autor": "André Karwath aka Aka",
+  "fecha": "20 February 2005",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Kiwi_aka.jpg",
+  "archivo": "https://upload.wikimedia.org/wikipedia/commons/d/d3/Kiwi_aka.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+  "original_px": [
+    1000,
+    746
+  ],
+  "licencia_texto": "CC BY-SA 2.5",
+  "licencia_url": "https://creativecommons.org/licenses/by-sa/2.5",
+  "credito": "Own work",
+  "descripcion": "This image shows a whole and a cut kiwifruit.",
+  "licencia": "CC BY-SA",
+  "licencia_libre": true,
+  "referencia": "commons:File:Kiwi aka.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/kiwifruit-karwath/original.jpg",
+  "sha256_original": "7cb2d919c1ed5496ff8e8b39d27fd77d9906a1cab9564247a93841a41d7656a5",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": null,
+    "fondo": "ninguno",
+    "niveles": false,
+    "gamma": 0.85,
+    "tamanio": [
+      1000,
+      746
+    ]
+  }
+}

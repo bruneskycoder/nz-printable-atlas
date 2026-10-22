@@ -177,3 +177,29 @@
 .mural .m-slang .pares b { color: var(--m-region); margin-right: 1mm; }
 .mural .m-notas .cur-l { display: inline-block; width: 4.8mm; height: 4.8mm; border-radius: 50%; background: var(--m-costa); color: white;
   font-size: 10pt; font-weight: 800; text-align: center; line-height: 4.8mm; }
+
+/* ================= Sin cajas: el texto se apoya en el mar =================
+   Jerarquía: n1 leer el mapa y planear el trabajo · n2 referencia útil ·
+   n3 curiosidades (cuaderno de viaje, en sepia, con dibujos a lápiz) · n4 metadatos */
+.mural .bloque { background: none; border: 0; border-radius: 0; padding: 0; color: #22313f; }
+.mural .bloque h2 { font-family: var(--fuente-titulo); }
+.mural .bloque.n1 h2 { font-size: 15pt; font-weight: 800; color: var(--m-costa); margin: 0 0 1.6mm;
+  padding-bottom: 0.9mm; border-bottom: 0.45mm solid var(--m-costa); }
+.mural .bloque.n2 h2 { font-family: inherit; font-size: 10.5pt; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--m-costa); margin: 0 0 1.2mm; padding-bottom: 0.6mm; border-bottom: 0.2mm solid var(--m-costa); }
+.mural .bloque.n3 { color: #3d3026; }
+.mural .bloque.n3 h2 { font-size: 14pt; font-style: italic; font-weight: 600; color: #5b4330; margin: 0 0 1mm; border: 0; }
+.mural .bloque.n3 b, .mural .bloque.n3 dt { color: #5b4330; }
+.mural .bloque.n4, .mural .bloque.n4 li { color: #4a5866; }
+.mural .bloque.n4 h2 { font-family: inherit; font-size: 10pt; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase;
+  color: #4a5866; margin: 0 0 1mm; border: 0; }
+.mural .bloque.m-chatham { border: 0.25mm solid var(--m-costa); padding: 2mm 2.5mm; }
+.mural .bloque .nota, .mural .bloque .bajada { color: inherit; }
+.mural .tabla-sectores tbody td { border-bottom-color: rgba(31, 58, 85, 0.16); }
+.mural .tabla-calendario tbody td { border-color: var(--m-mar); }
+.mural .tabla-calendario tbody td.et { border-bottom-color: rgba(31, 58, 85, 0.16); }
+.mural .tabla-calendario tbody td.vacio { background: rgba(255, 255, 255, 0.35); }
+/* Kiwi: dibujos a lápiz, alternados a cada lado */
+.mural .m-kiwi .fila.inversa { flex-direction: row; }
+.mural .m-kiwi .ave { width: 46mm; }
+.mural .m-kiwi .fruta { width: 34mm; flex: none; display: block; }
