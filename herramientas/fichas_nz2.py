@@ -367,44 +367,43 @@ def dorso(r, D, F):
         filas += (f'<div class="sec">{glifo_html(k, 5)}<div class="n">{SECTOR_ES[k][0]} <i>{SECTOR_ES[k][1]}</i>'
                   f'<small data-meta>{num(s["valores"][r["iso"]])} {s["unidad"]}{F(FUENTE_SECTOR[s["fuente"]])}</small></div>'
                   f'<span class="barra"><i style="width:{min(100, v * 2.2):.0f}%;background:var(--s-{k})"></i></span>'
-                  f'<b>{num(v)} %</b><small class="r" data-meta>{rango(s, r["iso"])}.ª de 16</small></div>')
+                  f'<b>{num(v)} %<small class="r" data-meta>{rango(s, r["iso"])}.ª de 16</small></b></div>')
     claves = {s['clave'] for _, _, s in sect}
-    con = claves | ({'esqui'} if r['iso'] in CON_ESQUI else set())
-    puestos = [x for x in practico['puestos'] if set(x['sectores']) & con]
-    tabla_p = ''.join(f'<tr><th>{esc(x["titulo"])}<small data-meta>{esc(x["es"])}</small></th><td>{x["requisitos"]}</td>'
-                      f'<td class="tipo">{x["continuidad"]}</td></tr>' for x in puestos)
+    fuertes = {s['clave'] for s in sectores() if (rango(s, r['iso']) or 99) <= 4}
+    con = claves | fuertes | ({'esqui'} if r['iso'] in CON_ESQUI else set())
+    puestos = [x for x in practico['puestos'] if set(x['sectores']) & con][:5]
+    tabla_p = ''.join(f'<div class="puesto"><div class="t"><b>{esc(x["titulo"])}</b> <span class="es">{esc(x["es"])}</span></div>'
+                      f'<p><span class="cont">{x["continuidad"]}.</span> {x["requisitos"]}</p></div>' for x in puestos)
     fuente_p = F(practico['fuente_puestos'])
     filas_cal, cal = calendario_region(r, claves)
     cab = '<tr><th></th>' + ''.join(f'<td class="m" data-meta>{m}</td>' for m in MESES) + '</tr>'
-    fuente_cal = F('Work and Income: «Fruit and vegetable seasonal work» y «Finding seasonal work»; PickNZ. Consultado el 2026-10-21.')
+    fuente_cal = F('Work and Income, calendario de temporada; PickNZ.')
     trabajo = ('<section class="trabajo"><h2>Trabajo</h2>'
                f'<h3>De qué vive la región {etq("dato")}</h3>'
-               '<p class="bajada">Parte del total del país que está en la región. Cada sector se mide distinto (cabezas, '
-               'hectáreas o empleos): no compares las barras entre sí.</p>'
+               '<p class="bajada">Parte del total del país; cada sector se mide distinto.</p>'
                f'<div class="sectores">{filas}</div>'
                f'<h3>Puestos de entrada para investigar {etq("ori")}{fuente_p}</h3>'
-               '<table class="puestos"><tr><th></th><td class="c" data-meta>Qué suelen pedir</td><td class="c" data-meta>Continuidad</td></tr>'
-               f'{tabla_p}</table>'
+               f'<div class="puestos">{tabla_p}</div>'
                '<p class="nota">Es una línea de investigación, no una lista de vacantes: confirmalo en avisos actuales.</p>'
                f'<h3>Cuándo hay temporada {etq("ori")}{fuente_cal}</h3>'
                f'<table class="temporada">{cab}{"".join(filas_cal)}</table>'
-               '<p class="leyenda-cal"><span class="mu"></span> meses con trabajo <span class="mu pico"></span> meses de más trabajo. '
-               f'{etq("rec")} Los empleadores contratan antes de que empiece la temporada: empezá a buscar unas semanas antes. '
-               'Las ventanas cambian con el clima y el año, y no garantizan trabajo.</p></section>')
+               '<p class="leyenda-cal"><span class="mu"></span> con trabajo <span class="mu pico"></span> meses pico. '
+               f'{etq("rec")} Se contrata antes de que empiece la temporada: buscá unas semanas antes. Cambia cada año y no '
+               'garantiza trabajo.</p></section>')
     # Plata: dato, estimación y cálculo separados y a la vista
-    cuarto = round(r['alquiler'] / 3 / 5) * 5
-    horas = cuarto / p['salario_minimo']
-    sal = practico['salario_minimo']
+    sal, cu = practico['salario_minimo'], practico['cuarto']
+    cuarto = cu['mediana']
+    horas = cuarto / sal['valor']
     plata = ('<section class="plata"><h2>Plata</h2><div class="cifras">'
-             f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: alquiler mediano de una casa entera en la región '
-             f'(bonos nuevos, jun. 2026) {etq("dato")}{F("Tenancy Services, datos de alquiler por bonos, junio 2026.")}</span></div>'
-             f'<div><b>≈ NZ$ {cuarto}</b><span>un cuarto en casa compartida: un tercio del alquiler de la casa. No es un precio '
-             f'observado {etq("est")}</span></div>'
-             f'<div><b>NZ$ {num(p["salario_minimo"], 2)}</b><span>por hora: salario mínimo adulto, bruto (antes de impuestos), '
-             f'desde {sal["desde"]} {etq("dato")}{F(sal["fuente"])}</span></div>'
-             f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo bruto pagan ese cuarto ({cuarto} ÷ {num(p["salario_minimo"], 2)}) '
+             f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: casa entera, mediana de la región (bonos nuevos, jun. 2026) '
+             f'{etq("dato")}{F("Tenancy Services, datos de alquiler por bonos, junio 2026.")}</span></div>'
+             f'<div><b>NZ$ {cuarto}</b><span>por semana: cuarto compartido, mediana de todo el país ({cu["periodo"]}); no hay '
+             f'dato por región {etq("dato")}{F(cu["fuente"])}</span></div>'
+             f'<div><b>NZ$ {num(sal["valor"], 2)}</b><span>por hora: salario mínimo adulto, bruto, desde {sal["desde"]} '
+             f'{etq("dato")}{F(sal["fuente"])}</span></div>'
+             f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo bruto pagan el cuarto ({cuarto} ÷ {num(sal["valor"], 2)}) '
              f'{etq("calc")}</span></div></div>'
-             '<p class="nota">El alquiler no es el único gasto: sumá comida, transporte, teléfono y, en muchas casas, luz e internet.</p>'
+             '<p class="nota">Muchos cuartos no registran bono: el precio real varía. Sumá comida, transporte, teléfono y servicios.</p>'
              '</section>')
     # Clima: de qué estación, qué variable, qué período y contra qué se compara
     es = r['estacion']
@@ -429,20 +428,23 @@ def dorso(r, D, F):
     dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
     km = ''.join(f'<li><b>{esc(v["ciudad"])}</b> <span>{v["km"]} km</span></li>' for v in dist['vecinas'] if v['km'])
     mov = practico['movilidad'].get(r['iso'], {})
-    extras = ''.join(f'<p><b>{esc(k)}:</b> {v}{F(f)}</p>' for k, v, f in mov.get('items', []))
+    extras = ''.join(f'<p><b>{esc(k)}:</b> {v}</p>' for k, v, f in mov.get('items', []))
+    if extras:
+        extras += f'<p class="nota" data-meta>Conexiones: sitios oficiales de aeropuertos, KiwiRail, InterCity y ferris{F("Sitios oficiales de aeropuertos, Great Journeys NZ (KiwiRail), InterCity, Interislander, Bluebridge y RealNZ.")}</p>'
     movilidad = ('<section class="movilidad"><h2>Movilidad</h2>'
                  f'<h3>De {esc(dist["ciudad"])} a las ciudades vecinas, por ruta {etq("calc")}'
-                 f'{F("Cálculo propio: camino más corto en la red de rutas de LINZ (Topo 1:250k), redondeado a 5 km.")}</h3>'
+                 f'{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
                  f'<ul class="km">{km}</ul>{extras}</section>')
     return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
-            f'<header class="cabecera-dorso"><h1>{esc(r["nombre"])}</h1><span>trabajo, plata, clima y movilidad</span></header>'
-            f'<div class="columnas"><div class="izq">{trabajo}</div><div class="der">{plata}{clima}{movilidad}'
-            f'<section class="fuentes"><h2>Fuentes</h2><p class="lista">{F.html()}</p>'
-            f'<p class="tipos" data-meta>{etq("dato")} publicado por un organismo oficial · {etq("est")} aproximación con '
-            f'supuestos a la vista · {etq("calc")} cuenta hecha con datos de la ficha · {etq("rec")} consejo práctico, no un dato · '
-            f'{etq("ori")} referencia útil, sin garantía. Consultadas entre el 2026-10-21 y el {FECHA}.</p></section></div></div>'
-            f'<footer class="pie" data-meta><span>{codigo} · dorso · v{VERSION} · {FECHA}</span><span>Enciclopedia para imprimir</span>'
-            '</footer></div>')
+            f'<header class="cabecera-dorso"><h1>{esc(r["nombre"])}</h1><span>trabajo, plata, clima y movilidad</span>'
+            f'<span class="cod" data-meta>{codigo} · dorso · v{VERSION} · {FECHA}</span></header>'
+            f'<div class="columnas"><div class="izq">{trabajo}'
+            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación con supuestos a la vista · '
+            f'{etq("calc")} cuenta con datos de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía.</p></div>'
+            f'<div class="der">{plata}{clima}{movilidad}'
+            f'<section class="fuentes"><h2>Fuentes <span class="donde" data-meta>consultadas entre el 2026-10-21 y el {FECHA}</span></h2>'
+            f'<p class="lista">{F.html()}</p></section></div></div>'
+            '</div>')
 
 
 def ficha(r, D, destino):

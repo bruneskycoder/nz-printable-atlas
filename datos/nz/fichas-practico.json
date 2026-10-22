@@ -1,10 +1,314 @@
 {
- "_nota": "BORRADOR: puestos, salario mínimo y movilidad, a completar con datos verificados.",
- "fuente_puestos": "Careers NZ (careers.govt.nz), perfiles de cada puesto.",
+ "_nota": "Datos prácticos de las fichas v2, verificados el 2026-10-22. Los puestos son una línea de investigación (no vacantes); los requisitos son los que Tahatū describe como habituales o posibles. Ver PLAN-mural-nz.md.",
+ "fuente_puestos": "Tahatū Career Navigator (ex Careers NZ), perfiles de puestos; Site Safe; NZSki.",
  "salario_minimo": {
-  "desde": "?",
+  "valor": 23.95,
+  "desde": "el 1 abr. 2026",
   "fuente": "Employment NZ, salario mínimo."
  },
- "puestos": [],
- "movilidad": {}
+ "cuarto": {
+  "mediana": 290,
+  "periodo": "abr.–jun. 2026",
+  "bonos": 768,
+  "fuente": "Tenancy Services, bonos por trimestre, tipo «Room», todo el país, abr.–jun. 2026 (768 bonos; provisorio)."
+ },
+ "puestos": [
+  {
+   "sectores": [
+    "fruta",
+    "hortalizas"
+   ],
+   "titulo": "Fruit picker · packhouse worker",
+   "es": "cosecha y empaque",
+   "requisitos": "Sin experiencia. En empaque, a veces licencia de autoelevador.",
+   "continuidad": "Por temporada (cosecha)"
+  },
+  {
+   "sectores": [
+    "lecheria"
+   ],
+   "titulo": "Dairy farm assistant",
+   "es": "tambo",
+   "requisitos": "Sin experiencia; a veces licencia de conducir. Madrugadas, fines de semana, vivienda en el campo.",
+   "continuidad": "Suele ser permanente"
+  },
+  {
+   "sectores": [
+    "frigorificos"
+   ],
+   "titulo": "Meat process worker",
+   "es": "frigorífico",
+   "requisitos": "Se aprende trabajando; test de drogas antes de entrar. Turnos, frío y ruido.",
+   "continuidad": "Por temporada: oct.–may. y jul.–ago."
+  },
+  {
+   "sectores": [
+    "ovinos"
+   ],
+   "titulo": "Shed hand · wool handler",
+   "es": "galpón de esquila",
+   "requisitos": "Buen estado físico; a veces una temporada de experiencia y transporte propio.",
+   "continuidad": "Por temporada: ago.–may."
+  },
+  {
+   "sectores": [
+    "vid"
+   ],
+   "titulo": "Vineyard worker",
+   "es": "viñedo",
+   "requisitos": "Licencia de conducir; a veces experiencia y examen médico.",
+   "continuidad": "Todo el año, con picos"
+  },
+  {
+   "sectores": [
+    "alojamiento"
+   ],
+   "titulo": "Kitchenhand · housekeeper · waiter",
+   "es": "hotelería y gastronomía",
+   "requisitos": "Sin título; normas de higiene. En barra, mayor de 18 y a veces LCQ.",
+   "continuidad": "Casual o part-time"
+  },
+  {
+   "sectores": [
+    "esqui"
+   ],
+   "titulo": "Ski field staff",
+   "es": "centros de esquí",
+   "requisitos": "Mayor de 16 y certificado de antecedentes; se contrata hacia marzo.",
+   "continuidad": "Por temporada: jun.–oct."
+  },
+  {
+   "sectores": [
+    "forestal"
+   ],
+   "titulo": "Forestry worker",
+   "es": "forestal",
+   "requisitos": "Mayor de 16; a veces licencia de conducir. Trabajo de riesgo.",
+   "continuidad": "Suele ser permanente"
+  },
+  {
+   "sectores": [
+    "construccion"
+   ],
+   "titulo": "Construction labourer",
+   "es": "peón de obra",
+   "requisitos": "Sin experiencia; muy pedida la tarjeta de Site Safe.",
+   "continuidad": "Permanente o por agencia"
+  },
+  {
+   "sectores": [
+    "transporte"
+   ],
+   "titulo": "Storeperson · forklift operator",
+   "es": "depósito y autoelevador",
+   "requisitos": "Licencia de conducir; para autoelevador, certificado y endoso F.",
+   "continuidad": "Permanente, por turnos"
+  }
+ ],
+ "movilidad": {
+  "NTL": {
+   "items": [
+    [
+     "Buses",
+     "InterCity a Auckland y al norte.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "AUK": {
+   "items": [
+    [
+     "Aeropuerto internacional",
+     "Auckland, el principal del país.",
+     "Sitios oficiales de los aeropuertos."
+    ],
+    [
+     "Trenes",
+     "Northern Explorer a Wellington (3 por semana); Te Huia a Hamilton (en prueba hasta jun. 2027).",
+     "Great Journeys NZ (KiwiRail)."
+    ],
+    [
+     "Buses",
+     "InterCity a todo el país.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "WKO": {
+   "items": [
+    [
+     "Trenes",
+     "Te Huia Hamilton–Auckland (en prueba hasta jun. 2027); Northern Explorer.",
+     "Waikato Regional Council: prueba de Te Huia extendida hasta el 30 jun. 2027."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "BOP": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "GIS": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "HKB": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "TKI": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "MWT": {
+   "items": [
+    [
+     "Trenes",
+     "Northern Explorer; Capital Connection a Wellington (días hábiles).",
+     "Great Journeys NZ (KiwiRail)."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "WGN": {
+   "items": [
+    [
+     "Aeropuerto internacional",
+     "Wellington (vuelos a Australia y Fiji).",
+     "Sitios oficiales de los aeropuertos."
+    ],
+    [
+     "Ferry",
+     "Interislander y Bluebridge a Picton, 3,5 h.",
+     "Interislander y Bluebridge (sitios oficiales)."
+    ],
+    [
+     "Trenes",
+     "Northern Explorer a Auckland; Capital Connection a Palmerston North.",
+     "Great Journeys NZ (KiwiRail)."
+    ]
+   ]
+  },
+  "TAS": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "NLS": {
+   "items": [
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "MBH": {
+   "items": [
+    [
+     "Ferry",
+     "Interislander y Bluebridge de Picton a Wellington, 3,5 h.",
+     "Interislander y Bluebridge (sitios oficiales)."
+    ],
+    [
+     "Trenes",
+     "Coastal Pacific Picton–Christchurch (sep.–abr.).",
+     "Great Journeys NZ (KiwiRail)."
+    ]
+   ]
+  },
+  "WTC": {
+   "items": [
+    [
+     "Trenes",
+     "TranzAlpine Greymouth–Christchurch, todos los días.",
+     "Great Journeys NZ (KiwiRail)."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "CAN": {
+   "items": [
+    [
+     "Aeropuerto internacional",
+     "Christchurch.",
+     "Sitios oficiales de los aeropuertos."
+    ],
+    [
+     "Trenes",
+     "TranzAlpine a Greymouth (diario); Coastal Pacific a Picton (sep.–abr.).",
+     "Great Journeys NZ (KiwiRail)."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "OTA": {
+   "items": [
+    [
+     "Aeropuertos internacionales",
+     "Queenstown y Dunedin (vuelos a Australia).",
+     "Sitios oficiales de los aeropuertos."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  },
+  "STL": {
+   "items": [
+    [
+     "Ferry",
+     "Bluff–Oban (Stewart Island), alrededor de 1 h, con RealNZ.",
+     "RealNZ, ferry de Stewart Island (Bluff–Oban)."
+    ],
+    [
+     "Buses",
+     "InterCity.",
+     "InterCity (intercity.co.nz)."
+    ]
+   ]
+  }
+ }
 }

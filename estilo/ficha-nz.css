@@ -191,3 +191,21 @@
 .ficha2 .plata .cifras div, .ficha2 .clima div { grid-template-columns: 24mm 1fr; margin: 0.6mm 0 1.2mm; }
 .ficha2 .clima div { grid-template-columns: 6mm 21mm 1fr; }
 .ficha2 .plata .cifras b, .ficha2 .clima b { font-size: 14pt; }
+.ficha2 .sec { grid-template-columns: 5mm 1fr 20mm 16mm; }
+.ficha2 .sec b { line-height: 1.05; }
+.ficha2 .sec b small.r { display: block; font-weight: 400; font-size: 8pt; color: #5b6a77; }
+.ficha2 .puestos .puesto { border-top: 0.2mm solid rgba(31, 58, 85, 0.18); padding: 0.7mm 0; }
+.ficha2 .puestos .t { display: flex; align-items: baseline; gap: 1.6mm; font-size: 10pt; }
+.ficha2 .puestos .t .es { color: #5b6a77; }
+.ficha2 .puestos .t .cont { margin-left: auto; font-size: 10pt; font-weight: 700; color: #6a3a7a; white-space: nowrap; }
+.ficha2 .puestos p { font-size: 10pt; line-height: 1.2; margin: 0.2mm 0 0; color: #33424f; }
+.ficha2 .movilidad .nota { font-size: 8pt; color: #5b6a77; }
+.ficha2 .sec { grid-template-columns: 5mm 1fr 15mm 15mm; }
+.ficha2 .puestos .t { display: block; }
+.ficha2 .puestos .cont { font-weight: 700; color: #6a3a7a; }
+.ficha2 .izq .tipos { font-size: 8pt; color: #4a5866; line-height: 1.55; margin: auto 0 0; }
+.ficha2.dorso { padding-top: 11mm; gap: 2mm; }
+.ficha2 .cabecera-dorso h1 { font-size: 19pt; }
+.ficha2 .fuentes h2 .donde { font-size: 8pt; }
+.ficha2 .cabecera-dorso .cod { margin-left: auto; font-size: 8pt; color: #5b5145; }
+.ficha2 .columnas > div { gap: 1.8mm; }
