@@ -1,0 +1,35 @@
+{
+  "slug": "terrazas-blomfield-1886",
+  "titulo": "Pink and white terraceslabel QS:Len,\"Pink and white terraces\"",
+  "autor": "Charles Blomfield",
+  "fecha": "1886date QS:P571,+1886-00-00T00:00:00Z/9",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Charles_Blomfield_-_Pink_and_white_terraces_(1886).jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6f/Charles_Blomfield_-_Pink_and_white_terraces_%281886%29.jpg/1280px-Charles_Blomfield_-_Pink_and_white_terraces_%281886%29.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1797,
+    691
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "Webb's, Auckland, 02.10.2011, lot 162 via ARCADJA auction results",
+  "descripcion": "",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:Charles Blomfield - Pink and white terraces (1886).jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/terrazas-blomfield-1886/original.jpg",
+  "sha256_original": "e53216c7db4528d191f22515b4e8a8296036b8bc9585cfdd811f5999ecaca40b",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "0,0,1280,492",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1280,
+      492
+    ]
+  }
+}

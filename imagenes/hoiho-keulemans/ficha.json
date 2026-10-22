@@ -1,0 +1,35 @@
+{
+  "slug": "hoiho-keulemans",
+  "titulo": "Bul02BirdP046",
+  "autor": "By J. G. Keulemans, in W.L. Buller's A History of the Birds of New Zealand. 2nd edition. Published 1888.",
+  "fecha": "published 1888",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Bul02BirdP046.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/97/Bul02BirdP046.jpg/960px-Bul02BirdP046.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1076,
+    1368
+  ],
+  "licencia_texto": "CC BY-SA 3.0 nz",
+  "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0/nz/deed.en",
+  "credito": "New Zealand Electronic Text Centre",
+  "descripcion": "Illustration of the Yellow-eyed Penguin/Hoiho (Megadyptes antipodes) and the Erect-crested Penguin (Eudyptes sclateri).",
+  "licencia": "CC BY-SA",
+  "licencia_libre": true,
+  "referencia": "commons:File:Bul02BirdP046.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/hoiho-keulemans/original.jpg",
+  "sha256_original": "b571f249b98e6d154546de712763befd9e6144ef4cec7c871799bdec9cf59624",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "115,341,460,976",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      345,
+      635
+    ]
+  }
+}

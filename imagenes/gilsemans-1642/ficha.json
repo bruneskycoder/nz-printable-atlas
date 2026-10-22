@@ -1,0 +1,35 @@
+{
+  "slug": "gilsemans-1642",
+  "titulo": "Gilsemans 1642",
+  "autor": "Isaack Gilsemans",
+  "fecha": "1642-12-18",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Gilsemans_1642.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/6/6e/Gilsemans_1642.jpg/1920px-Gilsemans_1642.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    2960,
+    1924
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "nl:Nationaal Archief [1]",
+  "descripcion": "A view of the Murderers' Bay, as you are at anchor here in 15 fathom (text upper left). A drawing with description made by Abel Tasman's artist Isaack Gilsemans on the occasion of a skirmish between the Dutch explorers and Māori people at what is now called Golden Bay, New Zealand. This drawing is the first European impression of Māori people. Translation of the index on the right: A. are our ships (on the left the 'Zeehaen', on the right the 'Heemskerck'). B. are the pirogues that came around o",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:Gilsemans 1642.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/gilsemans-1642/original.jpg",
+  "sha256_original": "79abc68f2e636874dadc7b7edc6244475ad7feb8fe9d5b46a9407bc04677976b",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "0,374,1920,1248",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1920,
+      874
+    ]
+  }
+}

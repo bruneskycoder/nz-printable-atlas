@@ -1,0 +1,35 @@
+{
+  "slug": "tuatara-wellcome",
+  "titulo": "A tuatara and gull sitting on top of a burrow which they sha",
+  "autor": "",
+  "fecha": "",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:A_tuatara_and_gull_sitting_on_top_of_a_burrow_which_they_sha_Wellcome_V0022814.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c0/A_tuatara_and_gull_sitting_on_top_of_a_burrow_which_they_sha_Wellcome_V0022814.jpg/1920px-A_tuatara_and_gull_sitting_on_top_of_a_burrow_which_they_sha_Wellcome_V0022814.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    3250,
+    2208
+  ],
+  "licencia_texto": "CC BY 4.0",
+  "licencia_url": "https://creativecommons.org/licenses/by/4.0",
+  "credito": "https://wellcomeimages.org/indexplus/obf_images/07/c4/350fe6c60e2c0ae9a3755bc21335.jpg Gallery: https://wellcomeimages.org/indexplus/image/V0022814.html Wellcome Collection gallery (2018-03-23): https://wellcomecollection.org/works/amx4bngv CC-BY-4.0",
+  "descripcion": "A tuatara and gull sitting on top of a burrow which they share. Wood engraving. Iconographic Collections",
+  "licencia": "CC BY",
+  "licencia_libre": true,
+  "referencia": "commons:File:A tuatara and gull sitting on top of a burrow which they sha Wellcome V0022814.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/tuatara-wellcome/original.jpg",
+  "sha256_original": "a853d3edf9c3773efad7c2bce03865d0a7aa4e9c9e11b14dc10eb88468b7ec05",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "57,39,1862,1212",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1805,
+      1173
+    ]
+  }
+}

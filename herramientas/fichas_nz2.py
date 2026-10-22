@@ -23,6 +23,7 @@ from glifos import glifo_html
 FECHA = '2026-10-22'
 VERSION = 2
 MAPA_W, MAPA_H = 182, 114
+MAX_PUESTOS = 5
 ESTILO = {
     'agua': (3.35, 'texto', 400, 0.15), 'lago': (3.0, 'texto', 400, 0), 'sierra': (4.6, 'titulo', 700, 1.2),
     'sierra-chica': (3.0, 'texto', 700, 0.5), 'isla': (3.0, 'texto', 700, 0), 'rio': (2.95, 'texto', 400, 0),
@@ -334,8 +335,9 @@ def frente(r, D, destino, F):
     cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(r['iso'])
     especie = ''
     if cur:
-        dibujo = f'<img class="dibujo" src="{imagen_lapiz(cur["imagen"], 1400, vineta=0.12, fino=True)}" alt="">'
-        especie = (f'<section class="especie">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
+        hay = (RAIZ / 'imagenes' / cur['imagen'] / 'maestra.jpg').exists()
+        dibujo = f'<img class="dibujo" src="{imagen_lapiz(cur["imagen"], 1400, vineta=0.12, fino=True)}" alt="">' if hay else ''
+        especie = (f'<section class="especie{"" if hay else " sin-dibujo"}">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
                    f'<p class="credito" data-meta>{cur["credito"]}</p></div></section>')
     mi = f'En māori, la región se llama <b>{esc(r["mi"])}</b>. ' if r.get('mi') else ''
     te_ara = F('Te Ara, enciclopedia de NZ.')
@@ -464,7 +466,7 @@ def dorso(r, D, F):
     claves = {s['clave'] for _, _, s in sect}
     fuertes = {s['clave'] for s in sectores() if (rango(s, r['iso']) or 99) <= 4}
     con = claves | fuertes | ({'esqui'} if r['iso'] in CON_ESQUI else set())
-    puestos = [x for x in practico['puestos'] if set(x['sectores']) & con][:5]
+    puestos = [x for x in practico['puestos'] if set(x['sectores']) & con][:MAX_PUESTOS]
     meses = ''.join(f'<span data-meta>{m}</span>' for m in MESES)
     filas_p = ''
     for x in puestos:
@@ -557,11 +559,47 @@ def ficha(r, D, destino):
             f'</head>\n<body>\n{cara}\n{atras}\n</body>\n</html>\n')
 
 
+def desbordes(html):
+    """(mm que el frente se pasa del margen, si la columna izquierda del dorso no entra), según construir.mjs."""
+    import re
+    import subprocess
+    salida = subprocess.run(['node', str(RAIZ / 'herramientas' / 'construir.mjs'), str(html), '--forzar'],
+                            capture_output=True, text=True).stdout
+    pag1 = 'página 1: hay tinta' in salida
+    peor = 0.0
+    for linea in salida.splitlines():
+        if 'fuera-de-margen' in linea and ('· frente ·' in linea or 'Mural NZ-A-00' in linea or pag1):
+            m = re.search(r'queda a (-?[\d.]+) mm', linea)
+            peor = max(peor, 8 - float(m.group(1)) if m else 20)
+    izquierda = 'página 2: hay tinta' in salida and any('fuera-de-margen' in l and ('p.tipos' in l or 'etq.' in l)
+                                                         for l in salida.splitlines())
+    return peor, izquierda
+
+
 if __name__ == '__main__':
+    # Uso: python3 fichas_nz2.py CAN 14 ... [--ajustar]
+    # --ajustar achica el mapa de cada ficha cuyo frente no entra y guarda el alto en datos/nz/fichas-ajuste.json
     D = datos()
     dest = RAIZ / 'salida' / 'pruebas'
     dest.mkdir(parents=True, exist_ok=True)
+    archivo_ajuste = DATOS / 'fichas-ajuste.json'
+    ajuste = json.loads(archivo_ajuste.read_text()) if archivo_ajuste.exists() else {}
     for r in D['regiones']:
         if r['iso'] in sys.argv[1:] or str(r['n']) in sys.argv[1:]:
-            (dest / f'NZ-A-{r["n"]:02d}.html').write_text(ficha(r, D, dest))
-            print(f'  salida/pruebas/NZ-A-{r["n"]:02d}.html')
+            html = dest / f'NZ-A-{r["n"]:02d}.html'
+            a = ajuste.get(r['iso'], {})
+            MAPA_H, MAX_PUESTOS = a.get('mapa', 114), a.get('puestos', 5)
+            html.write_text(ficha(r, D, dest))
+            while '--ajustar' in sys.argv:
+                falta, izquierda = desbordes(html)
+                if falta <= 0 and (not izquierda or MAX_PUESTOS <= 3):
+                    break
+                if falta > 0:
+                    MAPA_H -= math.ceil(falta + 0.5)
+                if izquierda:
+                    MAX_PUESTOS -= 1
+                ajuste[r['iso']] = {'mapa': MAPA_H, 'puestos': MAX_PUESTOS}
+                html.write_text(ficha(r, D, dest))
+            print(f'  salida/pruebas/{html.name}  (mapa de {MAPA_H} mm, {MAX_PUESTOS} puestos)')
+    if '--ajustar' in sys.argv:
+        archivo_ajuste.write_text(json.dumps(dict(sorted(ajuste.items())), indent=1) + '\n')

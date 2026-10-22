@@ -8,5 +8,125 @@
   "credito": "Dibujo sobre J. G. Keulemans, Anarhynchus frontalis, The Ibis (1869), dominio público.",
   "proporcion": 0.6,
   "fuente_texto": "NZ Birds Online (Te Papa), «Wrybill»."
+ },
+ "NTL": {
+  "titulo": "El dios del bosque",
+  "texto": "El <b>kauri</b> más grande que sigue en pie es Tāne Mahuta, en Waipoua Forest: mide 51,2 m de alto y 13,77 m de circunferencia. Lleva el nombre del dios māori del bosque. Sus raíces son superficiales y muy sensibles: no hay que salirse del sendero.",
+  "fuente": "https://www.doc.govt.nz/parks-and-recreation/places-to-go/northland/places/waipoua-forest/things-to-do/tane-mahuta-walk/",
+  "imagen": "kauri-kirk-1889",
+  "credito": "Dibujo sobre la lámina 42 de T. Kirk, The Forest Flora of New Zealand (1889), dominio público.",
+  "fuente_texto": "DOC, «Tāne Mahuta Walk»."
+ },
+ "AUK": {
+  "titulo": "Una ciudad sobre volcanes",
+  "texto": "Auckland está construida sobre un campo volcánico de unos 50 volcanes (GeoNet cuenta 53). El más nuevo, <b>Rangitoto</b>, surgió hace unos 600 años y él solo largó tanta lava como todos los demás juntos. Es el único del campo que hizo erupción dos veces.",
+  "fuente": "https://www.geonet.org.nz/about/volcano/aucklandvolcanicfield",
+  "imagen": "maungarei-hochstetter-1860",
+  "credito": "Dibujo sobre F. von Hochstetter, Maungarei (Mount Wellington), otro volcán de Auckland (c. 1860), dominio público.",
+  "fuente_texto": "GeoNet, «Auckland Volcanic Field»."
+ },
+ "WKO": {
+  "titulo": "Un rescate que hizo escuela",
+  "texto": "El <b>kōkako</b> estaba amenazado. En Mapara, en el King Country, se probó cómo salvarlo: con control de predadores, entre 1992 y 1999 la población se duplicó y la de hembras se multiplicó al menos por nueve. El método se copió en otras regiones; hoy hay unas 2.300 parejas en la North Island.",
+  "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/kokako/",
+  "imagen": "kokako-keulemans-1888",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), dominio público.",
+  "fuente_texto": "DOC, «Kōkako»."
+ },
+ "BOP": {
+  "titulo": "Las terrazas perdidas",
+  "texto": "Las <b>Pink and White Terraces</b>, escalinatas de sílice junto al lago Rotomahana, atraían visitantes de todo el mundo. La erupción del Mount Tarawera, el 10 de junio de 1886, las destruyó o las sumergió. Murieron unas 120 personas.",
+  "fuente": "https://nzhistory.govt.nz/page/tarawera-eruption",
+  "imagen": "terrazas-blomfield-1886",
+  "credito": "Dibujo sobre C. Blomfield, Pink and White Terraces (1886), dominio público.",
+  "fuente_texto": "NZHistory, «Tarawera eruption, 1886»; Te Ara."
+ },
+ "GIS": {
+  "titulo": "La bahía de la pobreza",
+  "texto": "El 8 de octubre de 1769, James Cook y la tripulación del Endeavour desembarcaron en Tūranga: fue el primer desembarco europeo en el país. Los primeros encuentros terminaron con varios māori muertos. Cook la llamó <b>Poverty Bay</b> porque «no nos dio ninguna de las cosas que queríamos».",
+  "fuente": "https://teara.govt.nz/en/east-coast-region/page-5",
+  "imagen": "canoa-parkinson-1769",
+  "credito": "Dibujo sobre S. Parkinson, canoa de guerra māori (1769), viaje de Cook, dominio público.",
+  "fuente_texto": "Te Ara, «East Coast region» y «Tūranganui-a-Kiwa tribes»."
+ },
+ "HKB": {
+  "titulo": "La ciudad que se levantó",
+  "texto": "El 3 de febrero de 1931, un terremoto de magnitud 7,8 destruyó Napier y Hastings y mató a 256 personas. El fondo de la laguna de Ahuriri subió y quedó en seco: hoy ahí está el aeropuerto. <b>Napier</b> se reconstruyó en art déco, que hoy atrae turistas.",
+  "fuente": "https://teara.govt.nz/en/historic-earthquakes/page-6",
+  "imagen": "napier-1931",
+  "credito": "Dibujo sobre una foto de la Napier Technical College después del terremoto (1931), MTG Hawke’s Bay, dominio público.",
+  "fuente_texto": "Te Ara, «Historic earthquakes»; NZHistory."
+ },
+ "TKI": {
+  "titulo": "Una montaña con personería",
+  "texto": "Desde 2025, el <b>Mount Taranaki</b> es persona jurídica: Te Kāhui Tupua, que incluye también a Pouākai y Kaitake. La misma ley cambió el nombre del Egmont National Park por Te Papa-Kura-o-Taranaki, y el de su cumbre por Taranaki Maunga. Sigue siendo parque nacional, abierto a todos.",
+  "fuente": "https://www.legislation.govt.nz/act/public/2025/1/en/latest/",
+  "imagen": "taranaki-haghe-heaphy",
+  "credito": "Dibujo sobre L. Haghe, según C. Heaphy, Mount Egmont from near the Waimate Pah (c. 1842), dominio público.",
+  "fuente_texto": "Taranaki Maunga Collective Redress Act 2025; Te Tari Whakatau."
+ },
+ "MWT": {
+  "titulo": "El pato de los rápidos",
+  "texto": "El <b>whio</b> (blue duck) es uno de los pocos patos del mundo que viven todo el año en ríos rápidos. Solo existe en Nueva Zelanda, es más raro que algunas especies de kiwi (quedan menos de 3.000) y aparece en el billete de 10 dólares. Su nombre imita el llamado del macho.",
+  "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/blue-duck-whio/",
+  "imagen": "whio-keulemans-1873",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1873), dominio público.",
+  "fuente_texto": "DOC, «Blue duck/whio»."
+ },
+ "WGN": {
+  "titulo": "Loros en la capital",
+  "texto": "Los <b>kākā</b> habían desaparecido de Wellington hacía un siglo. En 2002, Zealandia, un santuario cercado dentro de la ciudad, soltó 14 jóvenes criados en el zoológico de Auckland. Hoy anidan y se los ve en barrios de toda la ciudad.",
+  "fuente": "https://www.visitzealandia.com/learn/nature-and-wildlife/birds/north-island-k%C4%81k%C4%81/",
+  "imagen": "kaka-keulemans-1888",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), dominio público.",
+  "fuente_texto": "Zealandia, «North Island kākā»; DOC."
+ },
+ "TAS": {
+  "titulo": "El primer dibujo",
+  "texto": "En diciembre de 1642, los barcos de Abel Tasman anclaron en <b>Golden Bay</b>. Canoas māori embistieron un bote y murieron cuatro marineros; Tasman se fue sin desembarcar y la llamó «bahía de los asesinos». Este dibujo, probablemente de Isaack Gilsemans, es una de las primeras imágenes europeas de los māori.",
+  "fuente": "https://teara.govt.nz/en/dutch/page-1",
+  "imagen": "gilsemans-1642",
+  "credito": "Dibujo sobre I. Gilsemans, A view of the Murderers’ Bay (1642), Nationaal Archief, dominio público.",
+  "fuente_texto": "Te Ara, «Dutch»; NZHistory."
+ },
+ "NLS": {
+  "titulo": "De Alaska sin escalas",
+  "texto": "Los <b>kuaka</b> (bar-tailed godwits) llegan desde Alaska a partir de septiembre: 11.000 a 12.000 km sin parar, en ocho o nueve días. En Nelson Haven y Waimea Inlet pasan el verano cientos de ellos, y a fines de febrero se concentran antes de volver al norte.",
+  "fuente": "https://www.nzbirdsonline.org.nz/species/bar-tailed-godwit",
+  "imagen": "kuaka-keulemans",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), escaneo NZETC, CC BY-SA.",
+  "fuente_texto": "NZ Birds Online, «Bar-tailed godwit»; DOC, Science for Conservation 315."
+ },
+ "MBH": {
+  "titulo": "El último de su linaje",
+  "texto": "El <b>tuatara</b> es el último sobreviviente de un orden de reptiles que prosperó en la época de los dinosaurios, hace unos 200 millones de años. Su mayor población, unos 30.000, vive en Takapourewa (Stephens Island), en el estrecho de Cook, donde a veces comparte cuevas con aves marinas.",
+  "fuente": "https://teara.govt.nz/en/tuatara/page-2",
+  "imagen": "tuatara-wellcome",
+  "credito": "Dibujo sobre un grabado en madera, «The tuatara and mutton birds, inhabiting the same burrow», Wellcome Collection, CC BY.",
+  "fuente_texto": "DOC y Te Ara, «Tuatara»."
+ },
+ "WTC": {
+  "titulo": "El loro de la montaña",
+  "texto": "El <b>kea</b> vive solo en la South Island, en montañas y bosques. Es uno de los pájaros más inteligentes del mundo, famoso por resolver problemas, y le encanta explorar. Está en peligro: se estima que quedan entre 1.000 y 5.000.",
+  "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/kea/",
+  "imagen": "kea-keulemans-1888",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), dominio público.",
+  "fuente_texto": "DOC, «Kea»."
+ },
+ "OTA": {
+  "titulo": "Ojos amarillos",
+  "texto": "El <b>hoiho</b> (yellow-eyed penguin) sería uno de los pingüinos más raros del mundo. La población del norte, la que anida en la costa sureste de la South Island, cayó de unas 741 parejas en 1999 a 233 en 2020.",
+  "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/penguins/yellow-eyed-penguin-hoiho/",
+  "imagen": "hoiho-keulemans",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), escaneo NZETC, CC BY-SA.",
+  "fuente_texto": "DOC, «Yellow-eyed penguin/hoiho»."
+ },
+ "STL": {
+  "titulo": "Volvió de la extinción",
+  "texto": "El <b>takahē</b> se dio por extinto durante casi 50 años. En 1948, Geoffrey Orbell, un médico de Invercargill, encontró la última población en las Murchison Mountains, sobre el lago Te Anau. No vuela y pesa entre 2,3 y 3,8 kg. En 2023 había unos 500.",
+  "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/takahe/",
+  "imagen": "takahe-keulemans-1888",
+  "credito": "Dibujo sobre J. G. Keulemans, en W. L. Buller, A History of the Birds of New Zealand (1888), dominio público.",
+  "fuente_texto": "DOC, «Takahē»."
  }
 }

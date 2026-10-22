@@ -1,0 +1,35 @@
+{
+  "slug": "whio-keulemans-1873",
+  "titulo": "History of the birds of NZ 1st ed p258",
+  "autor": "John Gerrard Keulemans",
+  "fecha": "1873",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:History_of_the_birds_of_NZ_1st_ed_p258.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/5/59/History_of_the_birds_of_NZ_1st_ed_p258.jpg/1920px-History_of_the_birds_of_NZ_1st_ed_p258.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    2426,
+    3383
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "Walter Lawry Buller (1838-1906): A History of the Birds of New Zealand 1st edition. 1873, between pages 258,259. [1]",
+  "descripcion": "Illustration of the New Zealand Scaup and the Blue duck.",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:History of the birds of NZ 1st ed p258.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/whio-keulemans-1873/original.jpg",
+  "sha256_original": "307e558315f4902270493253ce0496c2399351135968e8436751c7032f72fcf4",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "288,374,1824,1499",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1536,
+      1125
+    ]
+  }
+}

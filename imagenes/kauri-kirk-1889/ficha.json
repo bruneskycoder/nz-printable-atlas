@@ -1,0 +1,35 @@
+{
+  "slug": "kauri-kirk-1889",
+  "titulo": "Kirk's Forest Flora of New Zealand42",
+  "autor": "Thomas Kirk (1828-1898)",
+  "fecha": "1889",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Kirk%27s_Forest_Flora_of_New_Zealand42.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/9/95/Kirk%27s_Forest_Flora_of_New_Zealand42.jpg/1280px-Kirk%27s_Forest_Flora_of_New_Zealand42.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1612,
+    2220
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "http://www.nzetc.org/tm/scholarly/tei-SamEarl-t1-body1-d13.html",
+  "descripcion": "Plate 42 Agathis australis Salisb. (kauri), John Hugh Boscawen (1851-1937) (in Kirk's Forest Flora)",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:Kirk's Forest Flora of New Zealand42.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/kauri-kirk-1889/original.jpg",
+  "sha256_original": "b1aaf7055ee741aa37a2f48508e850ce592b41bd57cc2611f7779beb5cafc81d",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "25,581,1254,1551",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1229,
+      970
+    ]
+  }
+}

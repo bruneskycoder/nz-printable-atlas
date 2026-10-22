@@ -234,3 +234,5 @@
 .ficha2 .clima.fila3 > div > span { display: block; font-size: 10pt; line-height: 1.2; }
 .ficha2 .izq .tipos { margin-top: 1mm; }
 .ficha2 .puesto p.cultivos { color: #2f4a33; }
+.ficha2 .especie .dibujo { width: auto; max-width: 54mm; max-height: 46mm; justify-self: center; }
+.ficha2 .especie.sin-dibujo { grid-template-columns: 1fr; }

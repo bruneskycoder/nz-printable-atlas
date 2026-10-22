@@ -1,0 +1,35 @@
+{
+  "slug": "napier-1931",
+  "titulo": "Napier Technical College rubble",
+  "autor": "gifted by Barry Hellberg",
+  "fecha": "1931-02-03",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Napier_Technical_College_rubble.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c4/Napier_Technical_College_rubble.jpg/960px-Napier_Technical_College_rubble.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1200,
+    695
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "https://collection.mtghawkesbay.com/objects/80647/napier-technical-college-napier",
+  "descripcion": "Rubble of Napier Technical College following the 1931 Hawke's Bay earthquake.",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:Napier Technical College rubble.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/napier-1931/original.jpg",
+  "sha256_original": "2d45f799f2252641ef3f1333d53c499fe3543ad28ec1d8ec7bcee29524a8a0c8",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "0,0,960,556",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      960,
+      556
+    ]
+  }
+}

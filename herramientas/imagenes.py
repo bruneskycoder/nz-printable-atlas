@@ -290,7 +290,7 @@ def cmd_preparar(a):
         # El blanco del sujeto (sus píxeles más claros) pasa a blanco papel; el negro queda.
         sujeto = px[np.asarray(mascara) > 230]
         lum = sujeto.mean(1)
-        blanco = sujeto[lum > np.percentile(lum, 97)].mean(0)
+        blanco = sujeto[lum >= np.percentile(lum, 97)].mean(0)
         negro = np.percentile(sujeto, 0.3, axis=0)
         destino = np.array([246, 243, 234], np.float32)
         px = np.clip((px - negro) / (blanco - negro), 0, 1) ** a.gamma * destino

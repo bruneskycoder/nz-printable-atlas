@@ -1,0 +1,35 @@
+{
+  "slug": "kuaka-keulemans",
+  "titulo": "Bul02BirdP028",
+  "autor": "By J. G. Keulemans, in W.L. Buller's A History of the Birds of New Zealand. 2nd edition. Published 1888.",
+  "fecha": "Published 1888",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Bul02BirdP028.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/2/24/Bul02BirdP028.jpg/960px-Bul02BirdP028.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1076,
+    1368
+  ],
+  "licencia_texto": "CC BY-SA 3.0 nz",
+  "licencia_url": "https://creativecommons.org/licenses/by-sa/3.0/nz/deed.en",
+  "credito": "New Zealand Electronic Text Centre",
+  "descripcion": "Illustration of the Chatham Island Snipe (Coenocorypha pusilla) and the Bar-tailed Godwit (Limosa lapponica).",
+  "licencia": "CC BY-SA",
+  "licencia_libre": true,
+  "referencia": "commons:File:Bul02BirdP028.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/kuaka-keulemans/original.jpg",
+  "sha256_original": "1e270735522848769d4009a044b39775aa3e9b201a3960f9494e1fa93926fea3",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "144,305,864,940",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      720,
+      635
+    ]
+  }
+}
