@@ -236,9 +236,9 @@ def mapa(r, destino_jpg):
             + '\n'.join(capas) + '\n</svg>')
 
 
-FUENTE_SECTOR = {'aps2025': 'Stats NZ, encuesta agropecuaria (30 jun. 2025), vía Figure.NZ.',
-                 'aps2022': 'Stats NZ, censo agropecuario 2022, vía Figure.NZ.',
-                 'bds2025': 'Stats NZ, demografía de empresas (feb. 2025), vía Figure.NZ.'}
+FUENTE_SECTOR = {'aps2025': 'Stats NZ, encuesta agropecuaria, 30 jun. 2025.',
+                 'aps2022': 'Stats NZ, censo agropecuario 2022.',
+                 'bds2025': 'Stats NZ, demografía de empresas, feb. 2025.'}
 ETIQUETAS = {'dato': 'dato oficial', 'est': 'estimación', 'calc': 'cálculo', 'rec': 'recomendación', 'ori': 'orientativo'}
 
 
@@ -277,7 +277,7 @@ def sectores_region(iso):
     poblacion = {'construccion', 'transporte', 'tecnicos'}
     top = sorted([f for f in filas if f[0] <= 4 and f[2]['clave'] not in poblacion], key=lambda f: -f[1])
     resto = sorted([f for f in filas if f[2]['clave'] not in poblacion and f not in top], key=lambda f: -f[1])
-    return (top + resto)[:max(3, min(5, len(top)))]
+    return (top + resto)[:max(3, min(4, len(top)))]
 
 
 def destaca(iso):
@@ -324,7 +324,7 @@ def frente(r, D, destino, F):
         lista = ', '.join(partes[:-1]) + ' y ' + partes[-1] if len(partes) > 1 else partes[0]
         destaque = f'1.ª del país en {lista}'
     contexto = (f'<div><span data-meta>Población</span><b>{num(r["poblacion"])}</b>'
-                f'<i>Censo 2023{F("Stats NZ, Censo 2023: población por consejo regional.")}</i></div>'
+                f'<i>Censo 2023{F("Stats NZ, Censo 2023.")}</i></div>'
                 f'<div><span data-meta>Superficie</span><b>{num(r["superficie"])} km²</b><i>{num(r["poblacion"] / r["superficie"], 1)} hab./km²</i></div>'
                 f'<div><span data-meta>Ciudad principal</span><b>{esc(dist["ciudad"])}</b></div>'
                 f'<div class="ancha"><span data-meta>Limita con</span><b class="chico">{esc(vecinas)}</b></div>'
@@ -338,7 +338,7 @@ def frente(r, D, destino, F):
         especie = (f'<section class="especie">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
                    f'<p class="credito" data-meta>{cur["credito"]}</p></div></section>')
     mi = f'En māori, la región se llama <b>{esc(r["mi"])}</b>. ' if r.get('mi') else ''
-    te_ara = F('Te Ara, la enciclopedia de Nueva Zelanda: iwi y cultura de la región.')
+    te_ara = F('Te Ara, la enciclopedia de Nueva Zelanda.')
     return (f'<div class="hoja ficha2 mural" data-tinta-max="40">'
             '<header class="cabecera"><div>'
             f'<span class="coleccion">Atlas de Nueva Zelanda · región {r["n"]} de 16 · {isla}</span>'
@@ -414,21 +414,23 @@ def dorso(r, D, F):
     # 3. Vivienda: alquiler local, con su categoría, su fecha y su estado provisional
     viv = practico.get('vivienda', {}).get(r['iso'], {})
     sal = practico['salario_minimo']
-    nota_prov = 'Tenancy Services advierte que los datos de bonos son provisorios y pueden revisarse.'
     casa = (f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: casa entera, mediana de la región. Nuevos contratos de alquiler '
-            f'registrados (bonos), jun. 2026 {etq("dato")}{F("Tenancy Services, alquileres por bonos, jun. 2026 (provisorio).")}</span></div>')
+            f'registrados (bonos), jun. 2026 {etq("dato")}{F("Tenancy Services, alquileres por bonos, jun. 2026.")}</span></div>')
     hab = ''
     horas = ''
     if viv.get('mediana'):
         hab = (f'<div><b>NZ$ {viv["mediana"]}</b><span>por semana: habitación alquilada sola, con cocina y baño compartidos '
-               f'(categoría «Room»), en {esc(viv["area"])}, {viv["periodo"]}, {viv["bonos"]} contratos {etq("dato")}'
+               f'(«Room»), en {esc(viv["area"])}; mediana de mar.–ago. 2026, {viv["bonos"]} bonos activos {etq("dato")}'
                f'{F(viv["fuente"])}</span></div>')
         h = viv['mediana'] / sal['valor']
         horas = (f'<div><b>{num(h, 1)} h</b><span>equivalente en horas de salario mínimo adulto bruto: {viv["mediana"]} ÷ '
                  f'{num(sal["valor"], 2)} {etq("calc")}{F(sal["fuente"])}</span></div>')
+    elif viv.get('sin_datos'):
+        hab = (f'<div><b>s/d</b><span>habitación: no hay datos suficientes en {esc(viv["sin_datos"])} (menos de 30 contratos '
+               f'por barrio) {etq("dato")}{F("Tenancy Services, herramienta de alquileres de mercado, mar.–ago. 2026.")}</span></div>')
     vivienda = (f'<section class="vivienda"><h2>Vivienda</h2><div class="cifras">{casa}{hab}{horas}</div>'
-                f'<p class="nota">{nota_prov} Las horas son una comparación entre regiones, no lo que queda después de '
-                'impuestos, y no incluyen comida, transporte ni servicios.</p></section>')
+                '<p class="nota">Datos provisorios (Tenancy Services está migrando su sistema de bonos). Las horas comparan '
+                'regiones: no son ingreso neto ni incluyen comida, transporte o servicios.</p></section>')
     # 4. Clima y movilidad
     es = r['estacion']
     otras = [x['estacion'] for x in D['regiones']]
@@ -446,8 +448,8 @@ def dorso(r, D, F):
              f'<div><b><span class="ic frio"></span>{num(es["min_jul"], 1)} °C</b><span>mínima media de julio; {pmn}.ª de {n}</span></div>'
              f'<div><b><span class="ic lluvia"></span>{num(es["lluvia"])} mm</b><span>de lluvia al año, en {es["dias"]} días; '
              f'{pll}.ª de {n}</span></div></div>'
-             f'<p class="nota">{etq("dato")} Promedios 1991–2020; el puesto compara las {n} estaciones del atlas, de mayor a menor'
-             f'{F("NIWA, normales climáticas 1991–2020, vía Figure.NZ.")}.</p></section>')
+             f'<p class="nota">{etq("dato")} Promedios 1991–2020; puesto entre las {n} estaciones del atlas'
+             f'{F("NIWA, normales climáticas 1991–2020.")}.</p></section>')
     dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
     km = ''.join(f'<li><b>{esc(v["ciudad"])}</b> <span>{v["km"]} km</span></li>' for v in dist['vecinas'] if v['km'])
     mov = practico['movilidad'].get(r['iso'], {})
@@ -456,19 +458,20 @@ def dorso(r, D, F):
     if urbano:
         extras += f'<p><b>En la ciudad:</b> {urbano}</p>'
     movilidad = ('<section class="movilidad"><h2>Movilidad</h2>'
-                 f'<h3>Por ruta desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
+                 f'<h3>Km desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
                  f'<ul class="km">{km}</ul>{extras}'
                  f'<p class="nota">{etq("rec")} {practico["vehiculo"]}'
-                 f'{F("Conexiones: sitios oficiales de aeropuertos, KiwiRail, InterCity, ferris y transporte urbano.")}</p></section>')
+                 f'{F("Sitios oficiales de aeropuertos, KiwiRail, InterCity, ferris y buses urbanos.")}</p></section>')
     return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
             f'<header class="cabecera-dorso"><h1>{nombre}</h1><span>trabajo, vivienda, clima y movilidad</span>'
             f'<span class="cod" data-meta>{codigo} · dorso · v{VERSION} · {FECHA}</span></header>'
-            f'<div class="columnas"><div class="izq">{sectores_html}{temporadas}</div>'
+            f'<div class="columnas"><div class="izq">{sectores_html}{temporadas}'
+            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación · {etq("calc")} cuenta '
+            f'con datos de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía.</p></div>'
             f'<div class="der">{vivienda}{clima}{movilidad}'
-            f'<section class="fuentes"><h2>Fuentes</h2><p class="lista" data-meta>{F.html()}</p>'
-            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación · {etq("calc")} cuenta con datos '
-            f'de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía. Consultadas el 2026-10-21 y el {FECHA}; '
-            'bibliografía completa, con enlaces y cálculos, en NZ-A-fuentes.pdf.</p></section></div></div></div>')
+            f'<section class="fuentes"><h2>Fuentes <span class="donde" data-meta>consultadas el 21 y 22 oct. 2026 · completas, '
+            f'con enlaces y cálculos, en NZ-A-fuentes.pdf</span></h2><p class="lista" data-meta>{F.html()} · Stats NZ y NIWA, '
+            'vía Figure.NZ.</p></section></div></div></div>')
 
 
 def ficha(r, D, destino):

@@ -232,3 +232,4 @@
 .ficha2 .clima.fila3 b { display: block; font-size: 13pt; white-space: nowrap; }
 .ficha2 .clima.fila3 .ic { display: inline-block; width: 3.6mm; height: 3.6mm; margin-right: 1mm; vertical-align: -0.3mm; }
 .ficha2 .clima.fila3 > div > span { display: block; font-size: 10pt; line-height: 1.2; }
+.ficha2 .izq .tipos { margin-top: 1mm; }

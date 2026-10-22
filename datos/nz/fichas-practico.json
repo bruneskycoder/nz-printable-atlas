@@ -10,7 +10,7 @@
   "mediana": 290,
   "periodo": "abr.–jun. 2026",
   "bonos": 768,
-  "fuente": "Tenancy Services, bonos por trimestre, tipo «Room», todo el país, abr.–jun. 2026 (768 bonos; provisorio)."
+  "fuente": "Tenancy Services, bonos por trimestre."
  },
  "puestos": [
   {
@@ -331,5 +331,114 @@
    ]
   }
  },
- "vehiculo": "Los trabajos de campo (tambos, huertas, galpones, bosques) suelen quedar lejos del transporte público: casi siempre hace falta vehículo propio o que el empleador lleve. Confirmalo antes de aceptar."
+ "vehiculo": "El trabajo de campo suele quedar lejos del transporte público: casi siempre hace falta vehículo propio o que el empleador lleve.",
+ "vivienda": {
+  "_criterio": "Habitación alquilada sola (tipo «Room» de Tenancy Services: con instalaciones compartidas, en una vivienda para menos de 6 personas), mediana semanal de los contratos registrados entre el 1 mar. y el 31 ago. 2026. Se usa el barrio céntrico de la ciudad principal; si tiene menos de 30 bonos activos, el barrio de esa ciudad con más bonos; si ninguno llega a 30, no se publica cifra. La herramienta solo trabaja por barrio.",
+  "AUK": {
+   "area": "Auckland Central",
+   "bonos": 466,
+   "mediana": 250,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "WKO": {
+   "area": "Hamilton Central",
+   "bonos": 86,
+   "mediana": 235,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "GIS": {
+   "area": "Riverdale (Gisborne)",
+   "bonos": 114,
+   "mediana": 200,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "TKI": {
+   "area": "Westown (New Plymouth)",
+   "bonos": 83,
+   "mediana": 230,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "MWT": {
+   "area": "Palmerston North (centro)",
+   "bonos": 190,
+   "mediana": 215,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "WGN": {
+   "area": "Te Aro (Wellington)",
+   "bonos": 219,
+   "mediana": 268,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "NLS": {
+   "area": "Nelson South",
+   "bonos": 77,
+   "mediana": 180,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "CAN": {
+   "area": "Christchurch Central",
+   "bonos": 115,
+   "mediana": 260,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "OTA": {
+   "area": "Dunedin Central",
+   "bonos": 460,
+   "mediana": 235,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "STL": {
+   "area": "Invercargill (centro)",
+   "bonos": 33,
+   "mediana": 190,
+   "periodo": "mar.–ago. 2026",
+   "fuente": "Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026."
+  },
+  "NTL": {
+   "sin_datos": "Whangārei"
+  },
+  "BOP": {
+   "sin_datos": "Tauranga"
+  },
+  "HKB": {
+   "sin_datos": "Napier"
+  },
+  "TAS": {
+   "sin_datos": "Richmond"
+  },
+  "MBH": {
+   "sin_datos": "Blenheim"
+  },
+  "WTC": {
+   "sin_datos": "Greymouth"
+  }
+ },
+ "urbano": {
+  "NTL": "bus urbano CityLink en Whangārei.",
+  "AUK": "AT Metro: buses, trenes y ferris.",
+  "WKO": "buses Busit en Hamilton.",
+  "BOP": "buses Baybus.",
+  "GIS": "GizzyBus, una red chica.",
+  "HKB": "buses goBay (red nueva desde ene. 2026).",
+  "TKI": "buses Citylink en New Plymouth.",
+  "MWT": "buses eléctricos Connect en Palmerston North.",
+  "WGN": "Metlink: buses y trenes.",
+  "TAS": "eBus entre Richmond y Nelson.",
+  "NLS": "eBus entre Nelson y Richmond.",
+  "MBH": "un servicio chico del consejo en Blenheim, con una línea a Picton.",
+  "WTC": "no encontramos una red regular de buses urbanos en Greymouth.",
+  "CAN": "buses Metro en Christchurch.",
+  "OTA": "buses Orbus en Dunedin.",
+  "STL": "buses BusSmart en Invercargill."
+ }
 }
