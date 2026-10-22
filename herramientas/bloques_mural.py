@@ -308,17 +308,17 @@ def bloques(C, E):
         '<li><b>Join the rows</b> from top to bottom: the lower row goes on top, with the ▲▼ marks lined up.</li>'
         '</ol>')))
 
-    b.append(Bloque('m-datos', 372, 690, 166, 46, (
+    b.append(Bloque('m-datos', 372, 690, 166, 47, (
         '<h2>Good to know</h2><ul>'
         '<li><b>Southern Hemisphere seasons:</b> summer from December to February, autumn from March to May, winter from '
         'June to August and spring from September to November.</li>'
         '<li><b>What this map is for:</b> finding your way and planning. It does not confirm jobs, wages or visa '
         'conditions: check those on immigration.govt.nz and in each job ad.</li>'
-        '<li><b>Dates:</b> parks, sectors and calendar accessed on 2026-10-21; LINZ highways, lakes and names on '
-        '2026-10-22; population from the 2023 Census.</li>'
+        '<li><b>Dates:</b> parks, sectors and calendar accessed on 2026-10-21; LINZ highways, lakes and names, and the '
+        'facts in the curiosity boxes, on 2026-10-22; population from the 2023 Census.</li>'
         '</ul>')))
 
-    b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 62, (
+    b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 67, (
         '<b>Sources.</b> Region boundaries: Stats NZ (2017) via geoBoundaries, CC BY 4.0. '
         'National parks: Department of Conservation, “DOC Public Conservation Land” (NaPALIS), CC BY 4.0, accessed 2026-10-21. '
         'State Highways and lakes: LINZ, Topo 1:250k, CC BY 4.0, downloaded 2026-10-22. '
@@ -328,6 +328,8 @@ def bloques(C, E):
         'Terrain: Terrain Tiles (Mapzen, on AWS) with the LINZ elevation model (CC BY 4.0), SRTM and ETOPO1. '
         'Population: Stats NZ, 2023 Census. Names: New Zealand Gazetteer (LINZ), 2026-10-22. Heights: Aoraki/Mount Cook, '
         '2014 survey; Taranaki Maunga, Te Kāhui Tupua Act 2025; the others, reference values. '
+        'Curiosities: DOC, Te Ara, NZHistory, GeoNet, NIWA, NZKGI, AF8 and others, with links in '
+        'datos/nz/curiosidades.json. Kiwi plate: J. G. Keulemans (1888), public domain. '
         'Projection NZTM2000.<br>'
         'NZ-A-00 · version 2 · 2026-10-22 · Enciclopedia para imprimir')))
     b += curiosidades()
@@ -335,31 +337,43 @@ def bloques(C, E):
 
 
 # ---------------------------------------------------------------- curiosidades
-# Textos verificados con fuentes oficiales (DOC, Te Ara, NZHistory, GeoNet, GNS, NIWA, Zespri); la lista de
-# fuentes de cada dato está en PLAN-mural-nz.md. Van en el mar, en recuadros como los demás.
+# Textos verificados con fuentes oficiales (DOC, Te Ara, NZHistory, GeoNet, NIWA, NZKGI); cada uno lleva sus
+# fuentes en datos/nz/curiosidades.json. Van en el mar, en recuadros como los demás.
 CUR = json.loads((RAIZ / 'datos' / 'nz' / 'curiosidades.json').read_text())
+
+
+def imagen_mural(slug, ancho_px):
+    """Copia reducida de imagenes/<slug>/maestra.jpg para el mural (unos 350 ppp a su tamaño impreso), así el PDF
+    no carga la maestra entera. La ruta sirve para hojas/nz-a/ y para salida/pruebas/ (las dos a dos niveles)."""
+    from PIL import Image
+    destino = RAIZ / 'hojas' / 'nz-a' / 'img' / f'{slug}.jpg'
+    if not destino.exists():
+        destino.parent.mkdir(parents=True, exist_ok=True)
+        im = Image.open(RAIZ / 'imagenes' / slug / 'maestra.jpg')
+        im.resize((ancho_px, round(im.height * ancho_px / im.width)), Image.LANCZOS).save(destino, quality=90)
+    return f'../../hojas/nz-a/img/{slug}.jpg'
 
 
 def curiosidades():
     out = []
     k = CUR['kiwi']
-    ave = (f'<img class="ave" src="../../imagenes/{k["ave"]["imagen"]}" alt="">' if k['ave'].get('imagen') else '')
-    out.append(Bloque('m-kiwi', 414, 68, 128, 128, (
+    ave = f'<img class="ave" src="{imagen_mural(k["ave"]["imagen"], 600)}" alt="">' if k['ave'].get('imagen') else ''
+    out.append(Bloque('m-kiwi', 414, 68, 128, 101, (
         '<h2>Kiwi, kiwi and Kiwis</h2>'
         f'<div class="fila">{ave}<p>{k["ave"]["texto"]}</p></div>'
         f'<div class="fila">{dibujo_kiwifruit(30)}<p>{k["fruta"]["texto"]}</p></div>'
         f'<p class="gente">{k["gente"]["texto"]}</p>'
         + (f'<p class="credito" data-meta>{k["ave"]["credito"]}</p>' if k['ave'].get('credito') else ''))))
-    out.append(Bloque('m-geo', 186, 274, 112, 60, (
+    out.append(Bloque('m-geo', 186, 274, 112, 64, (
         '<h2>A young, restless land</h2><dl>'
         + ''.join(f'<dt>{g["t"]}</dt><dd>{g["texto"]}</dd>' for g in CUR['geografia']) + '</dl>')))
-    out.append(Bloque('m-slang', 238, 664, 118, 46, (
+    out.append(Bloque('m-slang', 238, 681, 118, 47, (
         '<h2>Kiwi English you will hear</h2><div class="pares">'
         + ''.join(f'<div><b>{w}</b> {s}</div>' for w, s in CUR['slang']) + '</div>')))
-    out.append(Bloque('m-historia', 238, 590, 118, 68, (
+    out.append(Bloque('m-historia', 238, 590, 118, 86, (
         '<h2>A short history</h2><dl>'
         + ''.join(f'<dt>{h["anio"]}</dt><dd>{h["texto"]}</dd>' for h in CUR['historia']) + '</dl>')))
-    out.append(Bloque('m-notas', 372, 741, 166, 45, (
+    out.append(Bloque('m-notas', 372, 741, 166, 61, (
         '<h2>On the map</h2><dl>'
         + ''.join(f'<dt><span class="cur-l">{n["letra"]}</span></dt><dd><b>{n["lugar"]}.</b> {n["texto"]}</dd>'
                   for n in CUR['mapa']) + '</dl>')))

@@ -1,14 +1,14 @@
 {
- "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro. 'nombres' cambia el texto de un rótulo, pico o ciudad: el mural va en inglés, con el nombre inglés del Gazetteer de LINZ y sus macrones; los nombres māori de los nombres dobles van en el recuadro «Māori names» (bloques_mural.py). 't2' agrega una segunda línea con 'clase2'. 'rotulos_nuevos' y 'picos_nuevos' son rasgos que el mural agrega a rotulos.json; las coordenadas salen del Gazetteer. 'curiosidades': las letras del recuadro «On the map», en el lugar de cada curiosidad (coordenadas del rasgo: el árbol, el puente, el set de filmación).",
+ "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro. 'nombres' cambia el texto de un rótulo, pico o ciudad: el mural va en inglés, con el nombre inglés del Gazetteer de LINZ y sus macrones; los nombres māori de los nombres dobles van en el recuadro «Māori names» (bloques_mural.py). 't2' agrega una segunda línea con 'clase2'. 'rotulos_nuevos' y 'picos_nuevos' son rasgos que el mural agrega a rotulos.json; las coordenadas salen del Gazetteer. 'curiosidades': las letras del recuadro «On the map», en el lugar de cada curiosidad (coordenadas del rasgo: el árbol, el puente, el set de filmación). 'desvio' (mm) es dónde probar primero el círculo de una curiosidad.",
  "rotulos_mover": {
   "TASMAN SEA": {
    "x": 250,
-   "y": 340,
+   "y": 354,
    "rot": 0
   },
   "PACIFIC OCEAN": {
    "x": 300,
-   "y": 728,
+   "y": 746,
    "rot": 0
   },
   "TE IKA-A-MĀUI": {
@@ -23,7 +23,7 @@
   },
   "TE WAIPOUNAMU": {
    "x": 288,
-   "y": 770,
+   "y": 786,
    "rot": 0
   },
   "South Island": {
@@ -78,7 +78,8 @@
   "Dunedin": "O",
   "Porirua": "O",
   "Wellington": "O",
-  "Waitomo": "E"
+  "Waitomo": "E",
+  "Cambridge": "O"
  },
  "lugares_ocultar": [
   "Raglan"

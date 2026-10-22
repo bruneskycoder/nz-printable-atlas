@@ -256,7 +256,9 @@ def marcadores(E, curiosidades, items):
     out = []
     for cur in curiosidades:
         px, py = E.lonlat(cur['lon'], cur['lat'])
-        for dx, dy in [(0, 0), (4.5, -3), (-4.5, -3), (4.5, 3), (-4.5, 3), (0, -5), (0, 5), (7, 0), (-7, 0)]:
+        # 'desvio' (mm) en mural.json: dónde probar primero, cuando el lugar libre más cercano confunde
+        for dx, dy in [tuple(cur.get('desvio', (0, 0)))] + [(0, 0), (4.5, -3), (-4.5, -3), (4.5, 3), (-4.5, 3), (0, -5), (0, 5),
+                                                             (7, 0), (-7, 0)]:
             x, y = px + dx, py + dy
             caja = (x - 1.8, y - 1.8, x + 1.8, y + 1.8)
             if (not any(se_tocan(caja, o) for o in ocupado)

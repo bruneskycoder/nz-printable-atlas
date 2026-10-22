@@ -1,32 +1,71 @@
 {
- "_nota": "Curiosidades del mapa mural (en inglés, como todo el mural). BORRADOR: falta verificar cifras con fuentes oficiales.",
+ "_nota": "Curiosidades del mapa mural, en inglés como todo el mural. Cada texto lleva sus fuentes (consultadas el 2026-10-22, con preferencia por DOC, Te Ara, NZHistory, GeoNet, NIWA y NZKGI). Donde las fuentes difieren, el texto usa la cifra o el rango que todas sostienen; el detalle está en 'nota'.",
+ "consultado": "2026-10-22",
  "kiwi": {
   "ave": {
-   "texto": "<b>The bird.</b> Five species, all flightless and mostly active at night. The only bird with nostrils at the tip of its bill: it finds worms by smell. Its egg is about 15% of the mother's weight. About 70,000 are left; where predators are not controlled, numbers fall about 2% a year."
+   "texto": "<b>The bird.</b> Five species, none of which can fly; they are mostly active at night. The only bird with nostrils at the tip of its beak: it sniffs out worms underground. Its egg weighs up to a fifth of the mother. About 70,000 are left, and unprotected populations shrink about 2% a year.",
+   "fuentes": [
+    "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/kiwi/facts/",
+    "https://savethekiwi.nz/about-kiwi/kiwi-facts/an-unusual-beak/",
+    "https://savethekiwi.nz/about-kiwi/kiwi-facts/enormous-egg/",
+    "https://www.doc.govt.nz/Documents/science-and-technical/sap262entire.pdf"
+   ],
+   "nota": "Población: DOC dice unos 70.000; Save the Kiwi, unos 68.000. Huevo: DOC, 15 a 20 % del peso de la hembra.",
+   "imagen": "kiwi-keulemans-1888",
+   "credito": "Bird: J. G. Keulemans, North-Island kiwi, in W. L. Buller, A History of the Birds of New Zealand (1888), plate XLVII. Public domain (National Library NZ)."
   },
   "fruta": {
-   "texto": "<b>The fruit.</b> It came from China as the “Chinese gooseberry”: Isabel Fraser brought the seeds in 1904. Growers renamed it “kiwifruit” in 1959 to sell it in the United States. Bay of Plenty grows most of the crop; Te Puke calls itself the kiwifruit capital of the world."
+   "texto": "<b>The fruit.</b> It began as the “Chinese gooseberry”: teacher Isabel Fraser brought the seeds from China in 1904, and the vines first fruited in Whanganui in 1910. In 1959 Turners and Growers renamed it “kiwifruit” to sell it in the United States. About 80% of the crop grows in Bay of Plenty, and Te Puke calls itself the kiwifruit capital of the world.",
+   "fuentes": [
+    "https://nzhistory.govt.nz/the-chinese-gooseberry-becomes-the-kiwifruit",
+    "https://www.nzkgi.org.nz/wp-content/uploads/2024/12/J003459_NZKGI_KF_Book_24_R2C_FINAL_COMPLETE_DIGITAL-1-1.pdf"
+   ],
+   "nota": "Bay of Plenty: 79 % (NZKGI Kiwifruit Book 2024) a 81 % (informe previo a la cosecha 2024). «Capital mundial» es un apodo de Te Puke, no una medición."
   },
   "gente": {
-   "texto": "<b>The people.</b> New Zealanders have been “Kiwis” since World War I, when the bird on badges and on a popular boot polish gave the soldiers their nickname."
+   "texto": "<b>The people.</b> By 1917 New Zealand soldiers in the First World War were being called “Kiwis”; after the Second World War the name spread to all New Zealanders.",
+   "fuentes": [
+    "https://teara.govt.nz/en/the-new-zealanders/page-9"
+   ],
+   "nota": "Se dejó afuera la betún Kiwi: Te Ara la menciona pero no dice que el apodo venga de ahí."
   }
  },
  "geografia": [
   {
    "t": "Alpine Fault",
-   "texto": "The plate boundary runs 600 km along the Southern Alps, which rise about 10 mm a year. It last broke in 1717; a big quake in the next 50 years is likely (75%)."
+   "texto": "The plate boundary runs about 600 km along the Southern Alps, which rise 10 mm or more a year. It last broke in 1717; there is a 75% chance of a big quake in the next 50 years.",
+   "fuentes": [
+    "https://www.af8.org.nz/faqs",
+    "https://teara.govt.nz/en/mountains/page-3"
+   ],
+   "nota": "Largo: unos 600 km en tierra (GNS), 650 km (Te Ara), 800 km con el tramo submarino (AF8). La probabilidad es de un estudio de 2021."
   },
   {
    "t": "Taupō",
-   "texto": "The lake fills a supervolcano. Its Oruanui eruption, 25,500 years ago, is the world's most recent supereruption."
+   "texto": "The lake fills a supervolcano. Its Ōruanui eruption, about 25,500 years ago, threw out over 1,000 km³ of material.",
+   "fuentes": [
+    "https://www.geonet.org.nz/about/volcano/taupo",
+    "https://www.geonet.org.nz/news/57MTzCQKttKtwXxAroUDbM"
+   ],
+   "nota": "Te Ara da unos 26.500 años. «La supererupción más reciente del mundo» no figura en GeoNet ni en Te Ara: no se usa."
   },
   {
    "t": "Earthquakes",
-   "texto": "GeoNet records about 20,000 a year; only 100 to 150 are big enough to be felt."
+   "texto": "GeoNet locates about 20,000 a year (22,904 in 2024); only 100 to 250 are strong enough to be felt.",
+   "fuentes": [
+    "https://www.geonet.org.nz/earthquake/statistics_long",
+    "https://www.geonet.org.nz/earthquake/faq"
+   ],
+   "nota": "Sentidos: GeoNet FAQ dice unos 250; una noticia de GeoNet, 100 a 150; Te Ara, 150 a 200."
   },
   {
    "t": "Rain",
-   "texto": "Milford Sound gets about 6,700 mm a year, one of the wettest places in the country."
+   "texto": "Milford Sound gets about 6,700 mm a year (9,259 mm in 2016), one of the wettest places in the country.",
+   "fuentes": [
+    "https://niwa.co.nz/climate-and-weather",
+    "https://teara.govt.nz/en/climate"
+   ],
+   "nota": "Cifras de los informes climáticos de NIWA. No es el lugar más lluvioso: en la divisoria de los Alpes caen más de 10.000 mm (Te Ara)."
   }
  ],
  "slang": [
@@ -36,7 +75,7 @@
   ],
   [
    "smoko",
-   "short break at work"
+   "tea break at work"
   ],
   [
    "tramping",
@@ -44,7 +83,7 @@
   ],
   [
    "bach",
-   "holiday home (crib in the far south)"
+   "holiday house (crib in the far south)"
   ],
   [
    "jandals",
@@ -64,80 +103,98 @@
   ],
   [
    "ute",
-   "pickup truck"
+   "pickup (utility vehicle)"
   ],
   [
    "sweet as",
-   "great, no worries"
+   "all good, no worries"
   ],
   [
    "chur",
-   "thanks, cheers"
+   "thanks"
   ],
   [
    "heaps",
-   "lots, very"
+   "lots"
   ]
+ ],
+ "slang_fuentes": [
+  "https://teara.govt.nz/en/food-shops/page-5",
+  "https://teara.govt.nz/en/document/9876/tramping-words",
+  "https://www.naumainz.studywithnewzealand.govt.nz/discover-new-zealand/life-and-culture-in-nz/speaking-nz-english"
  ],
  "historia": [
   {
    "anio": "c. 1250–1300",
-   "texto": "Polynesian voyagers settle the islands: the ancestors of Māori."
+   "texto": "Polynesian voyagers, the ancestors of Māori, settle the islands.",
+   "fuente": "https://teara.govt.nz/en/history/page-1"
   },
   {
    "anio": "1642",
-   "texto": "Dutch navigator Abel Tasman reaches the coast."
+   "texto": "Dutch navigator Abel Tasman sights the coast; after a clash in Golden Bay he leaves without landing.",
+   "fuente": "https://nzhistory.govt.nz/page/early-meetings-between-peoples"
   },
   {
    "anio": "1769",
-   "texto": "James Cook lands at Gisborne and maps both islands."
+   "texto": "James Cook lands at Tūranganui-a-Kiwa (Gisborne) and goes on to map both islands.",
+   "fuente": "https://nzhistory.govt.nz/page/early-meetings-between-peoples"
   },
   {
    "anio": "1840",
-   "texto": "The Treaty of Waitangi is signed at Waitangi, Bay of Islands, on 6 February, now Waitangi Day."
+   "texto": "The Treaty of Waitangi is first signed at Waitangi, Bay of Islands, on 6 February: now Waitangi Day.",
+   "fuente": "https://nzhistory.govt.nz/politics/treaty/the-treaty-in-brief"
   },
   {
    "anio": "1893",
-   "texto": "The first self-governing country where women can vote."
+   "texto": "The first self-governing country where all women can vote in national elections.",
+   "fuente": "https://nzhistory.govt.nz/politics/womens-suffrage"
   },
   {
    "anio": "1953",
-   "texto": "Edmund Hillary and Tenzing Norgay reach the top of Everest."
+   "texto": "Edmund Hillary and Tenzing Norgay reach the top of Everest.",
+   "fuente": "https://nzhistory.govt.nz"
   },
   {
    "anio": "1987",
-   "texto": "Te reo Māori becomes an official language."
+   "texto": "Te reo Māori becomes an official language.",
+   "fuente": "https://en.tetaurawhiri.govt.nz/legislation"
   },
   {
    "anio": "2011",
-   "texto": "Christchurch earthquake, 22 February: 185 people die."
+   "texto": "The Christchurch earthquake of 22 February kills 185 people.",
+   "fuente": "https://www.geonet.org.nz/earthquake/story/3468575"
   }
  ],
  "mapa": [
   {
    "letra": "A",
    "lugar": "Tāne Mahuta, Waipoua Forest",
-   "texto": "The largest living kauri tree: about 51 m tall and up to 2,500 years old."
+   "texto": "New Zealand's largest known living kauri tree: about 51 m tall, 13.8 m around and some 1,500 years old.",
+   "fuente": "https://www.doc.govt.nz/parks-and-recreation/places-to-go/northland/places/waipoua-forest/things-to-do/tane-mahuta-walk/"
   },
   {
    "letra": "B",
    "lugar": "Waitomo Caves",
-   "texto": "The “glowworms” are larvae of a gnat found only in New Zealand; their light lures insects."
+   "texto": "The glowworms are larvae of a fungus gnat found only in New Zealand; they glow to lure insects into sticky threads.",
+   "fuente": "https://teara.govt.nz/en/glow-worms/print"
   },
   {
    "letra": "C",
    "lugar": "Hobbiton, near Matamata",
-   "texto": "The Shire from The Lord of the Rings and The Hobbit films, open for tours."
+   "texto": "The Shire set from The Lord of the Rings and The Hobbit films, on a family farm. Tours run daily.",
+   "fuente": "https://www.hobbitontours.com/"
   },
   {
    "letra": "D",
    "lugar": "Arthur's Pass",
-   "texto": "Meet the kea, the world's only alpine parrot: clever and curious. Don't feed them."
+   "texto": "Home of the kea, the world's only alpine parrot, now nationally endangered. Clever and curious: never feed them.",
+   "fuente": "https://www.doc.govt.nz/nature/native-animals/birds/birds-a-z/kea/"
   },
   {
    "letra": "E",
-   "lugar": "Kawarau Gorge Bridge",
-   "texto": "The world's first commercial bungy jump, opened by AJ Hackett in 1988."
+   "lugar": "Kawarau Bridge, near Queenstown",
+   "texto": "The world's first commercial bungy jump (43 m), opened by AJ Hackett and Henry van Asch in 1988.",
+   "fuente": "https://www.bungy.co.nz/queenstown/kawarau-bungy-centre/"
   }
  ]
 }

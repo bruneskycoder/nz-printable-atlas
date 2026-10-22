@@ -166,7 +166,7 @@
 .mural .m-kiwi p, .mural .m-geo dd, .mural .m-slang dd, .mural .m-historia dd, .mural .m-notas dd { font-size: 10pt; line-height: 1.25; }
 .mural .m-kiwi .fila { display: flex; gap: 3mm; align-items: center; margin-bottom: 1.6mm; }
 .mural .m-kiwi .fila p { margin: 0; flex: 1; }
-.mural .m-kiwi .ave { width: 34mm; flex: none; }
+.mural .m-kiwi .ave { width: 40mm; flex: none; display: block; }
 .mural .m-kiwi .dibujo { flex: none; }
 .mural .m-kiwi .gente { margin: 0; }
 .mural .m-kiwi .credito { font-size: 8pt; color: #4a5866; margin: 1mm 0 0; }
