@@ -114,6 +114,7 @@ def mapa(r, destino_jpg):
     capas.append(f'<path class="contorno-halo" d="{d_int}"/><path class="contorno" d="{d_int}"/>')
 
     col = Colocador(W, H)
+    col.ocupar((W - 10, 3, W - 1, 19), 0)  # flecha del norte y su «N»
     textos = []
     nombres = tabla('mural').get('nombres', {})
     # Lugares para conocer: número en un círculo (fijos)
@@ -247,15 +248,52 @@ def etq(tipo):
     return f'<span class="etq {tipo}" data-meta>{ETIQUETAS[tipo]}</span>'
 
 
+# Referencia completa y enlace de cada cita abreviada, para NZ-A-fuentes (herramientas/fuentes_nz.py)
+_REG = json.loads((RAIZ / 'datos' / 'regiones.json').read_text())['fuentes']
+_SEC = json.loads((RAIZ / 'datos' / 'sectores-nz.json').read_text())['fuentes']
+_CAL = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())['fuentes']
+REFERENCIAS = {
+    'Stats NZ, Censo 2023.': (_REG['censo'], 'https://www.stats.govt.nz/2023-census/'),
+    'Stats NZ, encuesta agropecuaria, 30 jun. 2025.': (_SEC['aps2025'], 'https://figure.nz/'),
+    'Stats NZ, censo agropecuario 2022.': (_SEC['aps2022'], 'https://figure.nz/'),
+    'Stats NZ, demografía de empresas, feb. 2025.': (_SEC['bds2025'], 'https://figure.nz/'),
+    'Te Ara, enciclopedia de NZ.': (_REG['iwi'], 'https://teara.govt.nz/'),
+    'Work and Income, calendario de temporada; PickNZ.': (_CAL['winz-calendario'] + ' ' + _CAL['winz-general'] + ' ' + _CAL['picknz'],
+                                                          'https://www.workandincome.govt.nz/work/find-jobs/where-to-look-for-jobs/seasonal-work-calendar.html'),
+    'Tahatū Career Navigator (ex Careers NZ), perfiles de puestos; Site Safe; NZSki.': (
+        'Tahatū Career Navigator (Tertiary Education Commission), perfiles de ocupaciones; Site Safe, Construction Passport; NZSki, empleos.',
+        'https://tahatu.govt.nz/work/explore-career-ideas'),
+    'Avisos de empleo de packhouses (Find a Job), oct. 2026.': (
+        'Avisos de empleo de packhouses en Find a Job (Work and Income), consultados en oct. 2026. Ningún organismo publica '
+        'fechas de la temporada de empaque; Tahatū y Work and Income tampoco.', 'https://new.my.msd.govt.nz/en/jobs.html'),
+    'Tenancy Services, alquileres por bonos, jun. 2026.': (_REG['alquiler'] + ' Datos provisorios por la migración del sistema de bonos.',
+                                                           'https://www.tenancy.govt.nz/about-tenancy-services/data-and-statistics/rental-bond-data/'),
+    'Tenancy Services, alquileres de mercado, «Room», mar.–ago. 2026.': (
+        'Tenancy Services, herramienta de alquileres de mercado, categoría «Room» («a room rented separately with shared facilities '
+        'in a building intended for less than 6 people»), bonos activos de mar. a ago. 2026, por barrio.',
+        'https://www.tenancy.govt.nz/rent-bond-and-bills/market-rent/'),
+    'Tenancy Services, herramienta de alquileres de mercado, mar.–ago. 2026.': (
+        'Tenancy Services, herramienta de alquileres de mercado, categoría «Room», mar.–ago. 2026: ningún barrio de la ciudad '
+        'principal llega a 30 bonos activos.', 'https://www.tenancy.govt.nz/rent-bond-and-bills/market-rent/'),
+    'Employment NZ, salario mínimo.': (_REG['salario'],
+                                       'https://www.employment.govt.nz/pay-and-hours/pay-and-wages/minimum-wage/minimum-wage-rates-and-types'),
+    'NIWA, normales climáticas 1991–2020 y 1981–2010.': (_REG['clima'], 'https://figure.nz/'),
+}
+
+
 class Fuentes:
-    """Fuentes numeradas: cada bloque cita las suyas con un número que remite a la lista del dorso."""
+    """Fuentes numeradas: cada bloque cita las suyas con un número que remite a la lista del dorso. Guarda además la
+    referencia completa y el enlace de cada una, para NZ-A-fuentes."""
 
     def __init__(self):
         self.lista = []
+        self.detalle = {}
 
-    def __call__(self, texto):
+    def __call__(self, texto, url=None, completo=None):
         if texto not in self.lista:
             self.lista.append(texto)
+            ref = REFERENCIAS.get(texto, (texto, None))
+            self.detalle[texto] = (completo or ref[0], url or ref[1])
         return f'<sup data-meta>{self.lista.index(texto) + 1}</sup>'
 
     def html(self):
@@ -281,9 +319,9 @@ def sectores_region(iso):
     return (top + resto)[:max(3, min(4, len(top)))]
 
 
-def destaca(iso):
-    """Sectores en los que la región es la primera del país (cálculo sobre los datos de la tabla)."""
-    return [(SECTOR_ES[s['clave']][0].lower(), s['fuente']) for s in sectores() if rango(s, iso) == 1]
+def destaca(iso, puesto=1):
+    """Sectores en los que la región ocupa ese puesto en el país (cálculo sobre los datos de la tabla)."""
+    return [(SECTOR_ES[s['clave']][0].lower(), s['fuente']) for s in sectores() if rango(s, iso) == puesto]
 
 
 def calendario_region(r, claves):
@@ -318,18 +356,19 @@ def frente(r, D, destino, F):
     isla = 'North Island' if r['isla'] == 'norte' else 'South Island'
     dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
     vecinas = ', '.join(v['region'] for v in dist['vecinas'])
-    top = destaca(r['iso'])
+    puesto = min((rango(x, r['iso']) or 99) for x in sectores())  # el mejor puesto de la región en algún sector
+    top = destaca(r['iso'], puesto) if puesto <= 4 else []
     destaque = '—'
     if top:
         partes = [f'{n}{F(FUENTE_SECTOR[f])}' for n, f in top]
         lista = ', '.join(partes[:-1]) + ' y ' + partes[-1] if len(partes) > 1 else partes[0]
-        destaque = f'1.ª del país en {lista}'
+        destaque = f'{puesto}.ª del país en {lista}'
     contexto = (f'<div><span data-meta>Población</span><b>{num(r["poblacion"])}</b>'
                 f'<i>Censo 2023{F("Stats NZ, Censo 2023.")}</i></div>'
                 f'<div><span data-meta>Superficie</span><b>{num(r["superficie"])} km²</b><i>{num(r["poblacion"] / r["superficie"], 1)} hab./km²</i></div>'
                 f'<div><span data-meta>Ciudad principal</span><b>{esc(dist["ciudad"])}</b></div>'
                 f'<div class="ancha"><span data-meta>Limita con</span><b class="chico">{esc(vecinas)}</b></div>'
-                f'<div class="ancha"><span data-meta>Se destaca</span><b class="chico">{destaque}</b></div>')
+                + (f'<div class="ancha"><span data-meta>Se destaca</span><b class="chico">{destaque}</b></div>' if top else ''))
     lugares = ''.join(f'<li><span class="num">{i}</span><span><b>{esc(ingles(n))}</b> {esc(d)}</span></li>'
                       for i, (n, d, _, _) in enumerate(r['naturaleza'], start=1))
     cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(r['iso'])
@@ -337,7 +376,7 @@ def frente(r, D, destino, F):
     if cur:
         hay = (RAIZ / 'imagenes' / cur['imagen'] / 'maestra.jpg').exists()
         dibujo = f'<img class="dibujo" src="{imagen_lapiz(cur["imagen"], 1400, vineta=0.12, fino=True)}" alt="">' if hay else ''
-        especie = (f'<section class="especie{"" if hay else " sin-dibujo"}">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
+        especie = (f'<section class="especie{"" if hay else " sin-dibujo"}">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"], url=cur["fuente"])}</p>'
                    f'<p class="credito" data-meta>{cur["credito"]}</p></div></section>')
     mi = f'En māori, la región se llama <b>{esc(r["mi"])}</b>. ' if r.get('mi') else ''
     te_ara = F('Te Ara, enciclopedia de NZ.')
@@ -488,7 +527,7 @@ def dorso(r, D, F):
     # 3. Vivienda: alquiler local, con su categoría, su fecha y su estado provisional
     viv = practico.get('vivienda', {}).get(r['iso'], {})
     sal = practico['salario_minimo']
-    casa = (f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: casa entera, mediana de la región. Nuevos contratos de alquiler '
+    casa = (f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: alquiler típico de la región (media geométrica). Nuevos contratos de alquiler '
             f'registrados (bonos), jun. 2026 {etq("dato")}{F("Tenancy Services, alquileres por bonos, jun. 2026.")}</span></div>')
     hab = ''
     horas = ''
@@ -522,8 +561,8 @@ def dorso(r, D, F):
              f'<div><b><span class="ic frio"></span>{num(es["min_jul"], 1)} °C</b><span>mínima media de julio; {pmn}.ª de {n}</span></div>'
              f'<div><b><span class="ic lluvia"></span>{num(es["lluvia"])} mm</b><span>de lluvia al año, en {es["dias"]} días; '
              f'{pll}.ª de {n}</span></div></div>'
-             f'<p class="nota">{etq("dato")} Promedios 1991–2020; puesto entre las {n} estaciones del atlas'
-             f'{F("NIWA, normales climáticas 1991–2020.")}.</p></section>')
+             f'<p class="nota">{etq("dato")} Promedios 1991–2020 (días de lluvia: 1981–2010); puesto entre las {n} '
+             f'estaciones del atlas{F("NIWA, normales climáticas 1991–2020 y 1981–2010.")}.</p></section>')
     dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
     km = ''.join(f'<li><b>{esc(v["ciudad"])}</b> <span>{v["km"]} km</span></li>' for v in dist['vecinas'] if v['km'])
     mov = practico['movilidad'].get(r['iso'], {})
@@ -532,10 +571,10 @@ def dorso(r, D, F):
     if urbano:
         extras += f'<p><b>En la ciudad:</b> {urbano}</p>'
     movilidad = ('<section class="movilidad"><h2>Movilidad</h2>'
-                 f'<h3>Km desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
+                 f'<h3>Km desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.", url='https://data.linz.govt.nz/layer/50184/', completo='Cálculo propio: camino más corto entre ciudades principales sobre la red de rutas de LINZ (Topo 1:250k, todas las rutas), redondeado a 5 km; ver herramientas/distancias-nz.py.')}</h3>'
                  f'<ul class="km">{km}</ul>{extras}'
                  f'<p class="nota">{etq("rec")} {practico["vehiculo"]}'
-                 f'{F("Sitios oficiales de cada servicio de transporte.")}</p></section>')
+                 f'{F("Sitios oficiales de cada servicio de transporte.", completo='Conexiones: ' + ' '.join(f'{k}: {f}' for k, _, f in mov.get('items', [])))}</p></section>')
     return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
             f'<header class="cabecera-dorso"><h1>{nombre}</h1><span>trabajo, vivienda, clima y movilidad</span>'
             f'<span class="cod" data-meta>{codigo} · dorso · v{VERSION} · {FECHA}</span></header>'
@@ -548,8 +587,8 @@ def dorso(r, D, F):
             'vía Figure.NZ.</p></section></div></div></div>')
 
 
-def ficha(r, D, destino):
-    F = Fuentes()
+def ficha(r, D, destino, F=None):
+    F = F if F is not None else Fuentes()
     cara = frente(r, D, destino, F)
     atras = dorso(r, D, F)
     return ('<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
@@ -570,7 +609,7 @@ def desbordes(html):
     for linea in salida.splitlines():
         if 'fuera-de-margen' in linea and ('· frente ·' in linea or 'Mural NZ-A-00' in linea or pag1):
             m = re.search(r'queda a (-?[\d.]+) mm', linea)
-            peor = max(peor, 8 - float(m.group(1)) if m else 20)
+            peor = max(peor, 8.2 - float(m.group(1)) if m else 20)  # 0,2 mm de holgura por redondeo
     izquierda = 'página 2: hay tinta' in salida and any('fuera-de-margen' in l and ('p.tipos' in l or 'etq.' in l)
                                                          for l in salida.splitlines())
     return peor, izquierda

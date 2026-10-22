@@ -1,0 +1,35 @@
+{
+  "slug": "taranaki-heaphy",
+  "titulo": "View of Mount Egmont and the Sugar Loaf Islands.",
+  "autor": "Charles Heaphy",
+  "fecha": "between 1839 and 1845date QS:P571,+1850-00-00T00:00:00Z/7,P1319,+1839-00-00T00:00:00Z/9,P1326,+1845-00-00T00:00:00Z/9",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:View_of_Mount_Egmont_and_the_Sugar_Loaf_Islands._PUBL-0011-01.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/3/36/View_of_Mount_Egmont_and_the_Sugar_Loaf_Islands._PUBL-0011-01.jpg/960px-View_of_Mount_Egmont_and_the_Sugar_Loaf_Islands._PUBL-0011-01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    1080,
+    557
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "https://tiaki.natlib.govt.nz/#details=ecatalogue.116424",
+  "descripcion": "View of Mount Egmont and the Sugar Loaf Islands. Artwork by Charles Heaphy",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:View of Mount Egmont and the Sugar Loaf Islands. PUBL-0011-01.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/taranaki-heaphy/original.jpg",
+  "sha256_original": "be6bd70833ff6b24ea6617fca87f72a23d7ab98315526a11e76c963d62ee879b",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "0,74,960,396",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.45,
+    "tamanio": [
+      960,
+      322
+    ]
+  }
+}

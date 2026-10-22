@@ -7,6 +7,10 @@
   "mapa": 112,
   "puestos": 5
  },
+ "HKB": {
+  "mapa": 112,
+  "puestos": 5
+ },
  "MBH": {
   "mapa": 108,
   "puestos": 5
@@ -16,7 +20,7 @@
   "puestos": 5
  },
  "NTL": {
-  "mapa": 111,
+  "mapa": 110,
   "puestos": 5
  },
  "OTA": {
@@ -24,7 +28,7 @@
   "puestos": 5
  },
  "TAS": {
-  "mapa": 108,
+  "mapa": 107,
   "puestos": 5
  },
  "TKI": {
@@ -32,7 +36,7 @@
   "puestos": 5
  },
  "WGN": {
-  "mapa": 109,
+  "mapa": 108,
   "puestos": 5
  },
  "WKO": {
