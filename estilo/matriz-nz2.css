@@ -1,0 +1,40 @@
+/* NZ-A-99 v2: las 16 regiones de un vistazo */
+.matriz2 { display: flex; flex-direction: column; gap: 2mm; padding: 12mm 14mm 11mm; color: #22313f; position: relative; }
+.matriz2::before { content: ""; position: absolute; inset: 8.6mm; background: #f6efdf; border-radius: 3mm;
+  border: 0.35mm solid #d9c9a8; z-index: 0; }
+.matriz2 > * { position: relative; z-index: 1; }
+.matriz2 .coleccion { font-size: 8pt; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; color: #b5532a; }
+.matriz2 h1 { font-size: 20pt; margin: 0.5mm 0; }
+.matriz2 .bajada { font-size: 10.5pt; margin: 0; }
+.matriz2 table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+.matriz2 th { text-align: left; font-size: 10.5pt; color: #1f3a55; padding: 0 2mm 1mm 0; border-bottom: 0.4mm solid #1f3a55; vertical-align: bottom; }
+.matriz2 th span { display: block; font-size: 8pt; font-weight: 400; color: #5b6a77; }
+.matriz2 td { padding: 0.05mm 2mm 0.05mm 0; border-bottom: 0.2mm solid rgba(31, 58, 85, 0.15); vertical-align: middle; }
+.matriz2 tr.isla td { font-size: 10pt; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: #5b6a77; padding-top: 1mm; }
+.matriz2 td.mini { width: 8mm; }
+.matriz2 td.mini svg { width: 5.8mm !important; height: 8.2mm !important; display: block; }
+.matriz2 td.reg { white-space: nowrap; }
+.matriz2 td.reg b { font-size: 10.5pt; }
+.matriz2 td.reg span { font-size: 8pt; color: #5b6a77; }
+.matriz2 .chip { display: inline-block; min-width: 15mm; text-align: center; font-weight: 700; border-radius: 1.2mm; padding: 0.3mm 1.2mm; margin-right: 1.5mm; }
+.matriz2 .chip.verde { background: #cfe8c9; color: #1f5a2e; }
+.matriz2 .chip.ambar { background: #f6e0a8; color: #6b4b07; }
+.matriz2 .chip.rojo { background: #f3c4b6; color: #7a2410; }
+.matriz2 .glifos svg { margin-right: 0.6mm; vertical-align: middle; }
+.matriz2 .nada { font-size: 8pt; color: #8a96a1; }
+.matriz2 .barra { display: inline-block; width: 22mm; height: 2mm; background: rgba(31, 58, 85, 0.1); border-radius: 1mm; vertical-align: middle; }
+.matriz2 .barra i { display: block; height: 100%; background: #9a6a12; border-radius: 1mm; }
+.matriz2 .barra.gris i { background: #5b6a77; }
+.matriz2 td.gente span + span { margin-left: 1.5mm; }
+.matriz2 td.clima span { display: inline-flex; align-items: center; gap: 0.8mm; margin-right: 2.2mm; }
+.matriz2 .ic { display: inline-block; width: 3.4mm; height: 3.4mm; border-radius: 50%; }
+.matriz2 .ic.sol { background: #e9a23b; }
+.matriz2 .ic.frio { background: #7fb1d8; }
+.matriz2 .ic.lluvia { background: #2a69a8; border-radius: 50% 50% 50% 0; transform: rotate(-45deg) scale(0.85); }
+.matriz2 td.nota { white-space: nowrap; }
+.matriz2 td.nota i { display: inline-block; width: 4.2mm; height: 4.2mm; border: 0.3mm solid #b5532a; border-radius: 50%; margin-right: 1mm; vertical-align: middle; }
+.matriz2 footer { margin-top: auto; font-size: 8pt; color: #4a5866; border-top: 0.2mm solid #cbb895; padding-top: 1mm; }
+.matriz2 footer p { margin: 0 0 0.6mm; line-height: 1.3; }
+.matriz2 footer .glifos-ley span { display: inline-flex; align-items: center; gap: 0.6mm; margin-right: 2mm; }
+.matriz2 footer .glifos-ley svg { vertical-align: middle; }
+.matriz2 tr.isla-sur td { border-top: 0.6mm solid #1f3a55; }
