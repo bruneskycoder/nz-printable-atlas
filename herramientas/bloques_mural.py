@@ -228,7 +228,7 @@ def bloques(C, E):
         'latitud de Christchurch. Dibujadas a la misma escala que el mapa, pero corridas de su lugar. No son una de las 16 '
         'regiones: tienen un consejo propio.</p>')))
 
-    b.append(Bloque('m-armado', 8, 467, 164, 64, (
+    b.append(Bloque('m-armado', 8, 465, 164, 62, (
         '<h2>Cómo armar el mural</h2><ol>'
         '<li><b>Prueba de unión primero.</b> Imprimí solo las piezas 2 y 3 a tamaño real (100 %), una sola cara, y unilas como '
         'dice el paso 3. Si las marcas ▶◀ quedan desfasadas menos de 1 mm, imprimí las otras siete.</li>'

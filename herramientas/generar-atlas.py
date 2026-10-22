@@ -314,21 +314,53 @@ def numero(c, r):
     return r * COLS + c + 1
 
 
-def marcas_union(c, r, vx, vy):
+# Marcas de unión: largo de cada mitad y medio ancho del triángulo, en mm. Quedan a la vista en el
+# mural armado, así que van finas, cortas y en gris (estilo/mural-nz.css).
+MARCA, PUNTA = 5, 0.55
+
+
+def lugares_marcas(items, bls):
+    """Dónde va cada par de marcas de unión: cerca de un cuarto y tres cuartos de cada tramo de junta,
+    corridas lo justo para no pisar un rótulo ni un bloque. Las dos piezas de una junta usan las mismas."""
+    ocupado = [c for c, _ in items] + [(b.x, b.y, b.x + b.w, b.y + b.h) for b in bls]
+
+    def elegir(base, desde, hasta, caja):
+        for d in (0, 6, -6, 12, -12, 20, -20, 30, -30, 40, -40):
+            v = base + d
+            if desde + 8 < v < hasta - 8 and not any(se_tocan(caja(v), o, 0.8) for o in ocupado):
+                return v
+        print(f'  ! marca de unión sin lugar libre cerca de {base}')
+        return base
+    out = {}
+    for xj in JUNTAS_X:
+        for r in range(FILAS):
+            vy = r * PASO_Y  # tramo visible de la junta en esta fila (la franja de abajo la tapa la fila siguiente)
+            out['v', xj, r] = [elegir(vy + b, vy, vy + PASO_Y, lambda y: (xj - MARCA, y - PUNTA, xj + MARCA, y + PUNTA))
+                               for b in (60, 207)]
+    for yj in JUNTAS_Y:
+        for c in range(COLS):
+            vx = c * PASO_X
+            out['h', yj, c] = [elegir(vx + b, vx, vx + PASO_X, lambda x: (x - PUNTA, yj - MARCA, x + PUNTA, yj + MARCA))
+                               for b in (45, 135)]
+    return out
+
+
+def marcas_union(c, r, vx, vy, lugares):
     """Marcas de registro, línea de corte y franja de pegado de una pieza."""
+    M, P = MARCA, PUNTA
     s = []
     # Juntas verticales: la pieza de la derecha va encima de la de la izquierda
     for k, xj in enumerate(JUNTAS_X):
         if c not in (k, k + 1):
             continue
         izquierda = c == k
-        for yy in (vy + 45, vy + 138, vy + 232):
+        for yy in lugares['v', xj, r]:
             if izquierda:  # mitad que queda a la vista, termina en la línea de apoyo
-                s.append(f'<path class="marca-union" d="M{xj - 9} {yy} H{xj}"/>'
-                         f'<path class="marca-union-p" d="M{xj - 9} {yy - 1.2} L{xj - 6.6} {yy} L{xj - 9} {yy + 1.2} Z"/>')
+                s.append(f'<path class="marca-union" d="M{xj - M} {yy} H{xj}"/>'
+                         f'<path class="marca-union-p" d="M{xj - M} {yy - P} L{xj - M + 2 * P} {yy} L{xj - M} {yy + P} Z"/>')
             else:
-                s.append(f'<path class="marca-union" d="M{xj} {yy} H{xj + 9}"/>'
-                         f'<path class="marca-union-p" d="M{xj + 9} {yy - 1.2} L{xj + 6.6} {yy} L{xj + 9} {yy + 1.2} Z"/>')
+                s.append(f'<path class="marca-union" d="M{xj} {yy} H{xj + M}"/>'
+                         f'<path class="marca-union-p" d="M{xj + M} {yy - P} L{xj + M - 2 * P} {yy} L{xj + M} {yy + P} Z"/>')
         if izquierda:
             vecina = numero(c + 1, r)
             s.append(f'<path class="franja" d="M{xj} {vy} V{vy + IMG_H}"/>')
@@ -342,13 +374,13 @@ def marcas_union(c, r, vx, vy):
         if r not in (k, k + 1):
             continue
         abajo = r == k + 1  # esta pieza está debajo de la junta (va encima)
-        for xx in (vx + 30, vx + 95, vx + 160):
+        for xx in lugares['h', yj, c]:
             if abajo:
-                s.append(f'<path class="marca-union" d="M{xx} {yj} V{yj + 9}"/>'
-                         f'<path class="marca-union-p" d="M{xx - 1.2} {yj + 9} L{xx} {yj + 6.6} L{xx + 1.2} {yj + 9} Z"/>')
+                s.append(f'<path class="marca-union" d="M{xx} {yj} V{yj + M}"/>'
+                         f'<path class="marca-union-p" d="M{xx - P} {yj + M} L{xx} {yj + M - 2 * P} L{xx + P} {yj + M} Z"/>')
             else:
-                s.append(f'<path class="marca-union" d="M{xx} {yj - 9} V{yj}"/>'
-                         f'<path class="marca-union-p" d="M{xx - 1.2} {yj - 9} L{xx} {yj - 6.6} L{xx + 1.2} {yj - 9} Z"/>')
+                s.append(f'<path class="marca-union" d="M{xx} {yj - M} V{yj}"/>'
+                         f'<path class="marca-union-p" d="M{xx - P} {yj - M} L{xx} {yj - M + 2 * P} L{xx + P} {yj - M} Z"/>')
         if abajo:
             s.append(f'<path class="corte" d="M{vx} {yj + 0.15} H{vx + IMG_W}"/>')
         else:
@@ -440,6 +472,7 @@ def mural():
     glifos_tapados(items)
     bls = bloques(C, E_MURAL)
     revisar_bloques(bls)
+    lugares = lugares_marcas(items, bls)
     (DESTINO / 'relieve').mkdir(parents=True, exist_ok=True)
     for viejo in DESTINO.glob('NZ-A-00-*.html'):
         viejo.unlink()
@@ -457,7 +490,7 @@ def mural():
                       if x1 > vx - 2 and x0 < vx + IMG_W + 2 and y1 > vy - 2 and y0 < vy + IMG_H + 2]
             capas += grados_mural(C, vx, vy)
             capas.append(f'<rect class="marco" x="0.22" y="0.22" width="{MURAL_W - 0.44}" height="{MURAL_H - 0.44}"/>')
-            capas += marcas_union(c, r, vx, vy)
+            capas += marcas_union(c, r, vx, vy, lugares)
             capas.append(codigo_pieza(n, c, r, vx, vy))
             html_bloques = ''.join(b.html(vx, vy) for b in bls if b.en(*zona_visible(c, r)))
             svg = (f'<svg class="mapa mural-svg" data-borde-ok viewBox="{vx} {vy} {IMG_W} {IMG_H}" '

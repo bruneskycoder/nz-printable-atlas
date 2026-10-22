@@ -143,3 +143,9 @@
 .mural .mapa .escudo text { font-size: 2.85px; font-weight: 800; fill: var(--m-sh1); stroke: none; }
 .mural .mapa .escudo.sh1 rect { fill: var(--m-sh1); stroke: white; stroke-width: 0.25; }
 .mural .mapa .escudo.sh1 text { fill: white; }
+
+/* Marcas de unión: quedan a la vista en el mural armado, así que van finas y en gris.
+   La línea fina alinea igual o mejor que la gruesa. */
+.mural .mapa .marca-union { stroke: #6a6a6a; stroke-width: 0.13; }
+.mural .mapa .marca-union-p { fill: #6a6a6a; }
+.mural .mapa .corte { stroke: #6a6a6a; stroke-width: 0.15; stroke-dasharray: 1 0.8; }
