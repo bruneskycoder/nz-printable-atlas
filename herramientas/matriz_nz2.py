@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""NZ-A-99 v2, «¿Dónde ir?»: las 16 regiones de un vistazo (borrador).
+"""NZ-A-99 v2, «¿Dónde ir?»: las 16 regiones de un vistazo (una página apaisada).
 
     cd herramientas && python3 matriz_nz2.py
 
@@ -75,7 +75,7 @@ def matriz(dest):
         '<link rel="stylesheet" href="../../estilo/mural-nz.css">\n<link rel="stylesheet" href="../../estilo/matriz-nz2.css">\n'
         '<style>@page { size: A4 landscape; }</style>\n'
         f'</head>\n<body>\n{hoja}\n</body>\n</html>\n')
-    print('  NZ-A-99.html')
+    print(f'  {(dest / "NZ-A-99.html").relative_to(RAIZ)}')
 
 
 if __name__ == '__main__':

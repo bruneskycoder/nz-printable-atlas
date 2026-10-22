@@ -584,5 +584,5 @@ if __name__ == '__main__':
         fichas(DESTINO, sys.argv[2:] or None)
         fuentes(DESTINO)
     if que in ('matriz', 'todo'):
-        from matriz_nz import matriz
+        from matriz_nz2 import matriz
         matriz(DESTINO)
