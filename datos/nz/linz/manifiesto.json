@@ -1,5 +1,5 @@
 {
- "bajado": "2026-10-22 11:36 UTC",
+ "bajado": "2026-10-22 11:46 UTC",
  "fuente": "LINZ Data Service (data.linz.govt.nz), WFS",
  "capas": [
   {
@@ -26,79 +26,6 @@
    "url": "https://data.linz.govt.nz/layer/50184/"
   },
   {
-   "archivo": "rios.geojson.gz",
-   "capa": 50182,
-   "titulo": "NZ River Centrelines (Topo, 1:250k)",
-   "version_publicada": "2025-04-27T23:51:12.407828Z",
-   "licencia": "Creative Commons Attribution 4.0 International",
-   "srs": "EPSG:2193",
-   "filtro": null,
-   "elementos": 76061,
-   "campos_capa": [
-    "GEOMETRY",
-    "t250_fid"
-   ],
-   "url": "https://data.linz.govt.nz/layer/50182/"
-  },
-  {
-   "archivo": "nombres-lineas.geojson.gz",
-   "capa": 52423,
-   "titulo": "NZ Place Names - Lines (NZGB)",
-   "version_publicada": "2026-10-13T08:21:00.965736Z",
-   "licencia": "Creative Commons Attribution 4.0 International",
-   "srs": "EPSG:2193",
-   "filtro": "feat_type = 'Stream'",
-   "elementos": 16917,
-   "campos_capa": [
-    "name_id",
-    "feat_id",
-    "name",
-    "status",
-    "feat_type",
-    "nzgb_ref",
-    "nzgb_sub_ref",
-    "land_district",
-    "crd_projection",
-    "crd_north",
-    "crd_east",
-    "crd_datum",
-    "crd_latitude",
-    "crd_longitude",
-    "info_ref",
-    "info_origin",
-    "info_note",
-    "feat_note",
-    "info_description",
-    "maori_name",
-    "label_hierarchy",
-    "cpa_legislation",
-    "conservancy",
-    "doc_cons_unit_no",
-    "doc_gaz_ref",
-    "doc_gaz_sub_ref",
-    "treaty_legislation",
-    "geom_type",
-    "accuracy",
-    "gebco",
-    "region",
-    "scufn",
-    "height",
-    "ant_pn_ref",
-    "ant_pgaz_ref",
-    "scar_id",
-    "scar_rec_by",
-    "accuracy_rating",
-    "desc_code",
-    "rev_gaz_ref",
-    "rev_gaz_sub_ref",
-    "rev_treaty_legislation",
-    "territorial_authority_ascii",
-    "territorial_authority",
-    "shape"
-   ],
-   "url": "https://data.linz.govt.nz/layer/52423/"
-  },
-  {
    "archivo": "lagos.geojson.gz",
    "capa": 50168,
    "titulo": "NZ Lake Polygons (Topo, 1:250k)",
@@ -122,27 +49,6 @@
     "grp_macron"
    ],
    "url": "https://data.linz.govt.nz/layer/50168/"
-  },
-  {
-   "archivo": "costa.geojson.gz",
-   "capa": 51559,
-   "titulo": "NZ Coastlines and Islands Polygons (Topo 1:250k)",
-   "version_publicada": "2025-04-28T03:26:18.182874Z",
-   "licencia": "Creative Commons Attribution 4.0 International",
-   "srs": "EPSG:2193",
-   "filtro": null,
-   "elementos": 1701,
-   "campos_capa": [
-    "GEOMETRY",
-    "FID",
-    "name_ascii",
-    "name",
-    "macronated",
-    "grp_ascii",
-    "grp_name",
-    "grp_macron"
-   ],
-   "url": "https://data.linz.govt.nz/layer/51559/"
   },
   {
    "archivo": "nombres.geojson.gz",
