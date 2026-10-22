@@ -61,12 +61,14 @@ def pagina(contenido, n, total):
 def main(dest=RAIZ / 'salida' / 'pruebas'):
     import fichas_nz2
     D = datos()
+    pruebas = RAIZ / 'salida' / 'pruebas'  # ahí van los relieves de las fichas que se arman solo para numerar las fuentes
+    pruebas.mkdir(parents=True, exist_ok=True)
     ajuste = json.loads((RAIZ / 'datos' / 'nz' / 'fichas-ajuste.json').read_text())
     regiones = []
     for r in D['regiones']:
         F = Fuentes()
         fichas_nz2.MAX_PUESTOS = ajuste.get(r['iso'], {}).get('puestos', 5)  # misma lista de puestos que la ficha
-        ficha(r, D, RAIZ / 'salida' / 'pruebas', F)
+        ficha(r, D, pruebas, F)
         items = ''.join(f'<li data-meta><b>{i}</b> {esc(re.sub(r" \(https?://[^)]*\)", "", F.detalle[t][0]))}'
                         + (f' <a href="{esc(F.detalle[t][1])}">{esc(F.detalle[t][1])}</a>' if F.detalle[t][1] else '') + '</li>'
                         for i, t in enumerate(F.lista, start=1))
