@@ -1,7 +1,7 @@
 # Plan: mapa mural de Nueva Zelanda, versión 2 (`NZ-A-00`)
 
 **Nivel:** profundo. Suma varias fuentes externas (LINZ, DOC, Work and Income, estadísticas sectoriales), una de ellas con clave, y cambia la grilla del mural.
-**Estado:** aprobado (2026-10-21), en ejecución.
+**Estado:** en ejecución. Pasos 1 a 5, 8 y 9 terminados; el 6 y el 7 esperan el secreto `LINZ_API_KEY` en GitHub.
 **Última actualización:** 2026-10-21
 
 ## Objetivo
@@ -124,17 +124,13 @@ Pediste más color y más tinta para que se entienda mejor y quede más lindo. L
    - Cook Strait;
    - Cape Reinga, Bay of Islands y The Catlins.
    - Opcional, si entran limpios: los centros de esquí principales.
-5. **Matriz región × sector** (16 filas):
-   - **Población** (Censo 2023): una línea aclara que construcción, mantenimiento, logística y CAD siguen a la población.
-   - **Lechería:** % de las vacas.
-   - **Ovinos:** % de las ovejas.
-   - **Vacunos de carne:** %.
-   - **Vid:** % del área en producción.
-   - **Fruticultura:** % de las hectáreas.
-   - **Forestal:** % de las plantaciones (MPI, por región forestal; las regiones agrupadas comparten celda).
-   - **Turismo:** % del gasto turístico.
-   - Un sector sin fuente verificable por región (frigoríficos, pesca) no entra a la matriz: va a la nota.
-6. **Glifos en el mapa:** junto al número de cada región, como máximo 3. La regla va impresa en la leyenda: «la región tiene el 10 % o más del total nacional del sector».
+5. **Matriz región × sector** (16 filas × 12 columnas, % del total del país; `datos/sectores-nz.json`):
+   - **Campo:**
+     - lechería, ovinos y vacunos de carne: Stats NZ, encuesta agropecuaria 2025;
+     - fruta, viñedos, hortalizas y forestal: Stats NZ, censo agropecuario 2022, el último con horticultura.
+   - **Empleos a febrero de 2025** (Stats NZ, demografía de empresas): frigoríficos, alojamiento, construcción, transporte y depósitos, y arquitectura e ingeniería, el indicador más cercano a CAD.
+   - Todo por consejo regional, así que las columnas coinciden con las 16 regiones sin agrupar.
+6. **Glifos en el mapa:** debajo del nombre de cada región. Cada uno de 9 sectores marca sus **4 regiones principales**; la regla va impresa en la leyenda.
 7. **Calendario:**
    - unas 8 a 10 filas de cultivo o actividad más región (por ejemplo, kiwi en Bay of Plenty: cosecha y poda), sacadas de Work and Income y contrastadas con PickNZ;
    - 12 meses, con fecha de consulta y la leyenda «ventana orientativa; varía según cultivo, clima, empleador y año»;
@@ -144,24 +140,25 @@ Pediste más color y más tinta para que se entienda mejor y quede más lindo. L
 
 ## Pasos
 
-- [ ] 1. **Grilla 3 × 3 a 1:1.900.000 con el contenido de la v1.**
+- [x] 1. **Grilla 3 × 3 a 1:1.900.000 con el contenido de la v1.**
   - Relieve recalculado; armado y prueba de unión con las piezas 2 y 3 (la junta cruza Northland).
   - Las fichas solo cambian la referencia a la pieza.
   - Verificación: vista completa sin encimados y ningún bloque partido por una junta.
-- [ ] 2. **Parques nacionales del DOC.**
+- [x] 2. **Parques nacionales del DOC.**
   - Verificación: son 13; los nombres coinciden con el DOC; tinta < 20 % por pieza.
-- [ ] 3. **Datos sectoriales con fuente.**
+- [x] 3. **Datos sectoriales con fuente.**
   - Verificación: cada columna suma alrededor de 100 %; el total de vacas coincide con LIC (4.677.580); cada cifra tiene fuente y fecha.
-- [ ] 4. **Calendario de Work and Income.**
+  - Resultado: las columnas suman entre 97,2 % y 100 % (lo que falta son datos reservados y áreas fuera de las 16 regiones). El total de LIC no sirve de control: Stats NZ cuenta todo el ganado lechero (5.749.870 cabezas, con terneros), no solo las vacas. Sí coincide el orden de las regiones. Controles que sí cierran: viñedos de Marlborough, 67,5 % (2022) contra 72 % de NZ Winegrowers (2025); bosque, 1,75 millones de ha, como el inventario de MPI.
+- [x] 4. **Calendario de Work and Income.**
   - Verificación: cada celda se rastrea hasta la fuente y lleva la fecha de consulta.
-- [ ] 5. **Bloques nuevos** (matriz, calendario, leyenda ampliada, nota) **y glifos.**
+- [x] 5. **Bloques nuevos** (matriz, calendario, leyenda ampliada, nota) **y glifos.**
   - Verificación: el chequeo automático pasa (10 pt, nada a menos de 8 mm del borde, sin encimados).
 - [ ] 6. **Rasgos y destinos faltantes.**
   - Verificación: posición contra el Gazetteer o el DOC; ningún rótulo en el mar ni en otra región.
 - [ ] 7. **LINZ** (necesita el secreto de GitHub): rutas con número, ríos, lagos, costa y el chequeo de nombres.
   - Verificación: SH1 continua de Cape Reinga a Bluff, con el corte del estrecho; informe de nombres sin diferencias pendientes.
-- [ ] 8. **Prueba en gris:** vista previa en escala de grises revisada; rutas, ríos y parques se distinguen.
-- [ ] 9. **Exportar:**
+- [x] 8. **Prueba en gris:** vista previa en escala de grises revisada; rutas, ríos y parques se distinguen.
+- [x] 9. **Exportar:**
   - las 9 piezas, el PDF combinado y la vista completa en PNG;
   - una página única de 55 × 81 cm;
   - README (armado 3 × 3, fuentes) y `PLAN.md` actualizados.
@@ -177,7 +174,7 @@ Los pasos 1 a 6 y 8 no dependen de la clave. El 7 empieza cuando la tarea de Git
 | No hay dato regional de horticultura reciente. | Usar el último disponible, con su año a la vista; si no existe, la columna se va. |
 | Las regiones forestales y las de LIC no coinciden con las 16 regiones. | Celdas agrupadas, con nota. |
 | Las rutas de LINZ sin número de State Highway. | Identificar la SH1 por nombre o por la red de NZTA; si no se puede, la SH1 va destacada sin escudos. |
-| La tinta extra ondula el papel de 75 g. | Límite del 35 % por pieza, medido; si se ondula, papel de 90 g o más. |
+| La tinta extra ondula el papel de 75 g. | Medida: del 9,8 al 18,5 % por pieza, debajo del 20 % de siempre. Si igual se ondula, papel de 90 g o más. |
 | Las fichas dicen «pieza N» con la numeración vieja. | Se regeneran solo para esa línea, con los datos sin tocar. |
 
 ## Verificación final
@@ -204,3 +201,16 @@ Los pasos 1 a 6 y 8 no dependen de la clave. El 7 empieza cuando la tarea de Git
 - 2026-10-21 — Plan aprobado. Excepción de color y tinta para el mural (ver «Paleta del mural»).
 - 2026-10-21 — La clave de LINZ va como secreto de GitHub Actions, no del entorno. Es más simple de cargar y no hace falta una sesión nueva.
 - 2026-10-21 — LINZ discontinuó la serie 1:500k: se usa la 1:250k (CC BY 4.0) y se simplifica.
+- 2026-10-21 — Matriz: cambian las fuentes y columnas previstas, para que todo sea de Stats NZ y por consejo regional.
+  - Sale la columna de población: las de empleo (construcción, transporte, arquitectura e ingeniería) la reemplazan con datos reales.
+  - Frigoríficos sí entra: la demografía de empresas trae los empleados en procesamiento de carne por región.
+  - Turismo se mide con empleos en alojamiento, no con gasto turístico: el gasto se publica por región turística, que no coincide con las 16 regiones.
+  - Forestal sale del censo agropecuario 2022, por consejo regional, y no del inventario de MPI, que agrupa regiones.
+- 2026-10-21 — Glifos: cada sector marca sus 4 regiones principales, en lugar de «10 % o más del país». Con el 10 %, Tasman, Gisborne y Northland no tenían ninguno, y ahí está buena parte de la cosecha.
+- 2026-10-21 — Calendario: Work and Income no trae los viñedos de Marlborough; van como ventana anual (PickNZ), sin meses.
+  - Hallazgo: la página general de Work and Income pone a Hawke's Bay como zona lechera, que es de donde salió ese error del brief. Stats NZ le da el 1,1 % del ganado lechero.
+- 2026-10-21 — Tinta medida: del 9,8 al 18,5 % por pieza. El límite del 35 % no hizo falta.
+- 2026-10-21 — Juntas: cuatro ciudades caen sobre una junta (Auckland, Porirua, Wellington y Dunedin). Las dos piezas imprimen el símbolo entero, así que se ve continuo si la unión queda a menos de 1 mm. Los rótulos se corrieron al lado que no cruza.
+- 2026-10-21 — Las fichas solo cambian la línea «Mapa mural: NZ-A-00, pieza N» (8 de 16 cambian de número).
+- 2026-10-21 — Los rasgos nuevos (Tongariro, Ngāuruhoe, glaciares, Piopiotahi y otros) esperan el Gazetteer de LINZ, para que la posición y el nombre salgan de la fuente y no de memoria.
+

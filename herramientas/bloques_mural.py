@@ -216,9 +216,9 @@ def bloques(C, E):
         f'style="width:{maxx - minx + 6:.1f}mm;height:{maxy - miny + 6:.1f}mm;margin:0 auto 1.5mm">'
         f'<path class="lago" style="fill:none" d="{ruta(geo.buffer(1.0).boundary)}"/>'
         f'<path style="fill:#f3f0e1;stroke:#1f3a55;stroke-width:0.26" d="{ruta(geo)}"/></svg>'
-        '<p class="t"><b>Chatham Islands / Rēkohu</b><br>Están a unos 800 km al este de Banks Peninsula, a la misma latitud '
-        'que este recuadro. Dibujadas a la misma escala que el mapa, pero corridas de su lugar. No son una de las 16 regiones: '
-        'tienen un consejo propio.</p>')))
+        '<p class="t"><b>Chatham Islands / Rēkohu</b><br>Están a unos 800 km al este de Banks Peninsula, más o menos a la '
+        'latitud de Christchurch. Dibujadas a la misma escala que el mapa, pero corridas de su lugar. No son una de las 16 '
+        'regiones: tienen un consejo propio.</p>')))
 
     b.append(Bloque('m-armado', 8, 467, 164, 64, (
         '<h2>Cómo armar el mural</h2><ol>'

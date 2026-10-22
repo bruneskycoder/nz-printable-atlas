@@ -300,12 +300,12 @@ def marcas_union(c, r, vx, vy):
 def codigo_pieza(n, c, r, vx, vy):
     """Código de la pieza: en una franja que queda tapada; la última va en la esquina del marco."""
     t = f'NZ-A-00 · pieza {n} de {PIEZAS} · v{VERSION} · {FECHA}'
-    if c < COLS - 1:  # franja vertical de la derecha, debajo del texto de pegado
+    if r < FILAS - 1:  # franja de abajo, a la izquierda del texto de pegado
+        return f'<text class="pieza-t" x="{vx + 4}" y="{vy + IMG_H - 1.5}">{t}</text>'
+    if c < COLS - 1:  # última fila: franja vertical de la derecha, debajo del texto de pegado
         x, y = vx + IMG_W - 5, vy + IMG_H - 14
         return f'<text class="pieza-t" x="{x}" y="{y}" text-anchor="end" transform="rotate(90 {x} {y})">{t}</text>'
-    if r < FILAS - 1:  # última columna: franja de abajo, a la izquierda del texto de pegado
-        return f'<text class="pieza-t" x="{vx + 4}" y="{vy + IMG_H - 1.5}">{t}</text>'
-    return f'<text class="pieza-t" x="{vx + IMG_W - 3}" y="{vy + IMG_H - 3}" text-anchor="end">{t}</text>'
+    return f'<text class="pieza-t" x="{vx + IMG_W - 3}" y="{vy + IMG_H - 7}" text-anchor="end">{t}</text>'
 
 
 def glifos_tapados(items):

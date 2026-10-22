@@ -9,7 +9,7 @@ import math
 
 from shapely.ops import polylabel, unary_union
 
-from atlas_nz import (PT, RAIZ, RELIEVE_ESCALA, RELIEVE_X0, RELIEVE_Y0, Encuadre,
+from atlas_nz import (MURAL_ESCALA, MURAL_X0, MURAL_Y0, PT, RAIZ, RELIEVE_ESCALA, RELIEVE_X0, RELIEVE_Y0, Encuadre,
                       caja_rotulo, capa, esc, recortar, relieve_ventana, rotulo_punto, ruta, tabla)
 
 FECHA = '2026-10-17'
@@ -305,14 +305,14 @@ def calendario(r, sectores):
 
 # ---------------------------------------------------------------------------
 def pieza_mural(r):
-    """Pieza del mural donde cae el centro de la región."""
-    E = Encuadre(RELIEVE_ESCALA, RELIEVE_X0, RELIEVE_Y0)
+    """Pieza del mural v2 (3 × 3 A4 verticales, paso de 180 × 267 mm) donde cae el centro de la región."""
+    E = Encuadre(MURAL_ESCALA, MURAL_X0, MURAL_Y0)
     g = [E.geom(g) for p, g in capa('regiones') if p['iso'] == r['iso']][0]
     mayor = max(g.geoms, key=lambda h: h.area) if g.geom_type == 'MultiPolygon' else g
     c = polylabel(mayor, tolerance=0.5)
-    col = 0 if c.x < 267 else 1
-    fila = min(3, int(c.y // 180))
-    return fila * 2 + col + 1
+    col = min(2, int(c.x // 180))
+    fila = min(2, int(c.y // 267))
+    return fila * 3 + col + 1
 
 
 def ficha(r, D, destino):
