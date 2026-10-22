@@ -89,6 +89,10 @@ def main(pedido, destino):
                   'fuente': 'LINZ Data Service (data.linz.govt.nz), WFS', 'capas': []}
     for p in json.loads(pedido.read_text())['capas']:
         meta = json.loads(pedir(CATALOGO.format(capa=p['capa'])))
+        disponibles = [c.get('name') for c in (meta.get('data') or {}).get('fields', [])]
+        faltan = [c for c in p.get('campos') or [] if disponibles and c not in disponibles]
+        if faltan:
+            print(f'  AVISO: la capa {p["capa"]} no tiene {", ".join(faltan)} (tiene {", ".join(disponibles)})')
         feats = bajar_capa(clave, p)
         archivo = destino / f'{p["archivo"]}.geojson.gz'
         with gzip.open(archivo, 'wt', encoding='utf-8') as f:
@@ -96,7 +100,7 @@ def main(pedido, destino):
         manifiesto['capas'].append({
             'archivo': archivo.name, 'capa': p['capa'], 'titulo': meta.get('title'),
             'version_publicada': meta.get('published_at'), 'licencia': (meta.get('license') or {}).get('title'),
-            'srs': p['srs'], 'filtro': p.get('filtro'), 'elementos': len(feats),
+            'srs': p['srs'], 'filtro': p.get('filtro'), 'elementos': len(feats), 'campos_capa': disponibles,
             'url': f'https://data.linz.govt.nz/layer/{p["capa"]}/'})
         print(f'  {p["archivo"]}: capa {p["capa"]} ({meta.get("title")}), {len(feats)} elementos, '
               f'{archivo.stat().st_size // 1024} KB')
