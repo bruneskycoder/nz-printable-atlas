@@ -1,5 +1,5 @@
 {
- "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro. 'nombres' cambia el texto de un rótulo, pico o ciudad por su forma oficial del Gazetteer de LINZ (macrones, nombre doble); 't2' agrega una segunda línea con 'clase2' (ver datos/nz/linz/nombres-informe.txt). 'rotulos_nuevos' y 'picos_nuevos' son rasgos que el mural agrega a rotulos.json; las coordenadas salen del Gazetteer.",
+ "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro. 'nombres' cambia el texto de un rótulo, pico o ciudad: el mural va en inglés, con el nombre inglés del Gazetteer de LINZ y sus macrones; los nombres māori de los nombres dobles van en el recuadro «Māori names» (bloques_mural.py). 't2' agrega una segunda línea con 'clase2'. 'rotulos_nuevos' y 'picos_nuevos' son rasgos que el mural agrega a rotulos.json; las coordenadas salen del Gazetteer. 'curiosidades': las letras del recuadro «On the map», en el lugar de cada curiosidad (coordenadas del rasgo: el árbol, el puente, el set de filmación).",
  "rotulos_mover": {
   "TASMAN SEA": {
    "x": 250,
@@ -60,6 +60,11 @@
    "x": 413,
    "y": 285,
    "rot": 0
+  },
+  "Canterbury Bight": {
+   "x": 222,
+   "y": 636,
+   "rot": -62
   }
  },
  "lugares_pos": {
@@ -120,7 +125,7 @@
   },
   {
    "nombre": "Westland National Park/Tai Poutini National Park",
-   "t": "Westland Tai Poutini NP",
+   "t": "Westland NP",
    "x": 126,
    "y": 556,
    "rot": -40,
@@ -131,7 +136,7 @@
   },
   {
    "nombre": "Aoraki/Mount Cook National Park",
-   "t": "Aoraki / Mount Cook NP",
+   "t": "Mount Cook NP",
    "x": 170,
    "y": 566,
    "rot": -60
@@ -209,7 +214,9 @@
   }
  ],
  "rotulos_ocultar": [
-  "Whanganui"
+  "Whanganui",
+  "North Island",
+  "South Island"
  ],
  "nombres": {
   "Turangi": {
@@ -218,20 +225,17 @@
   "Takaka": {
    "t": "Tākaka"
   },
-  "Franz Josef": {
-   "t": "Franz Josef / Waiau"
-  },
   "Wanaka": {
    "t": "Wānaka"
   },
   "Waitomo": {
    "t": "Waitomo Caves"
   },
-  "Milford Sound": {
-   "t": "Milford Sound / Piopiotahi"
+  "Aoraki / Mount Cook": {
+   "t": "Mount Cook"
   },
   "Tititea / Mt Aspiring": {
-   "t": "Mount Aspiring / Tititea"
+   "t": "Mount Aspiring"
   },
   "Ruapehu": {
    "t": "Mount Ruapehu"
@@ -239,28 +243,20 @@
   "Lake Wanaka": {
    "t": "Lake Wānaka"
   },
-  "Hauraki Gulf": {
-   "t": "Hauraki Gulf",
-   "t2": "Tīkapa Moana"
-  },
-  "Golden Bay": {
-   "t": "Golden Bay",
-   "t2": "Mohua"
-  },
-  "Tasman Bay": {
-   "t": "Tasman Bay",
-   "t2": "Te Tai-o-Aorere"
-  },
-  "SOUTHERN ALPS": {
-   "t2": "KĀ TIRITIRI O TE MOANA",
-   "clase2": "sierra-chica"
-  },
   "RAUKUMARA RANGE": {
    "t": "RAUKŪMARA RANGE"
   },
-  "Cape Reinga": {
-   "t": "Cape Reinga",
-   "t2": "Te Rerenga Wairua"
+  "Clutha / Mata-Au": {
+   "t": "Clutha"
+  },
+  "Stewart Island / Rakiura": {
+   "t": "Stewart Island"
+  },
+  "TE IKA-A-MĀUI": {
+   "t": "NORTH ISLAND"
+  },
+  "TE WAIPOUNAMU": {
+   "t": "SOUTH ISLAND"
   }
  },
  "rotulos_nuevos": [
@@ -285,6 +281,38 @@
    "lon": 175.63489,
    "lat": -39.15842,
    "pos": "E"
+  }
+ ],
+ "curiosidades": [
+  {
+   "letra": "A",
+   "n": "Tāne Mahuta, Waipoua Forest",
+   "lon": 173.5277,
+   "lat": -35.6015
+  },
+  {
+   "letra": "B",
+   "n": "Waitomo Caves",
+   "lon": 175.103,
+   "lat": -38.261
+  },
+  {
+   "letra": "C",
+   "n": "Hobbiton, near Matamata",
+   "lon": 175.6833,
+   "lat": -37.8721
+  },
+  {
+   "letra": "D",
+   "n": "Arthur's Pass",
+   "lon": 171.5626,
+   "lat": -42.9395
+  },
+  {
+   "letra": "E",
+   "n": "Kawarau Gorge Suspension Bridge",
+   "lon": 168.8971,
+   "lat": -45.0106
   }
  ]
 }

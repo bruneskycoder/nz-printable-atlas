@@ -149,3 +149,31 @@
 .mural .mapa .marca-union { stroke: #6a6a6a; stroke-width: 0.13; }
 .mural .mapa .marca-union-p { fill: #6a6a6a; }
 .mural .mapa .corte { stroke: #6a6a6a; stroke-width: 0.15; stroke-dasharray: 1 0.8; }
+
+/* Nombres māori de los nombres dobles (el mapa va en inglés) */
+.mural .m-maori h2 { font-size: 13pt; margin: 0 0 1.2mm; }
+.mural .m-maori .pares { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3mm 6mm; font-size: 10pt; line-height: 1.25; }
+.mural .m-maori .pares b { color: var(--m-region); margin-right: 1.2mm; }
+.mural .m-maori .nota { font-size: 10pt; line-height: 1.25; color: #333; margin: 1.4mm 0 0; }
+
+/* Curiosidades: letra en un círculo junto al lugar; el texto va en el recuadro «On the map» */
+.mural .mapa .cur circle { fill: var(--m-costa); stroke: white; stroke-width: 0.3; }
+.mural .mapa .cur text { font-size: 2.85px; font-weight: 800; fill: white; stroke: none; }
+.mural .mapa .cur-guia { fill: none; stroke: var(--m-costa); stroke-width: 0.25; }
+
+/* Curiosidades */
+.mural .m-kiwi h2, .mural .m-geo h2, .mural .m-slang h2, .mural .m-historia h2, .mural .m-notas h2 { font-size: 13pt; margin: 0 0 1.2mm; }
+.mural .m-kiwi p, .mural .m-geo dd, .mural .m-slang dd, .mural .m-historia dd, .mural .m-notas dd { font-size: 10pt; line-height: 1.25; }
+.mural .m-kiwi .fila { display: flex; gap: 3mm; align-items: center; margin-bottom: 1.6mm; }
+.mural .m-kiwi .fila p { margin: 0; flex: 1; }
+.mural .m-kiwi .ave { width: 34mm; flex: none; }
+.mural .m-kiwi .dibujo { flex: none; }
+.mural .m-kiwi .gente { margin: 0; }
+.mural .m-kiwi .credito { font-size: 8pt; color: #4a5866; margin: 1mm 0 0; }
+.mural .m-geo dl, .mural .m-historia dl, .mural .m-notas dl { display: grid; grid-template-columns: auto 1fr; gap: 0.9mm 2.5mm; margin: 0; }
+.mural .m-geo dt, .mural .m-historia dt { font-size: 10pt; font-weight: 700; color: var(--m-costa); line-height: 1.25; }
+.mural .m-geo dd, .mural .m-historia dd, .mural .m-notas dd { margin: 0; }
+.mural .m-slang .pares { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4mm 4mm; font-size: 10pt; line-height: 1.25; }
+.mural .m-slang .pares b { color: var(--m-region); margin-right: 1mm; }
+.mural .m-notas .cur-l { display: inline-block; width: 4.8mm; height: 4.8mm; border-radius: 50%; background: var(--m-costa); color: white;
+  font-size: 10pt; font-weight: 800; text-align: center; line-height: 4.8mm; }

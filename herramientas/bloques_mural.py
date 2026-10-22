@@ -1,4 +1,6 @@
 """Bloques de texto del mapa mural v2 (título, leyenda, tablas, armado, fuentes).
+El mural va todo en inglés (lo pidió así el usuario: es el idioma que va a usar
+allá); las fichas regionales siguen en castellano.
 Cada bloque se ubica en mm del mural y aparece en la pieza que lo contiene entero.
 Van sobre el mar, en la parte de cada pieza que queda a la vista, para que
 ninguno quede partido por una junta (generar-atlas.py avisa si pasa)."""
@@ -55,19 +57,30 @@ def tintas_altura():
     """Franja de las tintas de altura del relieve, con sus cortes en metros."""
     cortes = [0, 250, 600, 1000, 1500, 2000, 2400]
     color = {a: c for a, c in HIPSO}
-    # El separador de miles va solo en el número: el color rgb(r, g, b) necesita sus comas
-    celdas = ''.join(f'<div><i style="background:rgb{color[a]}"></i>{f"{a:,}".replace(",", ".")}</div>' for a in cortes)
+    celdas = ''.join(f'<div><i style="background:rgb{color[a]}"></i>{a:,}</div>' for a in cortes)
     return f'<div class="tintas">{celdas}<div class="u">m</div></div>'
 
 
-GLIFOS_MAPA = [('lecheria', 'Lechería'), ('ovinos', 'Ovinos'), ('vacunos', 'Vacunos de carne'), ('fruta', 'Fruta'),
-               ('vid', 'Viñedos'), ('hortalizas', 'Hortalizas'), ('forestal', 'Forestal'), ('frigorificos', 'Frigoríficos'),
-               ('alojamiento', 'Alojamiento y turismo')]
-NOMBRE_CORTO = {'vacunos': 'Vacunos', 'transporte': 'Transporte', 'tecnicos': 'Arquitectura e ing.', 'alojamiento': 'Alojamiento'}
+GLIFOS_MAPA = [('lecheria', 'Dairy'), ('ovinos', 'Sheep'), ('vacunos', 'Beef cattle'), ('fruta', 'Fruit'),
+               ('vid', 'Vineyards'), ('hortalizas', 'Vegetables'), ('forestal', 'Forestry'), ('frigorificos', 'Meat processing'),
+               ('alojamiento', 'Accommodation & tourism')]
+# Nombre en inglés de cada sector de datos/sectores-nz.json (que los guarda en castellano), corto para la tabla
+SECTOR_EN = {'lecheria': 'Dairy', 'ovinos': 'Sheep', 'vacunos': 'Beef', 'fruta': 'Fruit', 'vid': 'Vineyards',
+             'hortalizas': 'Vegetables', 'forestal': 'Forestry', 'frigorificos': 'Meat processing',
+             'alojamiento': 'Accommodation', 'construccion': 'Construction', 'transporte': 'Transport',
+             'tecnicos': 'Architecture & eng.'}
+# Filas del calendario (datos/calendario-nz.json las guarda en castellano)
+ETIQUETA_EN = {'Kiwi': 'Kiwifruit', 'Manzana y pera': 'Apples & pears', 'Cereza': 'Cherries', 'Carozo': 'Stonefruit',
+               'Palta': 'Avocados', 'Lúpulo': 'Hops', 'Uva': 'Grapes', 'Hortalizas': 'Vegetables',
+               'Frigoríficos': 'Meat processing', 'Parición y esquila': 'Lambing & shearing', 'Lechería': 'Dairy farms',
+               'Forestal': 'Forestry', 'Viñedos (Marlborough y otras)': 'Vineyards (Marlborough & others)',
+               'Esquí': 'Ski fields', 'Turismo, temporada alta': 'Tourism, high season', 'Pesca y mariscos': 'Fishing & seafood'}
+# Letra de cada tarea en el calendario: C cosecha, P poda, R raleo, M mantenimiento (los datos) -> inglés
+LETRA_EN = {'C': 'H', 'P': 'P', 'R': 'T', 'M': 'M'}
 
 
-def coma(x, dec=1):
-    return f'{x:.{dec}f}'.replace('.', ',')
+def num(x, dec=1):
+    return f'{x:.{dec}f}'
 
 
 def principales(sector, n=4):
@@ -82,81 +95,134 @@ def matriz():
     campo = [s for s in sect if s['fuente'] != 'bds2025']
     empleo = [s for s in sect if s['fuente'] == 'bds2025']
     cols = '<col class="reg">' + '<col>' * len(sect)
-    cab1 = (f'<tr><th></th><th class="grupo" colspan="{len(campo)}">En el campo: animales y hectáreas</th>'
-            f'<th class="grupo sep" colspan="{len(empleo)}">Empleos, febrero 2025</th></tr>')
+    cab1 = (f'<tr><th></th><th class="grupo" colspan="{len(campo)}">Farming: livestock and hectares</th>'
+            f'<th class="grupo sep" colspan="{len(empleo)}">Jobs, February 2025</th></tr>')
     cab2 = '<tr><th></th>' + ''.join(
-        f'<th class="cab{" sep" if s is empleo[0] else ""}"><span class="n">{NOMBRE_CORTO.get(s["clave"], s["nombre"])}</span>'
+        f'<th class="cab{" sep" if s is empleo[0] else ""}"><span class="n">{SECTOR_EN[s["clave"]]}</span>'
         f'{glifo_html(s["clave"], 4.6)}</th>' for s in sect) + '</tr>'
     tops = {s['clave']: principales(s) for s in sect}
     filas = []
     for i, iso in enumerate(ORDEN_REGIONES, start=1):
         if i in (1, 10):
             filas.append(f'<tr class="isla"><td colspan="{len(sect) + 1}" data-meta>'
-                         f'{"Isla Norte · Te Ika-a-Māui" if i == 1 else "Isla Sur · Te Waipounamu"}</td></tr>')
+                         f'{"North Island" if i == 1 else "South Island"}</td></tr>')
         celdas = [f'<td class="reg"><span class="num" data-meta>{i}</span>{esc(nombre_region(iso))}</td>']
         for s in sect:
             v = s['porcentaje'][iso]
             sep = ' sep' if s is empleo[0] else ''
             if v is None:
-                celdas.append(f'<td class="sd{sep}" data-meta>s/d</td>')
+                celdas.append(f'<td class="sd{sep}" data-meta>n/a</td>')
                 continue
             tinte = min(62, round(v * 1.7))
             clase = ('top ' if iso in tops[s['clave']] else '') + ('oscuro' if tinte > 44 else '')
             celdas.append(f'<td class="{clase}{sep}" style="background:color-mix(in srgb, var(--s-{s["clave"]}) {tinte}%, white)">'
-                          f'{coma(v)}</td>')
+                          f'{num(v)}</td>')
         filas.append('<tr>' + ''.join(celdas) + '</tr>')
-    return ('<h2>¿Qué se produce en cada región?</h2>'
-            '<p class="bajada">Qué parte del total del país tiene cada región, en %. Cuanto más oscura la celda, más concentrado '
-            'está el sector; en negrita, las 4 regiones principales, que en el mapa llevan el glifo.</p>'
+    return ('<h2>What does each region produce?</h2>'
+            '<p class="bajada">Each region\'s share of the New Zealand total, in %. The darker the cell, the more concentrated '
+            'the sector; in bold, the top 4 regions, which carry the sector\'s symbol on the map.</p>'
             f'<table class="tabla-sectores"><colgroup>{cols}</colgroup><thead>{cab1}{cab2}</thead><tbody>{"".join(filas)}</tbody></table>'
-            '<p class="nota"><span class="aviso">Sectores y zonas orientativos; no representan vacantes activas, salarios ni '
-            'garantía de contratación.</span> Muestran dónde está la actividad, no dónde hay puestos libres hoy.</p>'
-            '<p class="nota">Campo: ganado al 30 de junio de 2025; fruta, viñedos, hortalizas y bosque, en hectáreas del censo '
-            'de 2022. Empleos: personas empleadas en el lugar de trabajo (no cuenta a los dueños que trabajan solos). '
-            '«s/d»: dato reservado por Stats NZ.</p>'
-            '<p class="fuente" data-meta>Fuentes: Stats NZ, Agricultural Production Statistics 2025 (AGR003AA) y Agricultural '
-            'Production Census 2022; Business Demography Statistics 2025 (BDS_BDS_001), vía Figure.NZ. Consultado el '
-            f'{d["consultado"]}. Datos en datos/sectores-nz.json.</p>')
+            '<p class="nota"><span class="aviso">Indicative sectors and areas: not current job vacancies, wages or a guarantee '
+            'of work.</span> They show where the activity is, not where jobs are open today.</p>'
+            '<p class="nota">Farming: livestock at 30 June 2025; fruit, vineyards, vegetables and forestry in hectares, 2022 '
+            'census. Jobs: employees at their place of work (owners working alone are not counted). '
+            '“n/a”: suppressed by Stats NZ.</p>'
+            '<p class="fuente" data-meta>Sources: Stats NZ, Agricultural Production Statistics 2025 (AGR003AA) and Agricultural '
+            'Production Census 2022; Business Demography Statistics 2025 (BDS_BDS_001), via Figure.NZ. Accessed '
+            f'{d["consultado"]}. Data in datos/sectores-nz.json.</p>')
 
 
-MESES_INI = ['E', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
+MESES_INI = ['J', 'F', 'M', 'A', 'M', 'J', 'J', 'A', 'S', 'O', 'N', 'D']
 TINTE_TAREA = {'C': 70, 'P': 45, 'R': 28, 'M': 18, 'V': 32}
 
 
 def calendario():
     d = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())
     cols = '<col class="et">' + '<col>' * 12
-    est = ('<tr class="estacion" data-meta><th></th><th class="verano" colspan="2">Verano</th><th class="otono" colspan="3">Otoño</th>'
-           '<th class="invierno" colspan="3">Invierno</th><th class="primavera" colspan="3">Primavera</th>'
-           '<th class="verano">Ver.</th></tr>')
+    est = ('<tr class="estacion" data-meta><th></th><th class="verano" colspan="2">Summer</th><th class="otono" colspan="3">Autumn</th>'
+           '<th class="invierno" colspan="3">Winter</th><th class="primavera" colspan="3">Spring</th>'
+           '<th class="verano">Sum.</th></tr>')
     meses = '<tr><th></th>' + ''.join(f'<th>{m}</th>' for m in MESES_INI) + '</tr>'
     filas = []
-    grupos = {'winz-calendario': 'Fruta, uva y hortalizas, mes a mes', 'winz-general': 'Otros trabajos, ventana general'}
+    grupos = {'winz-calendario': 'Fruit, grapes and vegetables, month by month', 'winz-general': 'Other work, general season'}
     previo = None
     for f in d['filas']:
         if f['fuente'] != previo:
             filas.append(f'<tr class="grupo"><td colspan="13">{grupos[f["fuente"]]}</td></tr>')
             previo = f['fuente']
         zona = f' <span class="z">· {esc(f["zona"])}</span>' if f['zona'] else ''
-        celdas = [f'<td class="et">{glifo_html(f["sector"], 3.6)}{esc(f["etiqueta"])}{zona}</td>']
+        celdas = [f'<td class="et">{glifo_html(f["sector"], 3.6)}{esc(ETIQUETA_EN[f["etiqueta"]])}{zona}</td>']
         for m in f['meses']:
             if not m:
                 celdas.append('<td class="vacio"></td>')
                 continue
             tinte = TINTE_TAREA[m['t']]
-            letra = '' if m['t'] == 'V' else m['t']
+            letra = '' if m['t'] == 'V' else LETRA_EN[m['t']]
             color = 'white' if tinte >= 60 else '#1d2a36'
             sector = {'turismo': 'alojamiento', 'esqui': 'alojamiento'}.get(f['sector'], f['sector'])
             celdas.append(f'<td class="{"pico" if m["pico"] else ""}" style="background:color-mix(in srgb, var(--s-{sector}) {tinte}%, white);'
                           f'color:{color}">{letra}</td>')
         filas.append('<tr>' + ''.join(celdas) + '</tr>')
-    return ('<h2>¿Cuándo hay trabajo de temporada?</h2>'
+    return ('<h2>When is there seasonal work?</h2>'
             f'<table class="tabla-calendario"><colgroup>{cols}</colgroup><thead>{est}{meses}</thead><tbody>{"".join(filas)}</tbody></table>'
-            '<p class="nota"><b>C</b> cosecha · <b>P</b> poda · <b>R</b> raleo · <b>M</b> mantenimiento de plantas · '
-            'recuadro: los meses de más trabajo. Ventanas orientativas: las temporadas cambian según cultivo, clima, '
-            'empleador y año. En Marlborough, los viñedos dan trabajo casi todo el año (PickNZ), sin calendario mensual oficial.</p>'
-            '<p class="fuente" data-meta>Fuentes: Work and Income, «Fruit and vegetable seasonal work» y «Finding seasonal '
-            f'work»; PickNZ. Consultado el {d["consultado"]}. Datos en datos/calendario-nz.json.</p>')
+            '<p class="nota"><b>H</b> harvest (picking) · <b>P</b> pruning · <b>T</b> thinning · <b>M</b> plant maintenance · '
+            'outlined: busiest months. Indicative windows: seasons change with the crop, the weather, the employer and the '
+            'year. In Marlborough, vineyards offer work almost all year round (PickNZ), with no official monthly calendar.</p>'
+            '<p class="fuente" data-meta>Sources: Work and Income, “Fruit and vegetable seasonal work” and “Finding seasonal '
+            f'work”; PickNZ. Accessed {d["consultado"]}. Data in datos/calendario-nz.json.</p>')
+
+
+# Nombres dobles oficiales (Gazetteer de LINZ): el mapa muestra el inglés y este recuadro, el māori
+NOMBRES_MAORI = [
+    ('Aotearoa', 'New Zealand'), ('Te Ika-a-Māui', 'North Island'), ('Te Waipounamu', 'South Island'),
+    ('Rakiura', 'Stewart Island'), ('Kā Tiritiri o te Moana', 'Southern Alps'), ('Aoraki', 'Mount Cook'),
+    ('Tititea', 'Mount Aspiring'), ('Piopiotahi', 'Milford Sound'), ('Te Rerenga Wairua', 'Cape Reinga'),
+    ('Tīkapa Moana', 'Hauraki Gulf'), ('Mohua', 'Golden Bay'), ('Te Tai-o-Aorere', 'Tasman Bay'),
+    ('Mata-Au', 'Clutha River'), ('Waiau', 'Franz Josef (village)'),
+]
+
+
+def nombres_maori():
+    pares = ''.join(f'<div><b>{esc(m)}</b> {esc(e)}</div>' for m, e in NOMBRES_MAORI)
+    return ('<h2>Māori names you will see on signs</h2>'
+            f'<div class="pares">{pares}</div>'
+            '<p class="nota">Aotearoa is the everyday Māori name for New Zealand. <b>Saying them:</b> vowels as in Spanish, '
+            'ā = long a, <i>wh</i> ≈ <i>f</i>, <i>ng</i> as in <i>sing</i>. Taupō or Whangārei are Māori names used in '
+            'English too.</p>')
+
+
+def dibujo_kiwifruit(ancho_mm):
+    """Kiwifruit dibujado: uno entero atrás y una mitad cortada adelante (SVG en línea, siempre igual)."""
+    import math
+    import random
+    azar = random.Random(7)
+    pelos = ''.join(
+        (lambda a, r, d: f'<path d="M{15 + 13.5 * r * math.cos(a):.2f} {13.5 + 11 * r * math.sin(a):.2f} '
+                         f'l{0.5 + d * 0.2:.2f} {-0.25 + d * 0.15:.2f}"/>')(
+            azar.uniform(0, 2 * math.pi), azar.uniform(0.2, 0.97), azar.uniform(-1, 1)) for _ in range(90))
+    semillas = []
+    for i in range(46):
+        a = 2 * math.pi * i / 46 + azar.uniform(-0.04, 0.04)
+        for r in (0.50, 0.60):
+            r += azar.uniform(-0.03, 0.03)
+            x, y = 29.5 + 11.7 * r * math.cos(a), 17 + 9.9 * r * math.sin(a)
+            semillas.append(f'<ellipse cx="{x:.2f}" cy="{y:.2f}" rx="0.62" ry="0.26" '
+                            f'transform="rotate({math.degrees(a):.0f} {x:.2f} {y:.2f})"/>')
+    rayos = ''.join(f'<path d="M29.5 17 L{29.5 + 11.2 * math.cos(2 * math.pi * i / 30):.2f} '
+                    f'{17 + 9.5 * math.sin(2 * math.pi * i / 30):.2f}"/>' for i in range(30))
+    return (f'<svg class="dibujo" viewBox="0 0 44 30" style="width:{ancho_mm}mm;height:{ancho_mm * 30 / 44:.1f}mm">'
+            '<defs><radialGradient id="kf-piel" cx="0.4" cy="0.35" r="0.75"><stop offset="0" stop-color="#b48a5a"/>'
+            '<stop offset="0.7" stop-color="#8a6438"/><stop offset="1" stop-color="#6a4a28"/></radialGradient>'
+            '<radialGradient id="kf-pulpa" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#e9f0c4"/>'
+            '<stop offset="0.32" stop-color="#cfe08a"/><stop offset="0.62" stop-color="#8cbd3a"/>'
+            '<stop offset="1" stop-color="#6f9f22"/></radialGradient></defs>'
+            '<ellipse cx="15" cy="13.5" rx="13.5" ry="11" fill="url(#kf-piel)" stroke="#55391d" stroke-width="0.35"/>'
+            f'<g stroke="#5c4127" stroke-width="0.14" stroke-linecap="round">{pelos}</g>'
+            '<ellipse cx="29.5" cy="17" rx="12.6" ry="10.8" fill="#7a5530" stroke="#55391d" stroke-width="0.35"/>'
+            '<ellipse cx="29.5" cy="17" rx="11.7" ry="9.9" fill="url(#kf-pulpa)"/>'
+            f'<g stroke="#f4f8dc" stroke-width="0.22" opacity="0.35">{rayos}</g>'
+            '<ellipse cx="29.5" cy="17" rx="3.3" ry="2.6" fill="#f3f5dc"/>'
+            f'<g fill="#1c1a12">{"".join(semillas)}</g></svg>')
 
 
 def bloques(C, E):
@@ -164,52 +230,55 @@ def bloques(C, E):
     pais = datos_pais()
     datos = ''
     if pais:
+        superficie = int(pais['superficie_txt'].replace('.', ''))
         datos = ('<div class="datos">'
-                 f'<div><b>{pais["poblacion_txt"]}</b>habitantes (Censo {pais["censo"]})</div>'
-                 f'<div><b>{pais["superficie_txt"]}</b>km² en las 16 regiones</div>'
-                 '<div><b>16</b>regiones</div><div><b>13</b>parques nacionales</div></div>')
-    escala_txt = f'1:{MURAL_ESCALA:,}'.replace(',', '.')
+                 f'<div><b>{pais["poblacion"]:,}</b>people ({pais["censo"]} Census)</div>'
+                 f'<div><b>{superficie:,}</b>km² in the 16 regions</div>'
+                 '<div><b>16</b>regions</div><div><b>13</b>national parks</div></div>')
+    escala_txt = f'1:{MURAL_ESCALA:,}'
     b.append(Bloque('m-titulo', 8, 8, 164, 70, (
-        '<span class="coleccion">Atlas de Nueva Zelanda · NZ-A-00 · mapa mural en 9 piezas</span>'
-        '<h1>Nueva Zelanda<span class="mi">Aotearoa</span></h1>'
-        '<p>Las 16 regiones, el relieve, los parques nacionales, las ciudades y las rutas. '
-        'El número del círculo es la ficha de cada región: <b>NZ-A-01</b> a <b>16</b>.</p>'
-        f'<p><b>Escala {escala_txt}</b> · 1 cm del mapa = {MURAL_ESCALA / 100_000:g} km · el norte está arriba.</p>'
+        '<span class="coleccion">Atlas of New Zealand · NZ-A-00 · wall map in 9 pieces</span>'
+        '<h1>New Zealand</h1>'
+        '<p>The 16 regions, the terrain, the national parks, the towns and the highways. '
+        'The number in each circle is the region\'s fact sheet: <b>NZ-A-01</b> to <b>16</b>.</p>'
+        f'<p><b>Scale {escala_txt}</b> · 1 cm on the map = {MURAL_ESCALA / 100_000:g} km · north is up.</p>'
         + datos)))
 
     filas = [
-        (muestra('<rect class="c1" x="2.6" y="0.35" width="3.8" height="3.8"/>'), 'Más de 1 millón de habitantes'),
+        (muestra('<rect class="c1" x="2.6" y="0.35" width="3.8" height="3.8"/>'), 'Over 1 million people'),
         (muestra('<path class="ruta1-borde" d="M0 2.25 H9"/><path class="ruta1" d="M0 2.25 H9"/>' + escudo_muestra('1', 'escudo sh1')),
-         '<i>State Highway</i> 1, la ruta troncal'),
-        (muestra('<circle class="c2" cx="4.5" cy="2.25" r="1.45"/>'), '100.000 a 500.000'),
-        (muestra('<path class="ruta2" d="M0 2.25 H9"/>' + escudo_muestra('6', 'escudo')), 'Otra <i>State Highway</i>, con su número'),
-        (muestra('<circle class="c3" cx="4.5" cy="2.25" r="1.05"/>'), '25.000 a 100.000'),
-        (muestra('<path class="ferry" d="M0 2.25 H9"/>'), 'Ferry entre las islas (por mar)'),
-        (muestra('<circle class="c4" cx="4.5" cy="2.25" r="0.62"/>'), 'Pueblo o destino'),
-        (muestra('<path class="limite" d="M0 2.25 H9"/>'), 'Límite de región'),
+         'State Highway 1, the main highway'),
+        (muestra('<circle class="c2" cx="4.5" cy="2.25" r="1.45"/>'), '100,000 to 500,000'),
+        (muestra('<path class="ruta2" d="M0 2.25 H9"/>' + escudo_muestra('6', 'escudo')), 'Other State Highway, with its number'),
+        (muestra('<circle class="c3" cx="4.5" cy="2.25" r="1.05"/>'), '25,000 to 100,000'),
+        (muestra('<path class="ferry" d="M0 2.25 H9"/>'), 'Cook Strait ferry (by sea)'),
+        (muestra('<circle class="c4" cx="4.5" cy="2.25" r="0.62"/>'), 'Town or destination'),
+        (muestra('<path class="limite" d="M0 2.25 H9"/>'), 'Region boundary'),
         (muestra('<path class="avion" transform="translate(4.5 2.25) scale(0.2) translate(-12 -12)" d="M3 11.2 H18.5 a1.6 0.8 0 0 1 0 1.6 H3 Z M10 11.2 L7 4 H8.8 L14.5 11.2 Z M10 12.8 L7 20 H8.8 L14.5 12.8 Z M4.5 11.2 L3 8 H4.3 L6.5 11.2 Z M4.5 12.8 L3 16 H4.3 L6.5 12.8 Z"/>'),
-         'Aeropuerto con vuelos internacionales'),
+         'Airport with international flights'),
         (muestra('<circle class="reg-c" cx="4.5" cy="2.25" r="2.1"/><text class="reg-num" x="4.5" y="3.35" text-anchor="middle">1</text>'),
-         'Región y número de su ficha'),
-        (muestra('<rect class="parque" x="0.5" y="0.5" width="8" height="3.5" rx="0.8"/>'), 'Parque nacional (DOC)'),
-        (muestra('<path class="rio" d="M0 3 C3 0.5 6 4 9 1.5"/>'), 'Río'),
-        (muestra('<path class="pico" d="M4.5 0.9 L5.65 2.95 L3.35 2.95 Z"/>'), 'Pico, con su altura'),
-        (muestra('<rect class="lago" x="1.5" y="0.6" width="6" height="3.3" rx="1.2"/>'), 'Lago'),
+         'Region and its fact-sheet number'),
+        (muestra('<rect class="parque" x="0.5" y="0.5" width="8" height="3.5" rx="0.8"/>'), 'National park (DOC)'),
+        (muestra('<path class="rio" d="M0 3 C3 0.5 6 4 9 1.5"/>'), 'River'),
+        (muestra('<path class="pico" d="M4.5 0.9 L5.65 2.95 L3.35 2.95 Z"/>'), 'Peak, with its height'),
+        (muestra('<rect class="lago" x="1.5" y="0.6" width="6" height="3.3" rx="1.2"/>'), 'Lake'),
     ]
-    b.append(Bloque('leyenda', 8, 84, 164, 120, (
-        '<h2>Cómo leer el mapa</h2><div class="filas">'
+    b.append(Bloque('leyenda', 8, 66, 164, 131, (
+        '<h2>How to read the map</h2><div class="filas">'
         + ''.join(f'<div class="f">{s}<span>{t}</span></div>' for s, t in filas)
         + '</div>'
-        '<h3>Altura del terreno</h3>' + tintas_altura()
-        + '<p class="nota">El sombreado imita una luz del noroeste: las laderas en sombra se oscurecen.</p>'
-        f'<h3>Escala {escala_txt}</h3>' + escala_grafica()
-        + '<h3>Sectores productivos</h3><p class="nota glifos-leyenda">'
+        '<h3>Height of the land</h3>' + tintas_altura()
+        + '<p class="nota">Hill shading assumes light from the northwest: slopes in shadow are darker.</p>'
+        f'<h3>Scale {escala_txt}</h3>' + escala_grafica()
+        + '<h3>Main sectors</h3><p class="nota glifos-leyenda">'
         + ' '.join(f'<span>{glifo_html(k, 4.2)} {n}</span>' for k, n in GLIFOS_MAPA)
-        + '</p><p class="nota">Cada sector marca con su glifo sus <b>4 regiones principales</b> del país (los números, en la '
-          'tabla de abajo). Construcción, mantenimiento, logística y dibujo técnico siguen a la '
-          'población: hay más trabajo donde hay más gente.</p>'
-        + '<p class="nota">Tamaño de las ciudades: categoría aproximada, según el Censo 2023 de Stats NZ. Los nombres son los oficiales '
-          '(LINZ), en inglés y en te reo māori; la barra «/» separa los dos nombres oficiales de un mismo lugar.</p>')))
+        + '</p><p class="nota">Each sector puts its symbol on its <b>top 4 regions</b> in New Zealand (figures in the '
+          'table below). Construction, maintenance, logistics and drafting follow the population: '
+          'more people, more work.</p>'
+        + '<p class="nota">Town sizes: approximate category, from Stats NZ\'s 2023 Census. Names are the English names '
+          'on the official NZ Gazetteer (LINZ); their Māori names are in the box below.</p>')))
+
+    b.append(Bloque('m-maori', 8, 201, 164, 58, nombres_maori()))
 
     b.append(Bloque('m-matriz', 8, 276, 164, 250, matriz()))
     b.append(Bloque('m-calendario', 372, 548, 166, 132, calendario()))
@@ -224,42 +293,74 @@ def bloques(C, E):
         f'style="width:{maxx - minx + 6:.1f}mm;height:{maxy - miny + 6:.1f}mm;margin:0 auto 1.5mm">'
         f'<path class="lago" style="fill:none" d="{ruta(geo.buffer(1.0).boundary)}"/>'
         f'<path style="fill:#f3f0e1;stroke:#1f3a55;stroke-width:0.26" d="{ruta(geo)}"/></svg>'
-        '<p class="t"><b>Chatham Islands / Rēkohu</b><br>Están a unos 800 km al este de Banks Peninsula, más o menos a la '
-        'latitud de Christchurch. Dibujadas a la misma escala que el mapa, pero corridas de su lugar. No son una de las 16 '
-        'regiones: tienen un consejo propio.</p>')))
+        '<p class="t"><b>Chatham Islands</b><br>About 800 km east of Banks Peninsula, roughly level with Christchurch. '
+        'Drawn at the same scale as the map, but moved from their real place. They are not one of the 16 regions: '
+        'they have their own council.</p>')))
 
-    b.append(Bloque('m-armado', 8, 465, 164, 62, (
-        '<h2>Cómo armar el mural</h2><ol>'
-        '<li><b>Prueba de unión primero.</b> Imprimí solo las piezas 2 y 3 a tamaño real (100 %), una sola cara, y unilas como '
-        'dice el paso 3. Si las marcas ▶◀ quedan desfasadas menos de 1 mm, imprimí las otras siete.</li>'
-        '<li><b>Cortá</b> el margen izquierdo de las piezas de la 2.ª y la 3.ª columna, y el de arriba de las de la 2.ª y la '
-        '3.ª fila, por la línea de rayas.</li>'
-        '<li><b>Uní cada fila</b> de izquierda a derecha: apoyá cada pieza sobre la franja «pegar acá» de la anterior y corréla '
-        'hasta que cada par de marcas ▶◀ forme una línea recta. Pegá con adhesivo en barra o cinta por detrás.</li>'
-        '<li><b>Uní las filas</b> de arriba hacia abajo: la de abajo va encima, con las marcas ▲▼ alineadas.</li>'
+    b.append(Bloque('m-armado', 8, 465, 164, 53, (
+        '<h2>How to put the map together</h2><ol>'
+        '<li><b>Test join first.</b> Print only pieces 2 and 3 at actual size (100%), single-sided, and join them as in '
+        'step 3. If the ▶◀ marks are less than 1 mm apart, print the other seven.</li>'
+        '<li><b>Trim</b> the left margin of the pieces in columns 2 and 3, and the top margin of the pieces in rows 2 '
+        'and 3, along the dashed line.</li>'
+        '<li><b>Join each row</b> from left to right: lay each piece on the “glue here” strip of the one before and slide '
+        'it until each pair of ▶◀ marks makes a straight line. Use a glue stick, or tape on the back.</li>'
+        '<li><b>Join the rows</b> from top to bottom: the lower row goes on top, with the ▲▼ marks lined up.</li>'
         '</ol>')))
 
-    b.append(Bloque('m-datos', 372, 690, 166, 70, (
-        '<h2>Datos útiles</h2><ul>'
-        '<li><b>Las islas:</b> North Island / Te Ika-a-Māui, South Island / Te Waipounamu y Stewart Island / Rakiura.</li>'
-        '<li><b>Estaciones del hemisferio sur:</b> verano de diciembre a febrero, otoño de marzo a mayo, invierno de junio a '
-        'agosto y primavera de septiembre a noviembre.</li>'
-        '<li><b>Para qué sirve este mapa:</b> orientarte y planificar. No confirma empleos, salarios ni condiciones de la visa: '
-        'eso se verifica en immigration.govt.nz y en cada aviso de trabajo.</li>'
-        '<li><b>Fechas:</b> parques, sectores y calendario consultados el 2026-10-21; rutas, lagos y nombres de LINZ, el '
-        '2026-10-22; población del Censo 2023.</li>'
+    b.append(Bloque('m-datos', 372, 690, 166, 46, (
+        '<h2>Good to know</h2><ul>'
+        '<li><b>Southern Hemisphere seasons:</b> summer from December to February, autumn from March to May, winter from '
+        'June to August and spring from September to November.</li>'
+        '<li><b>What this map is for:</b> finding your way and planning. It does not confirm jobs, wages or visa '
+        'conditions: check those on immigration.govt.nz and in each job ad.</li>'
+        '<li><b>Dates:</b> parks, sectors and calendar accessed on 2026-10-21; LINZ highways, lakes and names on '
+        '2026-10-22; population from the 2023 Census.</li>'
         '</ul>')))
 
-    b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 98, (
-        '<b>Fuentes.</b> Límites de las regiones: Stats NZ (2017) vía geoBoundaries, CC BY 4.0. '
-        'Parques nacionales: Department of Conservation, «DOC Public Conservation Land» (NaPALIS), CC BY 4.0, consultado el 2026-10-21. '
-        'Rutas (<i>State Highways</i>) y lagos: LINZ, Topo 1:250k, CC BY 4.0, bajados el 2026-10-22. '
-        'Ríos y ferry: Natural Earth 1:10 m, dominio público. '
-        'Sectores: Stats NZ (encuesta agropecuaria 2025, censo agropecuario 2022, demografía de empresas 2025), vía Figure.NZ. '
-        'Calendario: Work and Income y PickNZ. '
-        'Relieve: Terrain Tiles (Mapzen, en AWS) con el modelo de elevación de LINZ (CC BY 4.0), SRTM y ETOPO1. '
-        'Población: Stats NZ, Censo 2023. Nombres: New Zealand Gazetteer (LINZ), 2026-10-22. Alturas: Aoraki / Mount Cook, '
-        'medición de 2014; Taranaki Maunga, ley Te Kāhui Tupua de 2025; las demás, valores de referencia. '
-        'Proyección NZTM2000.<br>'
-        'NZ-A-00 · versión 2 · 2026-10-22 · Enciclopedia para imprimir')))
+    b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 62, (
+        '<b>Sources.</b> Region boundaries: Stats NZ (2017) via geoBoundaries, CC BY 4.0. '
+        'National parks: Department of Conservation, “DOC Public Conservation Land” (NaPALIS), CC BY 4.0, accessed 2026-10-21. '
+        'State Highways and lakes: LINZ, Topo 1:250k, CC BY 4.0, downloaded 2026-10-22. '
+        'Rivers and ferry: Natural Earth 1:10 m, public domain. '
+        'Sectors: Stats NZ (Agricultural Production Statistics 2025, Agricultural Production Census 2022, Business '
+        'Demography 2025), via Figure.NZ. Calendar: Work and Income and PickNZ. '
+        'Terrain: Terrain Tiles (Mapzen, on AWS) with the LINZ elevation model (CC BY 4.0), SRTM and ETOPO1. '
+        'Population: Stats NZ, 2023 Census. Names: New Zealand Gazetteer (LINZ), 2026-10-22. Heights: Aoraki/Mount Cook, '
+        '2014 survey; Taranaki Maunga, Te Kāhui Tupua Act 2025; the others, reference values. '
+        'Projection NZTM2000.<br>'
+        'NZ-A-00 · version 2 · 2026-10-22 · Enciclopedia para imprimir')))
+    b += curiosidades()
     return b
+
+
+# ---------------------------------------------------------------- curiosidades
+# Textos verificados con fuentes oficiales (DOC, Te Ara, NZHistory, GeoNet, GNS, NIWA, Zespri); la lista de
+# fuentes de cada dato está en PLAN-mural-nz.md. Van en el mar, en recuadros como los demás.
+CUR = json.loads((RAIZ / 'datos' / 'nz' / 'curiosidades.json').read_text())
+
+
+def curiosidades():
+    out = []
+    k = CUR['kiwi']
+    ave = (f'<img class="ave" src="../../imagenes/{k["ave"]["imagen"]}" alt="">' if k['ave'].get('imagen') else '')
+    out.append(Bloque('m-kiwi', 414, 68, 128, 128, (
+        '<h2>Kiwi, kiwi and Kiwis</h2>'
+        f'<div class="fila">{ave}<p>{k["ave"]["texto"]}</p></div>'
+        f'<div class="fila">{dibujo_kiwifruit(30)}<p>{k["fruta"]["texto"]}</p></div>'
+        f'<p class="gente">{k["gente"]["texto"]}</p>'
+        + (f'<p class="credito" data-meta>{k["ave"]["credito"]}</p>' if k['ave'].get('credito') else ''))))
+    out.append(Bloque('m-geo', 186, 274, 112, 60, (
+        '<h2>A young, restless land</h2><dl>'
+        + ''.join(f'<dt>{g["t"]}</dt><dd>{g["texto"]}</dd>' for g in CUR['geografia']) + '</dl>')))
+    out.append(Bloque('m-slang', 238, 664, 118, 46, (
+        '<h2>Kiwi English you will hear</h2><div class="pares">'
+        + ''.join(f'<div><b>{w}</b> {s}</div>' for w, s in CUR['slang']) + '</div>')))
+    out.append(Bloque('m-historia', 238, 590, 118, 68, (
+        '<h2>A short history</h2><dl>'
+        + ''.join(f'<dt>{h["anio"]}</dt><dd>{h["texto"]}</dd>' for h in CUR['historia']) + '</dl>')))
+    out.append(Bloque('m-notas', 372, 741, 166, 45, (
+        '<h2>On the map</h2><dl>'
+        + ''.join(f'<dt><span class="cur-l">{n["letra"]}</span></dt><dd><b>{n["lugar"]}.</b> {n["texto"]}</dd>'
+                  for n in CUR['mapa']) + '</dl>')))
+    return out

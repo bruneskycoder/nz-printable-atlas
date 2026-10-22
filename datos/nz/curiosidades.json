@@ -1,0 +1,143 @@
+{
+ "_nota": "Curiosidades del mapa mural (en inglés, como todo el mural). BORRADOR: falta verificar cifras con fuentes oficiales.",
+ "kiwi": {
+  "ave": {
+   "texto": "<b>The bird.</b> Five species, all flightless and mostly active at night. The only bird with nostrils at the tip of its bill: it finds worms by smell. Its egg is about 15% of the mother's weight. About 70,000 are left; where predators are not controlled, numbers fall about 2% a year."
+  },
+  "fruta": {
+   "texto": "<b>The fruit.</b> It came from China as the “Chinese gooseberry”: Isabel Fraser brought the seeds in 1904. Growers renamed it “kiwifruit” in 1959 to sell it in the United States. Bay of Plenty grows most of the crop; Te Puke calls itself the kiwifruit capital of the world."
+  },
+  "gente": {
+   "texto": "<b>The people.</b> New Zealanders have been “Kiwis” since World War I, when the bird on badges and on a popular boot polish gave the soldiers their nickname."
+  }
+ },
+ "geografia": [
+  {
+   "t": "Alpine Fault",
+   "texto": "The plate boundary runs 600 km along the Southern Alps, which rise about 10 mm a year. It last broke in 1717; a big quake in the next 50 years is likely (75%)."
+  },
+  {
+   "t": "Taupō",
+   "texto": "The lake fills a supervolcano. Its Oruanui eruption, 25,500 years ago, is the world's most recent supereruption."
+  },
+  {
+   "t": "Earthquakes",
+   "texto": "GeoNet records about 20,000 a year; only 100 to 150 are big enough to be felt."
+  },
+  {
+   "t": "Rain",
+   "texto": "Milford Sound gets about 6,700 mm a year, one of the wettest places in the country."
+  }
+ ],
+ "slang": [
+  [
+   "dairy",
+   "corner shop"
+  ],
+  [
+   "smoko",
+   "short break at work"
+  ],
+  [
+   "tramping",
+   "hiking"
+  ],
+  [
+   "bach",
+   "holiday home (crib in the far south)"
+  ],
+  [
+   "jandals",
+   "flip-flops"
+  ],
+  [
+   "togs",
+   "swimsuit"
+  ],
+  [
+   "chilly bin",
+   "cooler box"
+  ],
+  [
+   "gumboots",
+   "rubber boots"
+  ],
+  [
+   "ute",
+   "pickup truck"
+  ],
+  [
+   "sweet as",
+   "great, no worries"
+  ],
+  [
+   "chur",
+   "thanks, cheers"
+  ],
+  [
+   "heaps",
+   "lots, very"
+  ]
+ ],
+ "historia": [
+  {
+   "anio": "c. 1250–1300",
+   "texto": "Polynesian voyagers settle the islands: the ancestors of Māori."
+  },
+  {
+   "anio": "1642",
+   "texto": "Dutch navigator Abel Tasman reaches the coast."
+  },
+  {
+   "anio": "1769",
+   "texto": "James Cook lands at Gisborne and maps both islands."
+  },
+  {
+   "anio": "1840",
+   "texto": "The Treaty of Waitangi is signed at Waitangi, Bay of Islands, on 6 February, now Waitangi Day."
+  },
+  {
+   "anio": "1893",
+   "texto": "The first self-governing country where women can vote."
+  },
+  {
+   "anio": "1953",
+   "texto": "Edmund Hillary and Tenzing Norgay reach the top of Everest."
+  },
+  {
+   "anio": "1987",
+   "texto": "Te reo Māori becomes an official language."
+  },
+  {
+   "anio": "2011",
+   "texto": "Christchurch earthquake, 22 February: 185 people die."
+  }
+ ],
+ "mapa": [
+  {
+   "letra": "A",
+   "lugar": "Tāne Mahuta, Waipoua Forest",
+   "texto": "The largest living kauri tree: about 51 m tall and up to 2,500 years old."
+  },
+  {
+   "letra": "B",
+   "lugar": "Waitomo Caves",
+   "texto": "The “glowworms” are larvae of a gnat found only in New Zealand; their light lures insects."
+  },
+  {
+   "letra": "C",
+   "lugar": "Hobbiton, near Matamata",
+   "texto": "The Shire from The Lord of the Rings and The Hobbit films, open for tours."
+  },
+  {
+   "letra": "D",
+   "lugar": "Arthur's Pass",
+   "texto": "Meet the kea, the world's only alpine parrot: clever and curious. Don't feed them."
+  },
+  {
+   "letra": "E",
+   "lugar": "Kawarau Gorge Bridge",
+   "texto": "The world's first commercial bungy jump, opened by AJ Hackett in 1988."
+  }
+ ]
+}

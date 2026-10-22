@@ -175,7 +175,7 @@ def elementos_mural(C):
         tri = f'<path class="pico" d="M{x:.2f} {y - 1.3:.2f} L{x + 1.15:.2f} {y + 0.75:.2f} L{x - 1.15:.2f} {y + 0.75:.2f} Z"/>'
         dx = 1.8 if p['pos'] == 'E' else -1.8
         ancla = 'start' if p['pos'] == 'E' else 'end'
-        alto = f'{p["h"]:,} m'.replace(',', '.') if p.get('h') else ''
+        alto = f'{p["h"]:,} m' if p.get('h') else ''
         txt = f'<text class="pico-n" x="{x + dx:.2f}" y="{y - 0.2:.2f}" text-anchor="{ancla}">{esc(p["n"])}</text>'
         if alto:
             txt += f'<text class="pico-h" x="{x + dx:.2f}" y="{y + 3.0:.2f}" text-anchor="{ancla}">{alto}</text>'
@@ -245,7 +245,29 @@ def elementos_mural(C):
             svg += avion(ax, ay)
             cajas.append((ax - 2, ay - 2, ax + 2, ay + 2))
         items.append((unir_cajas(*cajas), svg))
+    items += marcadores(E, ajustes.get('curiosidades', []), items)
     return items + escudos(C, items)
+
+
+def marcadores(E, curiosidades, items):
+    """Letra de cada curiosidad del recuadro «On the map», en un círculo junto al lugar. Si el punto pisa
+    un rótulo, el círculo se corre a un costado libre con una guía corta hasta el lugar."""
+    ocupado = [c for c, _ in items]
+    out = []
+    for cur in curiosidades:
+        px, py = E.lonlat(cur['lon'], cur['lat'])
+        for dx, dy in [(0, 0), (4.5, -3), (-4.5, -3), (4.5, 3), (-4.5, 3), (0, -5), (0, 5), (7, 0), (-7, 0)]:
+            x, y = px + dx, py + dy
+            caja = (x - 1.8, y - 1.8, x + 1.8, y + 1.8)
+            if (not any(se_tocan(caja, o) for o in ocupado)
+                    and not any(caja[0] - 1 < j < caja[2] + 1 for j in JUNTAS_X)
+                    and not any(caja[1] - 1 < j < caja[3] + 1 for j in JUNTAS_Y)):
+                break
+        guia = f'<path class="cur-guia" d="M{px:.2f} {py:.2f} L{x:.2f} {y:.2f}"/>' if (x, y) != (px, py) else ''
+        out.append((caja, f'{guia}<g class="cur"><circle cx="{x:.2f}" cy="{y:.2f}" r="1.75"/>'
+                          f'<text x="{x:.2f}" y="{y + 1.0:.2f}" text-anchor="middle">{cur["letra"]}</text></g>'))
+        ocupado.append(caja)
+    return out
 
 
 def se_tocan(a, b, aire=0.4):
@@ -366,7 +388,7 @@ def marcas_union(c, r, vx, vy, lugares):
             s.append(f'<path class="franja" d="M{xj} {vy} V{vy + IMG_H}"/>')
             ym = vy + IMG_H / 2
             s.append(f'<text class="franja-t" data-encimado-ok x="{xj + 5}" y="{ym:.1f}" text-anchor="middle" '
-                     f'transform="rotate(90 {xj + 5} {ym:.1f})">PEGAR ACÁ LA PIEZA {vecina} · LÍNEA = BORDE DE LA PIEZA {vecina}</text>')
+                     f'transform="rotate(90 {xj + 5} {ym:.1f})">GLUE PIECE {vecina} HERE · THIS LINE = EDGE OF PIECE {vecina}</text>')
         else:
             s.append(f'<path class="corte" d="M{xj + 0.15} {vy} V{vy + IMG_H}"/>')
     # Juntas horizontales: la fila de abajo va encima de la de arriba
@@ -384,16 +406,16 @@ def marcas_union(c, r, vx, vy, lugares):
         if abajo:
             s.append(f'<path class="corte" d="M{vx} {yj + 0.15} H{vx + IMG_W}"/>')
         else:
-            fila = ', '.join(str(numero(cc, k + 1)) for cc in range(COLS - 1)) + f' Y {numero(COLS - 1, k + 1)}'
+            fila = ', '.join(str(numero(cc, k + 1)) for cc in range(COLS - 1)) + f' AND {numero(COLS - 1, k + 1)}'
             s.append(f'<path class="franja" d="M{vx} {yj} H{vx + IMG_W}"/>')
             s.append(f'<text class="franja-t" data-encimado-ok x="{vx + 95:.1f}" y="{yj + 6}" text-anchor="middle">'
-                     f'PEGAR ACÁ LA FILA DE ABAJO (PIEZAS {fila})</text>')
+                     f'GLUE THE ROW BELOW HERE (PIECES {fila})</text>')
     return s
 
 
 def codigo_pieza(n, c, r, vx, vy):
     """Código de la pieza: en una franja que queda tapada; la última va en la esquina del marco."""
-    t = f'NZ-A-00 · pieza {n} de {PIEZAS} · v{VERSION} · {FECHA}'
+    t = f'NZ-A-00 · piece {n} of {PIEZAS} · v{VERSION} · {FECHA}'
     if r < FILAS - 1:  # franja de abajo, a la izquierda del texto de pegado
         return f'<text class="pieza-t" x="{vx + 4}" y="{vy + IMG_H - 1.5}">{t}</text>'
     if c < COLS - 1:  # última fila: franja vertical de la derecha, debajo del texto de pegado
@@ -496,10 +518,10 @@ def mural():
             svg = (f'<svg class="mapa mural-svg" data-borde-ok viewBox="{vx} {vy} {IMG_W} {IMG_H}" '
                    f'style="width:{IMG_W}mm;height:{IMG_H}mm">\n' + '\n'.join(capas) + '\n</svg>')
             html = f'''<!doctype html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="utf-8">
-<title>NZ-A-00-{n} Mapa mural de Nueva Zelanda, pieza {n} de {PIEZAS}</title>
+<title>NZ-A-00-{n} New Zealand wall map, piece {n} of {PIEZAS}</title>
 <link rel="stylesheet" href="../../estilo/combi.css">
 <link rel="stylesheet" href="../../estilo/atlas-nz.css">
 <link rel="stylesheet" href="../../estilo/mural-nz.css">
@@ -536,7 +558,7 @@ def mural_previa():
         + '" style="stroke:magenta;stroke-width:0.3;fill:none"/>')
     capas.append(juntas)
     bl = ''.join(b.html(0, 0) for b in bloques(C, E_MURAL))
-    html = f'''<!doctype html><html lang="es"><head><meta charset="utf-8">
+    html = f'''<!doctype html><html lang="en"><head><meta charset="utf-8">
 <link rel="stylesheet" href="../../estilo/combi.css"><link rel="stylesheet" href="../../estilo/atlas-nz.css">
 <link rel="stylesheet" href="../../estilo/mural-nz.css">
 <style>@page {{ size: {MURAL_W + 20}mm {MURAL_H + 20}mm; }} .hoja {{ width:{MURAL_W + 20}mm; height:{MURAL_H + 20}mm; }}</style></head>
