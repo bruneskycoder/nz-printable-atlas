@@ -373,7 +373,7 @@ def dorso(r, D, F):
     con = claves | fuertes | ({'esqui'} if r['iso'] in CON_ESQUI else set())
     puestos = [x for x in practico['puestos'] if set(x['sectores']) & con][:5]
     tabla_p = ''.join(f'<div class="puesto"><div class="t"><b>{esc(x["titulo"])}</b> <span class="es">{esc(x["es"])}</span></div>'
-                      f'<p><span class="cont">{x["continuidad"]}.</span> {x["requisitos"]}</p></div>' for x in puestos)
+                      f'<p><span class="cont">{x["continuidad"].rstrip(".")}.</span> {x["requisitos"]}</p></div>' for x in puestos)
     fuente_p = F(practico['fuente_puestos'])
     filas_cal, cal = calendario_region(r, claves)
     cab = '<tr><th></th>' + ''.join(f'<td class="m" data-meta>{m}</td>' for m in MESES) + '</tr>'
