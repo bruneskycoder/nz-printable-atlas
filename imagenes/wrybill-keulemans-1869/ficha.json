@@ -1,0 +1,35 @@
+{
+  "slug": "wrybill-keulemans-1869",
+  "titulo": "Anarhynchus frontalis 1869",
+  "autor": "John Gerrard Keulemans",
+  "fecha": "1869",
+  "fuente": "Wikimedia Commons",
+  "pagina": "https://commons.wikimedia.org/wiki/File:Anarhynchus_frontalis_1869.jpg",
+  "archivo": "https://thumb.wikimedia.org/wikipedia/commons/thumb/c/c9/Anarhynchus_frontalis_1869.jpg/1920px-Anarhynchus_frontalis_1869.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+  "original_px": [
+    2874,
+    1916
+  ],
+  "licencia_texto": "Public domain",
+  "licencia_url": "",
+  "credito": "The Ibis, ser. 2, vol. 5",
+  "descripcion": "« Anarhynchus frontalis » = Anarhynchus frontalis (Wrybill)",
+  "licencia": "Dominio público",
+  "licencia_libre": true,
+  "referencia": "commons:File:Anarhynchus frontalis 1869.jpg",
+  "consultado": "2026-10-22",
+  "original": "cache/imagenes/wrybill-keulemans-1869/original.jpg",
+  "sha256_original": "160cf8c006de105677c9255e5efd36c1a523b854b1d3f8856e205f78d900d34e",
+  "preparado": {
+    "fecha": "2026-10-22",
+    "rotar": 0,
+    "recorte": "100,120,1700,1180",
+    "fondo": "ninguno",
+    "niveles": true,
+    "gamma": 0.85,
+    "tamanio": [
+      1600,
+      1060
+    ]
+  }
+}

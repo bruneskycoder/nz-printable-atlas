@@ -250,3 +250,30 @@ def relieve_mural_ventana(x_mm, y_mm, ancho_mm, alto_mm, sombra_max=0.5):
     rgb = np.where(tierra[..., None], rgb, MAR_MURAL)
     return Image.fromarray(rgb.clip(0, 255).astype(np.uint8), 'RGB')
 
+
+
+def relieve_mural_encuadre(encuadre, ancho_mm, alto_mm, px_mm=0.12, sombra_max=0.5):
+    """El relieve del mural v2 (tintas de altura y mar) para otro encuadre, como las fichas regionales.
+    Las dos grillas son NZTM con escala uniforme, así que alcanza con recortar el maestro y escalarlo
+    (bicúbico, canal por canal) antes de colorear."""
+    m = relieve_mural_maestro()
+    paso = RELIEVE_PX_MM * MURAL_ESCALA / 1000  # metros por píxel del maestro
+    # Esquinas de la ventana en NZTM -> píxeles (fraccionarios) del maestro
+    x0 = (encuadre.x0 - MURAL_X0) / paso
+    y0 = (MURAL_Y0 - encuadre.y0) / paso
+    x1 = x0 + ancho_mm / encuadre.k / paso
+    y1 = y0 + alto_mm / encuadre.k / paso
+    w, h = round(ancho_mm / px_mm), round(alto_mm / px_mm)
+    canales = []
+    for i in range(3):
+        c = Image.fromarray(m[..., i])
+        canales.append(np.asarray(c.transform((w, h), Image.EXTENT, (x0, y0, x1, y1), Image.BICUBIC)).astype(np.float32))
+    sombra = canales[0] / 255
+    z = canales[1] * 15
+    tierra = canales[2] > 127
+    alturas = np.array([c for c, _ in HIPSO], dtype=np.float32)
+    colores = np.array([c for _, c in HIPSO], dtype=np.float32)
+    rgb = np.dstack([np.interp(z, alturas, colores[:, i]) for i in range(3)])
+    rgb *= (1 - sombra_max * sombra)[..., None]
+    rgb = np.where(tierra[..., None], rgb, MAR_MURAL)
+    return Image.fromarray(rgb.clip(0, 255).astype(np.uint8), 'RGB')

@@ -1,0 +1,80 @@
+/* Fichas por región v2: misma familia que el mural (mural-nz.css da los colores y el mapa),
+   sin cajas, con jerarquía clara y una curiosidad dibujada a lápiz. */
+.ficha2 { gap: 2.6mm; color: #22313f; }
+.ficha2 .cabecera { display: flex; justify-content: space-between; align-items: flex-end; gap: 6mm; }
+.ficha2 .coleccion { font-size: 8.5pt; font-weight: 800; letter-spacing: 0.14em; text-transform: uppercase; color: var(--m-costa); }
+.ficha2 h1 { font-family: var(--fuente-titulo); font-size: 42pt; font-weight: 800; line-height: 0.95; margin: 1mm 0 1.4mm; color: #1d2a36; }
+.ficha2 .cabecera .bajada { font-size: 11.5pt; line-height: 1.3; margin: 0; max-width: 118mm; }
+.ficha2 .lado { display: flex; gap: 4mm; align-items: flex-end; flex: none; }
+.ficha2 .lado .ubic { width: 20mm; height: 28.5mm; }
+.ficha2 .datos div { font-size: 10pt; line-height: 1.15; margin-top: 1.6mm; border-top: 0.5mm solid var(--m-costa); padding-top: 0.6mm; }
+.ficha2 .datos b { display: block; font-family: var(--fuente-titulo); font-size: 15pt; color: #1d2a36; }
+.ficha2 .mapa-region { display: block; border: 0; border-radius: 1.6mm; flex: none; }
+.ficha2 .mapa .velo { fill: white; fill-opacity: 0.45; }
+.ficha2 .mapa .contorno { stroke: var(--m-region); stroke-width: 0.7; }
+.ficha2 .mapa text.vecina { fill: #6a7682; font-size: 3px; }
+.ficha2 .mapa .lugar-c { fill: #b5532a; stroke: white; stroke-width: 0.4; }
+.ficha2 .mapa text.lugar-n { font-size: 3.1px; font-weight: 800; fill: white; stroke: none; }
+.ficha2 .mapa .escala path { fill: none; stroke: #1d2a36; stroke-width: 0.35; }
+.ficha2 .mapa .escala text { font-size: 2.9px; fill: #1d2a36; }
+
+/* Títulos de sección: nivel 1, como en el mural */
+.ficha2 h2 { font-family: var(--fuente-titulo); font-size: 14pt; font-weight: 800; color: var(--m-costa); margin: 0 0 1.4mm;
+  padding-bottom: 0.7mm; border-bottom: 0.45mm solid var(--m-costa); }
+.ficha2 h2 .donde { font-family: var(--fuente-texto, inherit); font-size: 10pt; font-weight: 600; color: #4a5866; }
+.ficha2 h3 { font-size: 10.5pt; font-weight: 800; letter-spacing: 0.1em; text-transform: uppercase; color: var(--m-costa); margin: 2.2mm 0 1mm; }
+.ficha2 .bajada, .ficha2 .nota { font-size: 10pt; line-height: 1.25; margin: 0 0 1.2mm; color: #33424f; }
+.ficha2 .nota { margin-top: 1mm; }
+
+.ficha2 .abajo { display: grid; grid-template-columns: 1.12fr 1fr; gap: 7mm; }
+.ficha2 .abajo .col { display: flex; flex-direction: column; gap: 3mm; }
+.ficha2 .abajo2 { display: grid; grid-template-columns: 1fr 1fr; gap: 7mm; flex: 1; }
+
+/* Trabajo: sectores con su glifo y una barra en el color del sector */
+.ficha2 .sec { display: grid; grid-template-columns: 5mm 1fr 22mm 11mm; align-items: center; gap: 1.6mm; font-size: 10pt; margin: 0.5mm 0; }
+.ficha2 .sec .n i { color: #5b6a77; }
+.ficha2 .sec .barra { height: 2.6mm; background: rgba(31, 58, 85, 0.1); border-radius: 1.3mm; overflow: hidden; }
+.ficha2 .sec .barra i { display: block; height: 100%; border-radius: 1.3mm; }
+.ficha2 .sec b { text-align: right; font-variant-numeric: tabular-nums; }
+.ficha2 .temporada { border-collapse: separate; border-spacing: 0.5mm; width: 100%; table-layout: fixed; }
+.ficha2 .temporada th { font-size: 10pt; font-weight: 600; text-align: left; white-space: nowrap; width: 40mm; }
+.ficha2 .temporada td { height: 4.2mm; background: rgba(31, 58, 85, 0.07); border-radius: 0.6mm; }
+.ficha2 .temporada td.m { background: none; font-size: 8pt; text-align: center; color: #4a5866; height: auto; }
+.ficha2 .temporada td.si { opacity: 0.75; }
+.ficha2 .temporada td.pico { opacity: 1; box-shadow: inset 0 0 0 0.35mm #1d2a36; }
+
+/* Plata y clima: números grandes */
+.ficha2 .cifras div, .ficha2 .clima div { display: grid; grid-template-columns: 27mm 1fr; align-items: baseline; gap: 2mm; margin: 0.8mm 0; }
+.ficha2 .cifras b, .ficha2 .clima b { font-family: var(--fuente-titulo); font-size: 16pt; font-weight: 800; color: #1d2a36; white-space: nowrap; }
+.ficha2 .cifras span, .ficha2 .clima span { font-size: 10pt; line-height: 1.2; }
+.ficha2 .clima div { grid-template-columns: 6mm 25mm 1fr; }
+.ficha2 .clima .ic { width: 5mm; height: 5mm; border-radius: 50%; align-self: center; }
+.ficha2 .clima .ic.sol { background: #e9a23b; }
+.ficha2 .clima .ic.frio { background: #7fb1d8; }
+.ficha2 .clima .ic.lluvia { background: #2a69a8; border-radius: 50% 50% 50% 0; transform: rotate(-45deg) scale(0.85); }
+
+/* Para conocer: números como en el mapa */
+.ficha2 .lugares { list-style: none; margin: 0; padding: 0; }
+.ficha2 .lugares li { display: grid; grid-template-columns: 5.2mm 1fr; gap: 1.6mm; font-size: 10pt; line-height: 1.25; margin-bottom: 1mm; }
+.ficha2 .lugares .num { width: 4.8mm; height: 4.8mm; border-radius: 50%; background: #b5532a; color: white; font-weight: 800;
+  font-size: 9.5pt; text-align: center; line-height: 4.8mm; }
+.ficha2 .cultura { font-size: 10pt; line-height: 1.25; margin: 1.6mm 0 0; padding-top: 1.2mm; border-top: 0.2mm solid var(--m-costa); }
+
+/* Curiosidad: postal en sepia, con el dibujo a lápiz */
+.ficha2 .curiosidad { position: relative; color: #3d3026; }
+.ficha2 .curiosidad .dibujo { display: block; width: 78mm; margin: -2mm 0 0 auto; }
+.ficha2 .curiosidad h2 { font-style: italic; font-weight: 600; color: #5b4330; border: 0; font-size: 15pt; margin-bottom: 0.6mm; }
+.ficha2 .curiosidad p { font-size: 10pt; line-height: 1.3; margin: 0; }
+.ficha2 .curiosidad .credito { font-size: 8pt; color: #6b5d50; margin-top: 1mm; }
+
+.ficha2 .pie { display: flex; justify-content: space-between; gap: 6mm; font-size: 8pt; color: #4a5866; line-height: 1.25;
+  border-top: 0.2mm solid #9aa6b2; padding-top: 1mm; margin-top: auto; }
+.ficha2 .mapa .lugar-guia { fill: none; stroke: #b5532a; stroke-width: 0.35; }
+.ficha2 .lugares .num { font-size: 10pt; }
+.ficha2 h1 { font-size: 38pt; margin: 0.6mm 0 1mm; }
+.ficha2 .cabecera .maori { font-size: 10pt; margin: 0.8mm 0 0; color: #4a5866; }
+.ficha2 .cabecera .maori b { color: var(--m-region); }
+.ficha2 .cultura { border-top: 0; padding-top: 0; color: #33424f; }
+.ficha2 .curiosidad .cultura { color: #33424f; margin-top: 2mm; }
+.ficha2 .curiosidad .cultura b { color: var(--m-costa); }
+.ficha2 { gap: 2mm; }
