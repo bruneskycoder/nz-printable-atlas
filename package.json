@@ -1,8 +1,8 @@
 {
-  "name": "para-imprimir",
+  "name": "nz-printable-atlas",
   "private": true,
   "type": "module",
-  "description": "Enciclopedia imprimible: Nueva Zelanda, inglés y Argentina",
+  "description": "Printable atlas of New Zealand regions: wall map, regional sheets and decision page",
   "scripts": {
     "construir": "node herramientas/construir.mjs"
   },

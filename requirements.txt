@@ -1,0 +1,7 @@
+shapely>=2.0
+pyproj>=3.6
+numpy>=1.26
+Pillow>=10.0
+openpyxl>=3.1  # sectores-nz.py
+# optional, only for removing backgrounds in imagenes.py:
+# rembg[cpu]
