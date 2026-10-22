@@ -27,10 +27,6 @@ jobs:
 
       # Diagnóstico: muestra solo los NOMBRES de los secretos que recibe la tarea,
       # nunca sus valores, para detectar un nombre o un repositorio equivocados
-      - name: Revisar qué secretos recibe la tarea (solo nombres)
-        env:
-          SECRETOS: ${{ toJSON(secrets) }}
-        run: python3 -c "import os, json; n = sorted(json.loads(os.environ['SECRETOS'])); print('Secretos que recibe la tarea:', ', '.join(n) or '(ninguno)')"
 
       - name: Bajar las capas de LINZ
         env:

@@ -3,7 +3,7 @@
  "capas": [
   {"archivo": "rutas", "capa": 50184, "srs": "EPSG:2193", "filtro": "hway_num <> ''",
    "campos": ["hway_num", "name", "macronated", "lane_count", "status"]},
-  {"archivo": "rios", "capa": 50182, "srs": "EPSG:2193", "campos": []},
+  {"archivo": "rios", "capa": 50182, "srs": "EPSG:2193", "campos": ["name"]},
   {"archivo": "lagos", "capa": 50168, "srs": "EPSG:2193",
    "campos": ["name", "macronated", "grp_name", "elevation"]},
   {"archivo": "costa", "capa": 51559, "srs": "EPSG:2193",
