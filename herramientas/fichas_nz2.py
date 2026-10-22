@@ -22,7 +22,7 @@ from glifos import glifo_html
 
 FECHA = '2026-10-22'
 VERSION = 2
-MAPA_W, MAPA_H = 182, 84
+MAPA_W, MAPA_H = 182, 114
 ESTILO = {
     'agua': (3.35, 'texto', 400, 0.15), 'lago': (3.0, 'texto', 400, 0), 'sierra': (4.6, 'titulo', 700, 1.2),
     'sierra-chica': (3.0, 'texto', 700, 0.5), 'isla': (3.0, 'texto', 700, 0), 'rio': (2.95, 'texto', 400, 0),
@@ -109,7 +109,8 @@ def mapa(r, destino_jpg):
     capas.append(f'<path class="ruta1-borde" d="{u1}"/><path class="ruta1" d="{u1}"/>')
     capas.append(f'<path class="ferry" d="{ruta(recortar(unary_union(ferry), *vista))}"/>')
     interior = reg.boundary.difference(tierra.boundary.buffer(0.2))
-    capas.append(f'<path class="contorno" d="{ruta(recortar(interior, *vista))}"/>')
+    d_int = ruta(recortar(interior, *vista))
+    capas.append(f'<path class="contorno-halo" d="{d_int}"/><path class="contorno" d="{d_int}"/>')
 
     col = Colocador(W, H)
     textos = []
@@ -219,12 +220,6 @@ def mapa(r, destino_jpg):
             col.ocupar(cc)
             rot = f' transform="rotate({rt["rot"]} {x:.2f} {y:.2f})"' if rt['rot'] else ''
             textos.append(f'<text class="{rt["clase"]}" x="{x:.2f}" y="{y:.2f}" text-anchor="middle"{rot}>{esc(t)}</text>')
-    cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(iso, {})
-    if cur.get('dibujo_mapa'):
-        dx, dy, dw = cur['dibujo_mapa']
-        src = imagen_lapiz(cur['imagen'], 1400, vineta=0.12, fino=True)
-        capas.append(f'<image class="dibujo-mapa" href="{src}" x="{dx}" y="{dy}" width="{dw}"/>')
-        col.ocupar((dx, dy, dx + dw, dy + dw * cur.get('proporcion', 0.6)))
     capas += textos
     # Escala gráfica, en la primera esquina libre
     km = next(v for v in (5, 10, 20, 25, 50, 100) if v * 1000 * E.k >= 18)
@@ -235,40 +230,69 @@ def mapa(r, destino_jpg):
             break
     capas.append(f'<g class="escala"><path d="M{ex} {ey - 1} V{ey} H{ex + largo:.2f} V{ey - 1}"/>'
                  f'<text x="{ex}" y="{ey - 2}">0</text><text x="{ex + largo:.2f}" y="{ey - 2}" text-anchor="middle">{km} km</text></g>')
+    capas.append(f'<g class="norte"><path d="M{W - 8} 14 L{W - 5.5} 6 L{W - 3} 14 L{W - 5.5} 12 Z"/>'
+                 f'<text x="{W - 5.5}" y="18.5" text-anchor="middle">N</text></g>')
     return (f'<svg class="mapa mapa-region" viewBox="0 0 {W} {H}" style="width:{W}mm;height:{H}mm">\n'
             + '\n'.join(capas) + '\n</svg>')
 
 
+FUENTE_SECTOR = {'aps2025': 'Stats NZ, encuesta agropecuaria (30 jun. 2025), vía Figure.NZ.',
+                 'aps2022': 'Stats NZ, censo agropecuario 2022, vía Figure.NZ.',
+                 'bds2025': 'Stats NZ, demografía de empresas (feb. 2025), vía Figure.NZ.'}
+ETIQUETAS = {'dato': 'dato oficial', 'est': 'estimación', 'calc': 'cálculo', 'rec': 'recomendación', 'ori': 'orientativo'}
+
+
+def etq(tipo):
+    return f'<span class="etq {tipo}" data-meta>{ETIQUETAS[tipo]}</span>'
+
+
+class Fuentes:
+    """Fuentes numeradas: cada bloque cita las suyas con un número que remite a la lista del dorso."""
+
+    def __init__(self):
+        self.lista = []
+
+    def __call__(self, texto):
+        if texto not in self.lista:
+            self.lista.append(texto)
+        return f'<sup data-meta>{self.lista.index(texto) + 1}</sup>'
+
+    def html(self):
+        return ' '.join(f'<span data-meta><b>{i}</b> {t}</span>' for i, t in enumerate(self.lista, start=1))
+
+
+def sectores():
+    return json.loads((RAIZ / 'datos' / 'sectores-nz.json').read_text())['sectores']
+
+
+def rango(s, iso):
+    v = s['porcentaje'].get(iso)
+    return None if v is None else sorted((x for x in s['porcentaje'].values() if x is not None), reverse=True).index(v) + 1
+
+
 def sectores_region(iso):
-    """Sectores donde la región pesa: los que la ponen entre las 4 primeras del país, y si no hay, sus 3 mayores."""
-    d = json.loads((RAIZ / 'datos' / 'sectores-nz.json').read_text())
-    filas = []
-    for s in d['sectores']:
-        v = s['porcentaje'].get(iso)
-        if v is None:
-            continue
-        rango = sorted((x for x in s['porcentaje'].values() if x is not None), reverse=True).index(v) + 1
-        filas.append((rango, v, s['clave']))
+    """Sectores donde la región pesa: entre las 4 primeras del país. Construcción, transporte y técnicos
+    quedan aparte porque siguen a la población."""
+    filas = [(rango(s, iso), s['porcentaje'][iso], s) for s in sectores() if s['porcentaje'].get(iso) is not None]
     poblacion = {'construccion', 'transporte', 'tecnicos'}
-    top = sorted([f for f in filas if f[0] <= 4 and f[2] not in poblacion], key=lambda f: -f[1])
-    resto = sorted([f for f in filas if f[2] not in poblacion and f not in top], key=lambda f: -f[1])
+    top = sorted([f for f in filas if f[0] <= 4 and f[2]['clave'] not in poblacion], key=lambda f: -f[1])
+    resto = sorted([f for f in filas if f[2]['clave'] not in poblacion and f not in top], key=lambda f: -f[1])
     return (top + resto)[:max(3, min(5, len(top)))]
 
 
-def bloque_trabajo(r):
-    sect = sectores_region(r['iso'])
-    filas = ''.join(
-        f'<div class="sec">{glifo_html(k, 5)}<span class="n">{SECTOR_ES[k][0]} <i>{SECTOR_ES[k][1]}</i></span>'
-        f'<span class="barra"><i style="width:{min(100, v * 2.2):.0f}%;background:var(--s-{k})"></i></span>'
-        f'<b>{num(v)} %</b></div>' for _, v, k in sect)
-    claves = {k for _, _, k in sect}
+def destaca(iso):
+    """Sectores en los que la región es la primera del país (cálculo sobre los datos de la tabla)."""
+    return [(SECTOR_ES[s['clave']][0].lower(), s['fuente']) for s in sectores() if rango(s, iso) == 1]
+
+
+def calendario_region(r, claves):
     cal = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())
-    filas_cal = []
+    filas = []
     for f in cal['filas']:
         if f['fuente'] == 'winz-calendario':
             if r['iso'] not in ZONA_REGION.get(f['zona'], []):
                 continue
-            etq = f['etiqueta']
+            etiqueta = f'{f["etiqueta"]} · {f["zona"]}'
         else:
             sec = f['sector']
             if sec == 'esqui':
@@ -276,114 +300,160 @@ def bloque_trabajo(r):
                     continue
             elif GENERAL_SECTOR.get(sec) not in claves:
                 continue
-            etq = ETIQUETA_ES.get(f['etiqueta'], f['etiqueta'])
+            etiqueta = ETIQUETA_ES.get(f['etiqueta'], f['etiqueta'])
         celdas = ''
         for m in f['meses']:
             if not m:
                 celdas += '<td></td>'
                 continue
             sector = {'turismo': 'alojamiento', 'esqui': 'alojamiento'}.get(f['sector'], f['sector'])
-            celdas += (f'<td class="si{" pico" if m["pico"] else ""}" style="background:var(--s-{sector})"></td>')
-        filas_cal.append(f'<tr><th>{glifo_html(f["sector"], 3.6)} {esc(etq)}</th>{celdas}</tr>')
+            celdas += f'<td class="si{" pico" if m["pico"] else ""}" style="background:var(--s-{sector})"></td>'
+        filas.append(f'<tr><th>{glifo_html(f["sector"], 3.6)} {esc(etiqueta)}</th>{celdas}</tr>')
+    return filas, cal
+
+
+def frente(r, D, destino, F):
+    codigo = f'NZ-A-{r["n"]:02d}'
+    isla = 'North Island' if r['isla'] == 'norte' else 'South Island'
+    dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
+    vecinas = ', '.join(v['region'] for v in dist['vecinas'])
+    top = destaca(r['iso'])
+    destaque = '—'
+    if top:
+        partes = [f'{n}{F(FUENTE_SECTOR[f])}' for n, f in top]
+        lista = ', '.join(partes[:-1]) + ' y ' + partes[-1] if len(partes) > 1 else partes[0]
+        destaque = f'1.ª del país en {lista}'
+    contexto = (f'<div><span data-meta>Población</span><b>{num(r["poblacion"])}</b>'
+                f'<i>Censo 2023{F("Stats NZ, Censo 2023: población por consejo regional.")}</i></div>'
+                f'<div><span data-meta>Superficie</span><b>{num(r["superficie"])} km²</b><i>{num(r["poblacion"] / r["superficie"], 1)} hab./km²</i></div>'
+                f'<div><span data-meta>Ciudad principal</span><b>{esc(dist["ciudad"])}</b></div>'
+                f'<div class="ancha"><span data-meta>Limita con</span><b class="chico">{esc(vecinas)}</b></div>'
+                f'<div class="ancha"><span data-meta>Se destaca</span><b class="chico">{destaque}</b></div>')
+    lugares = ''.join(f'<li><span class="num">{i}</span><span><b>{esc(ingles(n))}</b> {esc(d)}</span></li>'
+                      for i, (n, d, _, _) in enumerate(r['naturaleza'], start=1))
+    cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(r['iso'])
+    especie = ''
+    if cur:
+        dibujo = f'<img class="dibujo" src="{imagen_lapiz(cur["imagen"], 1400, vineta=0.12, fino=True)}" alt="">'
+        especie = (f'<section class="especie">{dibujo}<div><h2>{cur["titulo"]}</h2><p>{cur["texto"]}{F(cur["fuente_texto"])}</p>'
+                   f'<p class="credito" data-meta>{cur["credito"]}</p></div></section>')
+    mi = f'En māori, la región se llama <b>{esc(r["mi"])}</b>. ' if r.get('mi') else ''
+    te_ara = F('Te Ara, la enciclopedia de Nueva Zelanda: iwi y cultura de la región.')
+    return (f'<div class="hoja ficha2 mural" data-tinta-max="40">'
+            '<header class="cabecera"><div>'
+            f'<span class="coleccion">Atlas de Nueva Zelanda · región {r["n"]} de 16 · {isla}</span>'
+            f'<h1>{esc(r["nombre"])}</h1><p class="bajada">{esc(r["rasgo"])}</p></div>'
+            f'<div class="sello">{mapa_ubicacion(r["iso"])}<span class="n">{r["n"]}</span></div></header>'
+            f'<div class="contexto">{contexto}</div>'
+            f'{mapa(r, destino / f"{codigo}-relieve.jpg")}'
+            f'<section class="conocer"><h2>Para conocer <span class="donde">los números del mapa</span></h2>'
+            f'<ol class="lugares">{lugares}</ol></section>'
+            '<div class="identidad">'
+            f'<section class="cultura"><h2>Cultura māori</h2><p>{mi}Iwi: <b>{esc(", ".join(r["iwi"]))}</b>.</p>'
+            f'<p>{esc(r["cultura"])}{te_ara}</p></section>{especie}</div>'
+            f'<footer class="pie" data-meta><span>{codigo} · frente · v{VERSION} · {FECHA}</span>'
+            f'<span>Mural NZ-A-00, pieza {pieza_mural(r)} · fuentes numeradas al dorso</span></footer></div>')
+
+
+def dorso(r, D, F):
+    p = D['pais']
+    codigo = f'NZ-A-{r["n"]:02d}'
+    practico = json.loads((DATOS / 'fichas-practico.json').read_text())
+    # Trabajo: qué mide cada porcentaje, con su unidad, su año y su fuente
+    sect = sectores_region(r['iso'])
+    filas = ''
+    for _, v, s in sect:
+        k = s['clave']
+        filas += (f'<div class="sec">{glifo_html(k, 5)}<div class="n">{SECTOR_ES[k][0]} <i>{SECTOR_ES[k][1]}</i>'
+                  f'<small data-meta>{num(s["valores"][r["iso"]])} {s["unidad"]}{F(FUENTE_SECTOR[s["fuente"]])}</small></div>'
+                  f'<span class="barra"><i style="width:{min(100, v * 2.2):.0f}%;background:var(--s-{k})"></i></span>'
+                  f'<b>{num(v)} %</b><small class="r" data-meta>{rango(s, r["iso"])}.ª de 16</small></div>')
+    claves = {s['clave'] for _, _, s in sect}
+    con = claves | ({'esqui'} if r['iso'] in CON_ESQUI else set())
+    puestos = [x for x in practico['puestos'] if set(x['sectores']) & con]
+    tabla_p = ''.join(f'<tr><th>{esc(x["titulo"])}<small data-meta>{esc(x["es"])}</small></th><td>{x["requisitos"]}</td>'
+                      f'<td class="tipo">{x["continuidad"]}</td></tr>' for x in puestos)
+    fuente_p = F(practico['fuente_puestos'])
+    filas_cal, cal = calendario_region(r, claves)
     cab = '<tr><th></th>' + ''.join(f'<td class="m" data-meta>{m}</td>' for m in MESES) + '</tr>'
-    return ('<h2>Trabajo <span class="donde">qué parte de cada sector del país está acá</span></h2>'
-            f'<div class="sectores">{filas}</div>'
-            '<h3>Cuándo hay temporada</h3>'
-            f'<table class="temporada">{cab}{"".join(filas_cal)}</table>'
-            '<p class="nota">Orientativo (Work and Income); con recuadro, los meses pico.</p>')
-
-
-def bloque_plata(r, p):
+    fuente_cal = F('Work and Income: «Fruit and vegetable seasonal work» y «Finding seasonal work»; PickNZ. Consultado el 2026-10-21.')
+    trabajo = ('<section class="trabajo"><h2>Trabajo</h2>'
+               f'<h3>De qué vive la región {etq("dato")}</h3>'
+               '<p class="bajada">Parte del total del país que está en la región. Cada sector se mide distinto (cabezas, '
+               'hectáreas o empleos): no compares las barras entre sí.</p>'
+               f'<div class="sectores">{filas}</div>'
+               f'<h3>Puestos de entrada para investigar {etq("ori")}{fuente_p}</h3>'
+               '<table class="puestos"><tr><th></th><td class="c" data-meta>Qué suelen pedir</td><td class="c" data-meta>Continuidad</td></tr>'
+               f'{tabla_p}</table>'
+               '<p class="nota">Es una línea de investigación, no una lista de vacantes: confirmalo en avisos actuales.</p>'
+               f'<h3>Cuándo hay temporada {etq("ori")}{fuente_cal}</h3>'
+               f'<table class="temporada">{cab}{"".join(filas_cal)}</table>'
+               '<p class="leyenda-cal"><span class="mu"></span> meses con trabajo <span class="mu pico"></span> meses de más trabajo. '
+               f'{etq("rec")} Los empleadores contratan antes de que empiece la temporada: empezá a buscar unas semanas antes. '
+               'Las ventanas cambian con el clima y el año, y no garantizan trabajo.</p></section>')
+    # Plata: dato, estimación y cálculo separados y a la vista
     cuarto = round(r['alquiler'] / 3 / 5) * 5
     horas = cuarto / p['salario_minimo']
-    return ('<h2>Plata</h2><div class="cifras">'
-            f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana, una casa entera (mediana)</span></div>'
-            f'<div><b>≈ NZ$ {cuarto}</b><span>un cuarto compartido (un tercio)</span></div>'
-            f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo pagan ese cuarto</span></div></div>')
-
-
-def bloque_clima(r, todas):
+    sal = practico['salario_minimo']
+    plata = ('<section class="plata"><h2>Plata</h2><div class="cifras">'
+             f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: alquiler mediano de una casa entera en la región '
+             f'(bonos nuevos, jun. 2026) {etq("dato")}{F("Tenancy Services, datos de alquiler por bonos, junio 2026.")}</span></div>'
+             f'<div><b>≈ NZ$ {cuarto}</b><span>un cuarto en casa compartida: un tercio del alquiler de la casa. No es un precio '
+             f'observado {etq("est")}</span></div>'
+             f'<div><b>NZ$ {num(p["salario_minimo"], 2)}</b><span>por hora: salario mínimo adulto, bruto (antes de impuestos), '
+             f'desde {sal["desde"]} {etq("dato")}{F(sal["fuente"])}</span></div>'
+             f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo bruto pagan ese cuarto ({cuarto} ÷ {num(p["salario_minimo"], 2)}) '
+             f'{etq("calc")}</span></div></div>'
+             '<p class="nota">El alquiler no es el único gasto: sumá comida, transporte, teléfono y, en muchas casas, luz e internet.</p>'
+             '</section>')
+    # Clima: de qué estación, qué variable, qué período y contra qué se compara
     es = r['estacion']
-    otras = [x['estacion'] for x in todas]
-    def puesto(clave, valor, alto, bajo):
-        orden = sorted(o[clave] for o in otras)
-        f = orden.index(valor) / max(1, len(orden) - 1)
-        return alto if f > 0.66 else bajo if f < 0.34 else 'media'
+    otras = [x['estacion'] for x in D['regiones']]
+
+    def puesto(clave, valor):
+        orden = sorted({o[clave] for o in otras}, reverse=True)
+        return orden.index(valor) + 1, len(orden)
     lugar = es['n'].replace(' (la más cercana)', '')
-    return (f'<h2>Clima <span class="donde">en {esc(lugar)}</span></h2><div class="clima">'
-            f'<div><span class="ic sol"></span><b>{num(es["max"], 1)} °C</b><span>máxima de {es["mes_max"].lower()}: '
-            f'{puesto("max", es["max"], "calurosa", "fresca")}</span></div>'
-            f'<div><span class="ic frio"></span><b>{num(es["min_jul"], 1)} °C</b><span>mínima de julio: '
-            f'{puesto("min_jul", es["min_jul"], "templada", "fría")}</span></div>'
-            f'<div><span class="ic lluvia"></span><b>{num(es["lluvia"])} mm</b><span>de lluvia al año: '
-            f'{puesto("lluvia", es["lluvia"], "lluvioso", "seco")}</span></div></div>')
-
-
-def bloque_lugares(r):
-    items = ''.join(f'<li><span class="num">{i}</span><span><b>{esc(ingles(n))}</b> {esc(d)}</span></li>'
-                    for i, (n, d, _, _) in enumerate(r['naturaleza'], start=1))
-    return f'<h2>Para conocer</h2><ol class="lugares">{items}</ol>'
-
-
-def bloque_curiosidad(r):
-    cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(r['iso'])
-    if not cur:
-        return ''
-    dibujo = ('' if cur.get('dibujo_mapa') or not cur.get('imagen')
-              else f'<img class="dibujo" src="{imagen_lapiz(cur["imagen"], 900, vineta=0.3)}" alt="">')
-    return (f'{dibujo}<div class="texto"><h2>{cur["titulo"]}</h2><p>{cur["texto"]}</p>'
-            f'<p class="credito" data-meta>{cur["credito"]}</p></div>')
+    pmx, n = puesto('max', es['max'])
+    pmn, _ = puesto('min_jul', es['min_jul'])
+    pll, _ = puesto('lluvia', es['lluvia'])
+    clima = (f'<section class="clima-s"><h2>Clima <span class="donde">en {esc(lugar)}, promedios 1991–2020</span></h2>'
+             f'<div class="clima"><div><span class="ic sol"></span><b>{num(es["max"], 1)} °C</b><span>máxima media de '
+             f'{es["mes_max"].lower()}: {pmx}.ª más alta de las {n} estaciones del atlas</span></div>'
+             f'<div><span class="ic frio"></span><b>{num(es["min_jul"], 1)} °C</b><span>mínima media de julio: {pmn}.ª más alta de {n}</span></div>'
+             f'<div><span class="ic lluvia"></span><b>{num(es["lluvia"])} mm</b><span>de lluvia por año, en {es["dias"]} días: '
+             f'{pll}.ª más lluviosa de {n}</span></div></div>'
+             f'<p class="nota">Es el clima de {esc(lugar)}, no el de toda la región {etq("dato")}'
+             f'{F("NIWA, normales climáticas 1991–2020 (días de lluvia: 1981–2010), vía Figure.NZ.")}</p></section>')
+    # Movilidad
+    dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
+    km = ''.join(f'<li><b>{esc(v["ciudad"])}</b> <span>{v["km"]} km</span></li>' for v in dist['vecinas'] if v['km'])
+    mov = practico['movilidad'].get(r['iso'], {})
+    extras = ''.join(f'<p><b>{esc(k)}:</b> {v}{F(f)}</p>' for k, v, f in mov.get('items', []))
+    movilidad = ('<section class="movilidad"><h2>Movilidad</h2>'
+                 f'<h3>De {esc(dist["ciudad"])} a las ciudades vecinas, por ruta {etq("calc")}'
+                 f'{F("Cálculo propio: camino más corto en la red de rutas de LINZ (Topo 1:250k), redondeado a 5 km.")}</h3>'
+                 f'<ul class="km">{km}</ul>{extras}</section>')
+    return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
+            f'<header class="cabecera-dorso"><h1>{esc(r["nombre"])}</h1><span>trabajo, plata, clima y movilidad</span></header>'
+            f'<div class="columnas"><div class="izq">{trabajo}</div><div class="der">{plata}{clima}{movilidad}'
+            f'<section class="fuentes"><h2>Fuentes</h2><p class="lista">{F.html()}</p>'
+            f'<p class="tipos" data-meta>{etq("dato")} publicado por un organismo oficial · {etq("est")} aproximación con '
+            f'supuestos a la vista · {etq("calc")} cuenta hecha con datos de la ficha · {etq("rec")} consejo práctico, no un dato · '
+            f'{etq("ori")} referencia útil, sin garantía. Consultadas entre el 2026-10-21 y el {FECHA}.</p></section></div></div>'
+            f'<footer class="pie" data-meta><span>{codigo} · dorso · v{VERSION} · {FECHA}</span><span>Enciclopedia para imprimir</span>'
+            '</footer></div>')
 
 
 def ficha(r, D, destino):
-    p = D['pais']
-    codigo = f'NZ-A-{r["n"]:02d}'
-    svg = mapa(r, destino / f'{codigo}-relieve.jpg')
-    isla = 'North Island' if r['isla'] == 'norte' else 'South Island'
-    return f'''<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<title>{codigo} {esc(r["nombre"])}</title>
-<link rel="stylesheet" href="../../estilo/combi.css">
-<link rel="stylesheet" href="../../estilo/atlas-nz.css">
-<link rel="stylesheet" href="../../estilo/mural-nz.css">
-<link rel="stylesheet" href="../../estilo/ficha-nz.css">
-</head>
-<body>
-<div class="hoja ficha2 mural" data-tinta-max="40">
-  <header class="cabecera">
-    <div>
-      <span class="coleccion">Atlas de Nueva Zelanda · región {r["n"]} de 16 · {isla}</span>
-      <h1>{esc(r["nombre"])}</h1>
-      <p class="bajada">{esc(r["rasgo"])}</p>
-      <p class="maori">{f'En māori: <b>{esc(r["mi"])}</b> · ' if r.get('mi') else ''}iwi: <b>{esc(", ".join(r["iwi"]))}</b></p>
-    </div>
-    <div class="lado">
-      <div class="sello">{mapa_ubicacion(r["iso"])}<span class="n">{r["n"]}</span></div>
-      <div class="datos"><div><b>{num(r["poblacion"])}</b>habitantes</div><div><b>{num(r["superficie"])}</b>km²</div></div>
-    </div>
-  </header>
-  {svg}
-  <div class="abajo">
-    <section class="trabajo">{bloque_trabajo(r)}</section>
-    <div class="col">
-      <section class="plata">{bloque_plata(r, p)}</section>
-      <section class="clima-s">{bloque_clima(r, D["regiones"])}</section>
-    </div>
-  </div>
-  <div class="abajo2">
-    <section class="conocer">{bloque_lugares(r)}</section>
-    <section class="curiosidad">{bloque_curiosidad(r)}<p class="cultura"><b>Cultura māori.</b> {esc(r["cultura"])}</p></section>
-  </div>
-  <footer class="pie" data-meta>
-    <span>{codigo} · v{VERSION} · {FECHA} · mural NZ-A-00, pieza {pieza_mural(r)}</span>
-    <span>Fuentes: Stats NZ, Work and Income, NIWA, Tenancy Services, Employment NZ, Te Ara, LINZ, DOC</span>
-  </footer>
-</div>
-</body>
-</html>
-'''
+    F = Fuentes()
+    cara = frente(r, D, destino, F)
+    atras = dorso(r, D, F)
+    return ('<!doctype html>\n<html lang="es">\n<head>\n<meta charset="utf-8">\n'
+            f'<title>NZ-A-{r["n"]:02d} {esc(r["nombre"])}</title>\n'
+            '<link rel="stylesheet" href="../../estilo/combi.css">\n<link rel="stylesheet" href="../../estilo/atlas-nz.css">\n'
+            '<link rel="stylesheet" href="../../estilo/mural-nz.css">\n<link rel="stylesheet" href="../../estilo/ficha-nz.css">\n'
+            f'</head>\n<body>\n{cara}\n{atras}\n</body>\n</html>\n')
 
 
 if __name__ == '__main__':

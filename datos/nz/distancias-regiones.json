@@ -1,0 +1,359 @@
+{
+ "_nota": "Distancia por ruta (km, redondeada a 5) entre la ciudad principal de cada región y la de cada región vecina. Cálculo propio sobre las State Highways de LINZ (Topo 1:250k); ver herramientas/distancias-nz.py.",
+ "AUK": {
+  "ciudad": "Auckland",
+  "vecinas": [
+   {
+    "region": "Waikato",
+    "iso": "WKO",
+    "ciudad": "Hamilton",
+    "km": 120
+   },
+   {
+    "region": "Northland",
+    "iso": "NTL",
+    "ciudad": "Whangārei",
+    "km": 155
+   }
+  ]
+ },
+ "BOP": {
+  "ciudad": "Tauranga",
+  "vecinas": [
+   {
+    "region": "Waikato",
+    "iso": "WKO",
+    "ciudad": "Hamilton",
+    "km": 100
+   },
+   {
+    "region": "Hawke's Bay",
+    "iso": "HKB",
+    "ciudad": "Napier",
+    "km": 255
+   },
+   {
+    "region": "Gisborne",
+    "iso": "GIS",
+    "ciudad": "Gisborne",
+    "km": 265
+   }
+  ]
+ },
+ "CAN": {
+  "ciudad": "Christchurch",
+  "vecinas": [
+   {
+    "region": "West Coast",
+    "iso": "WTC",
+    "ciudad": "Greymouth",
+    "km": 240
+   },
+   {
+    "region": "Tasman",
+    "iso": "TAS",
+    "ciudad": "Richmond",
+    "km": 305
+   },
+   {
+    "region": "Marlborough",
+    "iso": "MBH",
+    "ciudad": "Blenheim",
+    "km": 305
+   },
+   {
+    "region": "Otago",
+    "iso": "OTA",
+    "ciudad": "Dunedin",
+    "km": 355
+   }
+  ]
+ },
+ "GIS": {
+  "ciudad": "Gisborne",
+  "vecinas": [
+   {
+    "region": "Hawke's Bay",
+    "iso": "HKB",
+    "ciudad": "Napier",
+    "km": 210
+   },
+   {
+    "region": "Bay of Plenty",
+    "iso": "BOP",
+    "ciudad": "Tauranga",
+    "km": 265
+   }
+  ]
+ },
+ "HKB": {
+  "ciudad": "Napier",
+  "vecinas": [
+   {
+    "region": "Manawatū-Whanganui",
+    "iso": "MWT",
+    "ciudad": "Palmerston North",
+    "km": 175
+   },
+   {
+    "region": "Gisborne",
+    "iso": "GIS",
+    "ciudad": "Gisborne",
+    "km": 210
+   },
+   {
+    "region": "Bay of Plenty",
+    "iso": "BOP",
+    "ciudad": "Tauranga",
+    "km": 255
+   },
+   {
+    "region": "Waikato",
+    "iso": "WKO",
+    "ciudad": "Hamilton",
+    "km": 280
+   }
+  ]
+ },
+ "MBH": {
+  "ciudad": "Blenheim",
+  "vecinas": [
+   {
+    "region": "Nelson",
+    "iso": "NLS",
+    "ciudad": "Nelson",
+    "km": 110
+   },
+   {
+    "region": "Tasman",
+    "iso": "TAS",
+    "ciudad": "Richmond",
+    "km": 125
+   },
+   {
+    "region": "Canterbury",
+    "iso": "CAN",
+    "ciudad": "Christchurch",
+    "km": 305
+   }
+  ]
+ },
+ "MWT": {
+  "ciudad": "Palmerston North",
+  "vecinas": [
+   {
+    "region": "Wellington",
+    "iso": "WGN",
+    "ciudad": "Wellington",
+    "km": 140
+   },
+   {
+    "region": "Hawke's Bay",
+    "iso": "HKB",
+    "ciudad": "Napier",
+    "km": 175
+   },
+   {
+    "region": "Taranaki",
+    "iso": "TKI",
+    "ciudad": "New Plymouth",
+    "km": 230
+   },
+   {
+    "region": "Waikato",
+    "iso": "WKO",
+    "ciudad": "Hamilton",
+    "km": 380
+   }
+  ]
+ },
+ "NLS": {
+  "ciudad": "Nelson",
+  "vecinas": [
+   {
+    "region": "Tasman",
+    "iso": "TAS",
+    "ciudad": "Richmond",
+    "km": 10
+   },
+   {
+    "region": "Marlborough",
+    "iso": "MBH",
+    "ciudad": "Blenheim",
+    "km": 110
+   }
+  ]
+ },
+ "NTL": {
+  "ciudad": "Whangārei",
+  "vecinas": [
+   {
+    "region": "Auckland",
+    "iso": "AUK",
+    "ciudad": "Auckland",
+    "km": 155
+   }
+  ]
+ },
+ "OTA": {
+  "ciudad": "Dunedin",
+  "vecinas": [
+   {
+    "region": "Southland",
+    "iso": "STL",
+    "ciudad": "Invercargill",
+    "km": 205
+   },
+   {
+    "region": "Canterbury",
+    "iso": "CAN",
+    "ciudad": "Christchurch",
+    "km": 355
+   },
+   {
+    "region": "West Coast",
+    "iso": "WTC",
+    "ciudad": "Greymouth",
+    "km": 500
+   }
+  ]
+ },
+ "STL": {
+  "ciudad": "Invercargill",
+  "vecinas": [
+   {
+    "region": "Otago",
+    "iso": "OTA",
+    "ciudad": "Dunedin",
+    "km": 205
+   },
+   {
+    "region": "West Coast",
+    "iso": "WTC",
+    "ciudad": "Greymouth",
+    "km": 690
+   }
+  ]
+ },
+ "TAS": {
+  "ciudad": "Richmond",
+  "vecinas": [
+   {
+    "region": "Nelson",
+    "iso": "NLS",
+    "ciudad": "Nelson",
+    "km": 10
+   },
+   {
+    "region": "Marlborough",
+    "iso": "MBH",
+    "ciudad": "Blenheim",
+    "km": 125
+   },
+   {
+    "region": "West Coast",
+    "iso": "WTC",
+    "ciudad": "Greymouth",
+    "km": 270
+   },
+   {
+    "region": "Canterbury",
+    "iso": "CAN",
+    "ciudad": "Christchurch",
+    "km": 305
+   }
+  ]
+ },
+ "TKI": {
+  "ciudad": "New Plymouth",
+  "vecinas": [
+   {
+    "region": "Waikato",
+    "iso": "WKO",
+    "ciudad": "Hamilton",
+    "km": 230
+   },
+   {
+    "region": "Manawatū-Whanganui",
+    "iso": "MWT",
+    "ciudad": "Palmerston North",
+    "km": 230
+   }
+  ]
+ },
+ "WGN": {
+  "ciudad": "Wellington",
+  "vecinas": [
+   {
+    "region": "Manawatū-Whanganui",
+    "iso": "MWT",
+    "ciudad": "Palmerston North",
+    "km": 140
+   }
+  ]
+ },
+ "WKO": {
+  "ciudad": "Hamilton",
+  "vecinas": [
+   {
+    "region": "Bay of Plenty",
+    "iso": "BOP",
+    "ciudad": "Tauranga",
+    "km": 100
+   },
+   {
+    "region": "Auckland",
+    "iso": "AUK",
+    "ciudad": "Auckland",
+    "km": 120
+   },
+   {
+    "region": "Taranaki",
+    "iso": "TKI",
+    "ciudad": "New Plymouth",
+    "km": 230
+   },
+   {
+    "region": "Hawke's Bay",
+    "iso": "HKB",
+    "ciudad": "Napier",
+    "km": 280
+   },
+   {
+    "region": "Manawatū-Whanganui",
+    "iso": "MWT",
+    "ciudad": "Palmerston North",
+    "km": 380
+   }
+  ]
+ },
+ "WTC": {
+  "ciudad": "Greymouth",
+  "vecinas": [
+   {
+    "region": "Canterbury",
+    "iso": "CAN",
+    "ciudad": "Christchurch",
+    "km": 240
+   },
+   {
+    "region": "Tasman",
+    "iso": "TAS",
+    "ciudad": "Richmond",
+    "km": 270
+   },
+   {
+    "region": "Otago",
+    "iso": "OTA",
+    "ciudad": "Dunedin",
+    "km": 500
+   },
+   {
+    "region": "Southland",
+    "iso": "STL",
+    "ciudad": "Invercargill",
+    "km": 690
+   }
+  ]
+ }
+}

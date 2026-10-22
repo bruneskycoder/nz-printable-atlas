@@ -5,12 +5,8 @@
   "texto": "El <b>wrybill</b> es el único pájaro del mundo con el pico doblado hacia un costado, siempre a la derecha. Anida solo en los ríos trenzados de la South Island, casi todos en Canterbury. Quedan unos 5.000.",
   "fuente": "https://www.nzbirdsonline.org.nz/species/wrybill",
   "imagen": "wrybill-keulemans-1869",
-  "credito": "Dibujo sobre J. G. Keulemans (1869), dominio público · NZ Birds Online.",
-  "dibujo_mapa": [
-   122,
-   46,
-   60
-  ],
-  "proporcion": 0.6
+  "credito": "Dibujo sobre J. G. Keulemans, Anarhynchus frontalis, The Ibis (1869), dominio público.",
+  "proporcion": 0.6,
+  "fuente_texto": "NZ Birds Online (Te Papa y Birds New Zealand), «Wrybill». Consultado el 2026-10-22."
  }
 }

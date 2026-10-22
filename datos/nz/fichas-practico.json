@@ -1,0 +1,10 @@
+{
+ "_nota": "BORRADOR: puestos, salario mínimo y movilidad, a completar con datos verificados.",
+ "fuente_puestos": "Careers NZ (careers.govt.nz), perfiles de cada puesto.",
+ "salario_minimo": {
+  "desde": "?",
+  "fuente": "Employment NZ, salario mínimo."
+ },
+ "puestos": [],
+ "movilidad": {}
+}
