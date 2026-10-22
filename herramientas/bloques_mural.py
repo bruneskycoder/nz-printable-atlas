@@ -392,7 +392,7 @@ def curiosidades():
         f'<div class="fila inversa"><p>{k["fruta"]["texto"]}</p>{fruta}</div>'
         f'<p class="gente">{k["gente"]["texto"]}</p>'
         + (f'<p class="credito" data-meta>{k["ave"]["credito"]}</p>' if k['ave'].get('credito') else ''))))
-    out.append(Bloque('m-geo n3', 186, 274, 112, 64, (
+    out.append(Bloque('m-geo n3', 196, 150, 112, 64, (
         '<h2>A young, restless land</h2><dl>'
         + ''.join(f'<dt>{g["t"]}</dt><dd>{g["texto"]}</dd>' for g in CUR['geografia']) + '</dl>')))
     out.append(Bloque('m-slang n3', 238, 681, 118, 47, (

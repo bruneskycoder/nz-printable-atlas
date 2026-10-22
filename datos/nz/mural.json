@@ -3,7 +3,7 @@
  "rotulos_mover": {
   "TASMAN SEA": {
    "x": 250,
-   "y": 354,
+   "y": 345,
    "rot": 0
   },
   "PACIFIC OCEAN": {
@@ -12,8 +12,8 @@
    "rot": 0
   },
   "TE IKA-A-MĀUI": {
-   "x": 470,
-   "y": 58,
+   "x": 305,
+   "y": 252,
    "rot": 0
   },
   "North Island": {
@@ -22,8 +22,8 @@
    "rot": 0
   },
   "TE WAIPOUNAMU": {
-   "x": 288,
-   "y": 786,
+   "x": 70,
+   "y": 564,
    "rot": 0
   },
   "South Island": {
