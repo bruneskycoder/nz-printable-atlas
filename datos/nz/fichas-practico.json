@@ -21,7 +21,9 @@
    "titulo": "Fruit picker · packhouse worker",
    "es": "cosecha y empaque",
    "requisitos": "Sin experiencia. En empaque, a veces licencia de autoelevador.",
-   "continuidad": "Por temporada (cosecha)"
+   "continuidad": "Por temporada",
+   "confirmar": "forma de pago (por hora o por cantidad), alojamiento y transporte al campo",
+   "calendario": "fruta"
   },
   {
    "sectores": [
@@ -30,7 +32,9 @@
    "titulo": "Dairy farm assistant",
    "es": "tambo",
    "requisitos": "Sin experiencia; a veces licencia de conducir. Madrugadas, fines de semana, vivienda en el campo.",
-   "continuidad": "Suele ser permanente"
+   "continuidad": "Suele ser permanente",
+   "confirmar": "si incluye vivienda, horarios y días libres",
+   "calendario": "lecheria"
   },
   {
    "sectores": [
@@ -39,7 +43,9 @@
    "titulo": "Meat process worker",
    "es": "frigorífico",
    "requisitos": "Se aprende trabajando; test de drogas antes de entrar. Turnos, frío y ruido.",
-   "continuidad": "Por temporada: oct.–may. y jul.–ago."
+   "continuidad": "Por temporada",
+   "confirmar": "turnos, transporte a la planta y duración del contrato",
+   "calendario": "frigorificos"
   },
   {
    "sectores": [
@@ -48,7 +54,9 @@
    "titulo": "Shed hand · wool handler",
    "es": "galpón de esquila",
    "requisitos": "Buen estado físico; a veces una temporada de experiencia y transporte propio.",
-   "continuidad": "Por temporada: ago.–may."
+   "continuidad": "Por temporada",
+   "confirmar": "transporte entre galpones y alojamiento durante la temporada",
+   "calendario": "ovinos"
   },
   {
    "sectores": [
@@ -57,7 +65,9 @@
    "titulo": "Vineyard worker",
    "es": "viñedo",
    "requisitos": "Licencia de conducir; a veces experiencia y examen médico.",
-   "continuidad": "Todo el año, con picos"
+   "continuidad": "Todo el año, con picos",
+   "confirmar": "alojamiento, transporte y forma de pago",
+   "calendario": "vid"
   },
   {
    "sectores": [
@@ -66,7 +76,9 @@
    "titulo": "Kitchenhand · housekeeper · waiter",
    "es": "hotelería y gastronomía",
    "requisitos": "Sin título; normas de higiene. En barra, mayor de 18 y a veces LCQ.",
-   "continuidad": "Casual o part-time"
+   "continuidad": "Casual o part-time",
+   "confirmar": "horas garantizadas y si hay alojamiento para el personal",
+   "calendario": "turismo"
   },
   {
    "sectores": [
@@ -75,7 +87,9 @@
    "titulo": "Ski field staff",
    "es": "centros de esquí",
    "requisitos": "Mayor de 16 y certificado de antecedentes; se contrata hacia marzo.",
-   "continuidad": "Por temporada: jun.–oct."
+   "continuidad": "Por temporada",
+   "confirmar": "alojamiento (escaso en temporada) y transporte a la montaña",
+   "calendario": "esqui"
   },
   {
    "sectores": [
@@ -84,7 +98,9 @@
    "titulo": "Forestry worker",
    "es": "forestal",
    "requisitos": "Mayor de 16; a veces licencia de conducir. Trabajo de riesgo.",
-   "continuidad": "Suele ser permanente"
+   "continuidad": "Suele ser permanente",
+   "confirmar": "equipo de protección, transporte y horarios",
+   "calendario": "forestal"
   },
   {
    "sectores": [
@@ -93,7 +109,9 @@
    "titulo": "Construction labourer",
    "es": "peón de obra",
    "requisitos": "Sin experiencia; muy pedida la tarjeta de Site Safe.",
-   "continuidad": "Permanente o por agencia"
+   "continuidad": "Permanente o por agencia",
+   "confirmar": "si es por agencia, equipo de protección y transporte a la obra",
+   "calendario": null
   },
   {
    "sectores": [
@@ -102,7 +120,9 @@
    "titulo": "Storeperson · forklift operator",
    "es": "depósito y autoelevador",
    "requisitos": "Licencia de conducir; para autoelevador, certificado y endoso F.",
-   "continuidad": "Permanente, por turnos"
+   "continuidad": "Permanente, por turnos",
+   "confirmar": "turnos y transporte en horario nocturno",
+   "calendario": null
   }
  ],
  "movilidad": {
@@ -310,5 +330,6 @@
     ]
    ]
   }
- }
+ },
+ "vehiculo": "Los trabajos de campo (tambos, huertas, galpones, bosques) suelen quedar lejos del transporte público: casi siempre hace falta vehículo propio o que el empleador lleve. Confirmalo antes de aceptar."
 }

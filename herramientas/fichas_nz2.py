@@ -258,7 +258,7 @@ class Fuentes:
         return f'<sup data-meta>{self.lista.index(texto) + 1}</sup>'
 
     def html(self):
-        return ' '.join(f'<span data-meta><b>{i}</b> {t}</span>' for i, t in enumerate(self.lista, start=1))
+        return ' · '.join(f'<span data-meta><b>{i}</b> {t.rstrip(".")}</span>' for i, t in enumerate(self.lista, start=1))
 
 
 def sectores():
@@ -355,11 +355,29 @@ def frente(r, D, destino, F):
             f'<span>Mural NZ-A-00, pieza {pieza_mural(r)} · fuentes numeradas al dorso</span></footer></div>')
 
 
+def tira_meses(r, clave):
+    """Los 12 meses de la fila del calendario de Work and Income que corresponde a un puesto, o None."""
+    if not clave:
+        return None
+    cal = json.loads((RAIZ / 'datos' / 'calendario-nz.json').read_text())
+    for f in cal['filas']:
+        if clave == 'fruta':
+            ok = f['fuente'] == 'winz-calendario' and r['iso'] in ZONA_REGION.get(f['zona'], [])
+        else:
+            ok = f['fuente'] == 'winz-general' and f['sector'] == clave
+        if ok:
+            sector = {'turismo': 'alojamiento', 'esqui': 'alojamiento'}.get(f['sector'], f['sector'])
+            return ''.join('<i></i>' if not m else
+                           f'<i class="si{" pico" if m["pico"] else ""}" style="background:var(--s-{sector})"></i>'
+                           for m in f['meses'])
+    return None
+
+
 def dorso(r, D, F):
-    p = D['pais']
     codigo = f'NZ-A-{r["n"]:02d}'
+    nombre = esc(r['nombre'])
     practico = json.loads((DATOS / 'fichas-practico.json').read_text())
-    # Trabajo: qué mide cada porcentaje, con su unidad, su año y su fuente
+    # 1. Sectores en los que la región destaca: participación en el total nacional de cada indicador
     sect = sectores_region(r['iso'])
     filas = ''
     for _, v, s in sect:
@@ -368,44 +386,50 @@ def dorso(r, D, F):
                   f'<small data-meta>{num(s["valores"][r["iso"]])} {s["unidad"]}{F(FUENTE_SECTOR[s["fuente"]])}</small></div>'
                   f'<span class="barra"><i style="width:{min(100, v * 2.2):.0f}%;background:var(--s-{k})"></i></span>'
                   f'<b>{num(v)} %<small class="r" data-meta>{rango(s, r["iso"])}.ª de 16</small></b></div>')
+    sectores_html = (f'<section class="trabajo"><h2>Sectores en los que {nombre} destaca</h2>'
+                     f'<p class="bajada">{etq("dato")} Participación de {nombre} en el total nacional de cada indicador. Las unidades cambian '
+                     'entre sectores, y las barras no muestran cómo se reparte el empleo de la región.</p>'
+                     f'<div class="sectores">{filas}</div></section>')
+    # 2. Temporadas y puestos: cada puesto con sus meses, lo que suelen pedir y lo que hay que confirmar
     claves = {s['clave'] for _, _, s in sect}
     fuertes = {s['clave'] for s in sectores() if (rango(s, r['iso']) or 99) <= 4}
     con = claves | fuertes | ({'esqui'} if r['iso'] in CON_ESQUI else set())
     puestos = [x for x in practico['puestos'] if set(x['sectores']) & con][:5]
-    tabla_p = ''.join(f'<div class="puesto"><div class="t"><b>{esc(x["titulo"])}</b> <span class="es">{esc(x["es"])}</span></div>'
-                      f'<p><span class="cont">{x["continuidad"].rstrip(".")}.</span> {x["requisitos"]}</p></div>' for x in puestos)
-    fuente_p = F(practico['fuente_puestos'])
-    filas_cal, cal = calendario_region(r, claves)
-    cab = '<tr><th></th>' + ''.join(f'<td class="m" data-meta>{m}</td>' for m in MESES) + '</tr>'
-    fuente_cal = F('Work and Income, calendario de temporada; PickNZ.')
-    trabajo = ('<section class="trabajo"><h2>Trabajo</h2>'
-               f'<h3>De qué vive la región {etq("dato")}</h3>'
-               '<p class="bajada">Parte del total del país; cada sector se mide distinto.</p>'
-               f'<div class="sectores">{filas}</div>'
-               f'<h3>Puestos de entrada para investigar {etq("ori")}{fuente_p}</h3>'
-               f'<div class="puestos">{tabla_p}</div>'
-               '<p class="nota">Es una línea de investigación, no una lista de vacantes: confirmalo en avisos actuales.</p>'
-               f'<h3>Cuándo hay temporada {etq("ori")}{fuente_cal}</h3>'
-               f'<table class="temporada">{cab}{"".join(filas_cal)}</table>'
-               '<p class="leyenda-cal"><span class="mu"></span> con trabajo <span class="mu pico"></span> meses pico. '
-               f'{etq("rec")} Se contrata antes de que empiece la temporada: buscá unas semanas antes. Cambia cada año y no '
-               'garantiza trabajo.</p></section>')
-    # Plata: dato, estimación y cálculo separados y a la vista
-    sal, cu = practico['salario_minimo'], practico['cuarto']
-    cuarto = cu['mediana']
-    horas = cuarto / sal['valor']
-    plata = ('<section class="plata"><h2>Plata</h2><div class="cifras">'
-             f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: casa entera, mediana de la región (bonos nuevos, jun. 2026) '
-             f'{etq("dato")}{F("Tenancy Services, datos de alquiler por bonos, junio 2026.")}</span></div>'
-             f'<div><b>NZ$ {cuarto}</b><span>por semana: cuarto compartido, mediana de todo el país ({cu["periodo"]}); no hay '
-             f'dato por región {etq("dato")}{F(cu["fuente"])}</span></div>'
-             f'<div><b>NZ$ {num(sal["valor"], 2)}</b><span>por hora: salario mínimo adulto, bruto, desde {sal["desde"]} '
-             f'{etq("dato")}{F(sal["fuente"])}</span></div>'
-             f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo bruto pagan el cuarto ({cuarto} ÷ {num(sal["valor"], 2)}) '
-             f'{etq("calc")}</span></div></div>'
-             '<p class="nota">Muchos cuartos no registran bono: el precio real varía. Sumá comida, transporte, teléfono y servicios.</p>'
-             '</section>')
-    # Clima: de qué estación, qué variable, qué período y contra qué se compara
+    meses = ''.join(f'<span data-meta>{m}</span>' for m in MESES)
+    filas_p = ''
+    for x in puestos:
+        tira = tira_meses(r, x.get('calendario'))
+        tira = (f'<div class="tira">{tira}</div>' if tira
+                else f'<div class="tira vacia" data-meta>{"sin calendario oficial" if x.get("calendario") else "todo el año"}</div>')
+        filas_p += (f'<div class="puesto"><div class="t"><b>{esc(x["titulo"])}</b> <span class="es">{esc(x["es"])}</span></div>{tira}'
+                    f'<p><span class="cont">{x["continuidad"].rstrip(".")}.</span> {x["requisitos"]}</p>'
+                    f'<p class="confirmar"><span>Confirmá:</span> {x["confirmar"]}.</p></div>')
+    temporadas = ('<section class="temporadas"><h2>Temporadas y puestos para investigar ' + etq('ori') + '</h2>'
+                  '<p class="bajada">Meses en que Work and Income indica trabajo disponible (no son fechas de contratación); '
+                  'con borde, los de más trabajo. Requisitos según Tahatū Career Navigator'
+                  f'{F("Work and Income, calendario de temporada; PickNZ.")}{F(practico["fuente_puestos"])}.</p>'
+                  f'<div class="meses"><span></span><div>{meses}</div></div>{filas_p}'
+                  f'<p class="nota">{etq("rec")} Se contrata antes de que empiece la temporada: buscá unas semanas antes. '
+                  'Es una línea de investigación, no una lista de vacantes.</p></section>')
+    # 3. Vivienda: alquiler local, con su categoría, su fecha y su estado provisional
+    viv = practico.get('vivienda', {}).get(r['iso'], {})
+    sal = practico['salario_minimo']
+    nota_prov = 'Tenancy Services advierte que los datos de bonos son provisorios y pueden revisarse.'
+    casa = (f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana: casa entera, mediana de la región. Nuevos contratos de alquiler '
+            f'registrados (bonos), jun. 2026 {etq("dato")}{F("Tenancy Services, alquileres por bonos, jun. 2026 (provisorio).")}</span></div>')
+    hab = ''
+    horas = ''
+    if viv.get('mediana'):
+        hab = (f'<div><b>NZ$ {viv["mediana"]}</b><span>por semana: habitación alquilada sola, con cocina y baño compartidos '
+               f'(categoría «Room»), en {esc(viv["area"])}, {viv["periodo"]}, {viv["bonos"]} contratos {etq("dato")}'
+               f'{F(viv["fuente"])}</span></div>')
+        h = viv['mediana'] / sal['valor']
+        horas = (f'<div><b>{num(h, 1)} h</b><span>equivalente en horas de salario mínimo adulto bruto: {viv["mediana"]} ÷ '
+                 f'{num(sal["valor"], 2)} {etq("calc")}{F(sal["fuente"])}</span></div>')
+    vivienda = (f'<section class="vivienda"><h2>Vivienda</h2><div class="cifras">{casa}{hab}{horas}</div>'
+                f'<p class="nota">{nota_prov} Las horas son una comparación entre regiones, no lo que queda después de '
+                'impuestos, y no incluyen comida, transporte ni servicios.</p></section>')
+    # 4. Clima y movilidad
     es = r['estacion']
     otras = [x['estacion'] for x in D['regiones']]
 
@@ -416,35 +440,35 @@ def dorso(r, D, F):
     pmx, n = puesto('max', es['max'])
     pmn, _ = puesto('min_jul', es['min_jul'])
     pll, _ = puesto('lluvia', es['lluvia'])
-    clima = (f'<section class="clima-s"><h2>Clima <span class="donde">en {esc(lugar)}, promedios 1991–2020</span></h2>'
-             f'<div class="clima"><div><span class="ic sol"></span><b>{num(es["max"], 1)} °C</b><span>máxima media de '
-             f'{es["mes_max"].lower()}: {pmx}.ª más alta de las {n} estaciones del atlas</span></div>'
-             f'<div><span class="ic frio"></span><b>{num(es["min_jul"], 1)} °C</b><span>mínima media de julio: {pmn}.ª más alta de {n}</span></div>'
-             f'<div><span class="ic lluvia"></span><b>{num(es["lluvia"])} mm</b><span>de lluvia por año, en {es["dias"]} días: '
-             f'{pll}.ª más lluviosa de {n}</span></div></div>'
-             f'<p class="nota">Es el clima de {esc(lugar)}, no el de toda la región {etq("dato")}'
-             f'{F("NIWA, normales climáticas 1991–2020 (días de lluvia: 1981–2010), vía Figure.NZ.")}</p></section>')
-    # Movilidad
+    clima = (f'<section class="clima-s"><h2>Clima <span class="donde">medido en {esc(lugar)}: no representa toda la región</span></h2>'
+             f'<div class="clima fila3"><div><b><span class="ic sol"></span>{num(es["max"], 1)} °C</b><span>máxima media de '
+             f'{es["mes_max"].lower()}; {pmx}.ª de {n}</span></div>'
+             f'<div><b><span class="ic frio"></span>{num(es["min_jul"], 1)} °C</b><span>mínima media de julio; {pmn}.ª de {n}</span></div>'
+             f'<div><b><span class="ic lluvia"></span>{num(es["lluvia"])} mm</b><span>de lluvia al año, en {es["dias"]} días; '
+             f'{pll}.ª de {n}</span></div></div>'
+             f'<p class="nota">{etq("dato")} Promedios 1991–2020; el puesto compara las {n} estaciones del atlas, de mayor a menor'
+             f'{F("NIWA, normales climáticas 1991–2020, vía Figure.NZ.")}.</p></section>')
     dist = json.loads((DATOS / 'distancias-regiones.json').read_text())[r['iso']]
     km = ''.join(f'<li><b>{esc(v["ciudad"])}</b> <span>{v["km"]} km</span></li>' for v in dist['vecinas'] if v['km'])
     mov = practico['movilidad'].get(r['iso'], {})
-    extras = ''.join(f'<p><b>{esc(k)}:</b> {v}</p>' for k, v, f in mov.get('items', []))
-    if extras:
-        extras += f'<p class="nota" data-meta>Conexiones: sitios oficiales de aeropuertos, KiwiRail, InterCity y ferris{F("Sitios oficiales de aeropuertos, Great Journeys NZ (KiwiRail), InterCity, Interislander, Bluebridge y RealNZ.")}</p>'
+    extras = ''.join(f'<p><b>{esc(k)}:</b> {v}</p>' for k, v, _ in mov.get('items', []))
+    urbano = practico.get('urbano', {}).get(r['iso'])
+    if urbano:
+        extras += f'<p><b>En la ciudad:</b> {urbano}</p>'
     movilidad = ('<section class="movilidad"><h2>Movilidad</h2>'
-                 f'<h3>De {esc(dist["ciudad"])} a las ciudades vecinas, por ruta {etq("calc")}'
-                 f'{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
-                 f'<ul class="km">{km}</ul>{extras}</section>')
+                 f'<h3>Por ruta desde {esc(dist["ciudad"])} {etq("calc")}{F("Cálculo propio sobre la red de rutas de LINZ (1:250k), redondeado a 5 km.")}</h3>'
+                 f'<ul class="km">{km}</ul>{extras}'
+                 f'<p class="nota">{etq("rec")} {practico["vehiculo"]}'
+                 f'{F("Conexiones: sitios oficiales de aeropuertos, KiwiRail, InterCity, ferris y transporte urbano.")}</p></section>')
     return (f'<div class="hoja ficha2 mural dorso" data-tinta-max="40">'
-            f'<header class="cabecera-dorso"><h1>{esc(r["nombre"])}</h1><span>trabajo, plata, clima y movilidad</span>'
+            f'<header class="cabecera-dorso"><h1>{nombre}</h1><span>trabajo, vivienda, clima y movilidad</span>'
             f'<span class="cod" data-meta>{codigo} · dorso · v{VERSION} · {FECHA}</span></header>'
-            f'<div class="columnas"><div class="izq">{trabajo}'
-            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación con supuestos a la vista · '
-            f'{etq("calc")} cuenta con datos de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía.</p></div>'
-            f'<div class="der">{plata}{clima}{movilidad}'
-            f'<section class="fuentes"><h2>Fuentes <span class="donde" data-meta>consultadas entre el 2026-10-21 y el {FECHA}</span></h2>'
-            f'<p class="lista">{F.html()}</p></section></div></div>'
-            '</div>')
+            f'<div class="columnas"><div class="izq">{sectores_html}{temporadas}</div>'
+            f'<div class="der">{vivienda}{clima}{movilidad}'
+            f'<section class="fuentes"><h2>Fuentes</h2><p class="lista" data-meta>{F.html()}</p>'
+            f'<p class="tipos" data-meta>{etq("dato")} de un organismo oficial · {etq("est")} aproximación · {etq("calc")} cuenta con datos '
+            f'de la ficha · {etq("rec")} consejo práctico · {etq("ori")} útil, sin garantía. Consultadas el 2026-10-21 y el {FECHA}; '
+            'bibliografía completa, con enlaces y cálculos, en NZ-A-fuentes.pdf.</p></section></div></div></div>')
 
 
 def ficha(r, D, destino):

@@ -209,3 +209,26 @@
 .ficha2 .fuentes h2 .donde { font-size: 8pt; }
 .ficha2 .cabecera-dorso .cod { margin-left: auto; font-size: 8pt; color: #5b5145; }
 .ficha2 .columnas > div { gap: 1.8mm; }
+/* Dorso v3: temporadas y puestos con franja de meses */
+.ficha2 .trabajo h2, .ficha2 .temporadas h2 { display: flex; align-items: center; gap: 2mm; color: #2f6e44; border-color: #2f6e44; font-size: 13pt; }
+.ficha2 .meses { display: grid; grid-template-columns: 1fr 48mm; font-size: 8pt; color: #5b6a77; margin-top: 1mm; }
+.ficha2 .meses div, .ficha2 .tira { display: grid; grid-template-columns: repeat(12, 1fr); gap: 0.4mm; text-align: center; }
+.ficha2 .puesto { display: grid; grid-template-columns: 1fr 48mm; column-gap: 2mm; border-top: 0.2mm solid rgba(31, 58, 85, 0.18); padding: 0.8mm 0; }
+.ficha2 .puesto .t { grid-column: 1; font-size: 10pt; }
+.ficha2 .puesto .tira { grid-column: 2; grid-row: 1; align-self: center; height: 3.6mm; }
+.ficha2 .puesto .tira i { background: rgba(120, 100, 70, 0.12); border-radius: 0.5mm; }
+.ficha2 .puesto .tira i.si { opacity: 0.75; }
+.ficha2 .puesto .tira i.pico { opacity: 1; box-shadow: inset 0 0 0 0.3mm #1d2a36; }
+.ficha2 .puesto .tira.vacia { display: block; font-size: 8pt; color: #5b6a77; text-align: center; align-self: center; height: auto; }
+.ficha2 .puesto p { grid-column: 1 / span 2; font-size: 10pt; line-height: 1.2; margin: 0.3mm 0 0; color: #33424f; }
+.ficha2 .puesto .confirmar span { font-weight: 700; color: #2f6e44; }
+.ficha2 .vivienda h2 { color: #9a6a12; border-color: #9a6a12; }
+.ficha2 .vivienda .cifras div { grid-template-columns: 24mm 1fr; margin: 0.6mm 0 1.4mm; }
+.ficha2 .fuentes .lista { font-size: 8.5pt; line-height: 1.3; }
+.ficha2 .fuentes .tipos { font-size: 8pt; color: #4a5866; line-height: 1.5; margin: 1mm 0 0; }
+.ficha2 .movilidad .nota { font-size: 10pt; color: #33424f; }
+.ficha2 .clima.fila3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2.5mm; }
+.ficha2 .clima.fila3 > div { display: block; margin: 0; }
+.ficha2 .clima.fila3 b { display: block; font-size: 13pt; white-space: nowrap; }
+.ficha2 .clima.fila3 .ic { display: inline-block; width: 3.6mm; height: 3.6mm; margin-right: 1mm; vertical-align: -0.3mm; }
+.ficha2 .clima.fila3 > div > span { display: block; font-size: 10pt; line-height: 1.2; }
