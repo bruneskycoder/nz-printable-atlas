@@ -1,0 +1,117 @@
+IGUAL      lugar   Kaitaia -> Kaitaia (Town, Unofficial Recorded) a 1.0 km
+IGUAL      lugar   Kerikeri -> Kerikeri (Town, Official Approved) a 0.4 km
+IGUAL      lugar   Paihia -> Paihia (Town, Official Approved) a 0.2 km
+IGUAL      lugar   Whangārei -> Whangārei (City, Official Approved) a 0.3 km
+IGUAL      lugar   Dargaville -> Dargaville (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Auckland -> Auckland (Local Authority, Official Official By Other Legislation) a 0.5 km
+IGUAL      lugar   Pukekohe -> Pukekohe (Town, Official Approved) a 0.3 km
+IGUAL      lugar   Thames -> Thames (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Whitianga -> Whitianga (Locality, Official Assigned) a 0.4 km
+IGUAL      lugar   Hamilton -> Hamilton (City, Unofficial Recorded) a 1.5 km
+IGUAL      lugar   Raglan -> Raglan (Town, Unofficial Recorded) a 0.0 km
+IGUAL      lugar   Cambridge -> Cambridge (Town, Unofficial Recorded) a 0.3 km
+IGUAL      lugar   Matamata -> Matamata (Town, Official Approved) a 0.1 km
+IGUAL      lugar   Waitomo Caves -> Waitomo Caves (Locality, Official Approved) a 0.5 km
+IGUAL      lugar   Tokoroa -> Tokoroa (Town, Official Approved) a 0.4 km
+IGUAL      lugar   Taupō -> Taupō (Town, Official Approved) a 0.9 km
+IGUAL      lugar   Tūrangi -> Tūrangi (Town, Official Assigned) a 0.4 km
+IGUAL      lugar   Tauranga -> Tauranga (City, Official Approved) a 2.3 km
+IGUAL      lugar   Te Puke -> Te Puke (Town, Official Approved) a 0.6 km
+IGUAL      lugar   Rotorua -> Rotorua (City, Official Approved) a 0.7 km
+IGUAL      lugar   Whakatāne -> Whakatāne (Town, Official Approved) a 0.8 km
+IGUAL      lugar   Ōpōtiki -> Ōpōtiki (Town, Official Approved) a 0.1 km
+IGUAL      lugar   Gisborne -> Gisborne (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Wairoa -> Wairoa (Hill, Official Approved) a 1.4 km
+IGUAL      lugar   Napier -> Napier (City, Unofficial Recorded) a 0.3 km
+IGUAL      lugar   Hastings -> Hastings (City, Unofficial Recorded) a 0.8 km
+IGUAL      lugar   New Plymouth -> New Plymouth (City, Unofficial Recorded) a 0.7 km
+IGUAL      lugar   Hāwera -> Hāwera (Town, Official Approved) a 1.2 km
+IGUAL      lugar   Ohakune -> Ohakune (Town, Unofficial Recorded) a 0.0 km
+IGUAL      lugar   Whanganui -> Whanganui (City, Official Assigned) a 0.9 km
+IGUAL      lugar   Palmerston North -> Palmerston North (City, Unofficial Recorded) a 0.9 km
+IGUAL      lugar   Levin -> Levin (Town, Unofficial Recorded) a 1.2 km
+IGUAL      lugar   Masterton -> Masterton (Town, Unofficial Recorded) a 1.6 km
+IGUAL      lugar   Paraparaumu -> Paraparaumu (Town, Official Approved) a 0.8 km
+IGUAL      lugar   Porirua -> Porirua (City, Official Approved) a 0.3 km
+IGUAL      lugar   Lower Hutt -> Lower Hutt (City, Official Approved) a 0.7 km
+IGUAL      lugar   Wellington -> Wellington (City, Official Approved) a 0.7 km
+IGUAL      lugar   Tākaka -> Tākaka (Locality, Official Approved) a 0.9 km
+IGUAL      lugar   Motueka -> Motueka (Town, Official Approved) a 0.1 km
+IGUAL      lugar   Nelson -> Nelson (City, Unofficial Recorded) a 0.3 km
+IGUAL      lugar   Picton -> Picton (Town, Unofficial Recorded) a 0.2 km
+IGUAL      lugar   Blenheim -> Blenheim (Town, Official Approved) a 0.3 km
+IGUAL      lugar   Kaikōura -> Kaikōura (Town, Official Approved) a 1.1 km
+IGUAL      lugar   Westport -> Westport (Town, Unofficial Recorded) a 1.0 km
+IGUAL      lugar   Greymouth -> Greymouth (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Hokitika -> Hokitika (Town, Unofficial Recorded) a 0.5 km
+IGUAL      lugar   Franz Josef / Waiau -> Franz Josef/Waiau (Village, Official Altered) a 0.1 km
+IGUAL      lugar   Haast -> Haast (Town, Official Assigned) a 0.2 km
+IGUAL      lugar   Hanmer Springs -> Hanmer Springs (Town, Official Assigned) a 0.2 km
+IGUAL      lugar   Christchurch -> Christchurch (City, Unofficial Recorded) a 0.5 km
+IGUAL LEJOS lugar   Akaroa -> Akaroa (Locality, Official Approved) a 448.2 km
+IGUAL      lugar   Methven -> Methven (Locality, Unofficial Recorded) a 0.2 km
+IGUAL      lugar   Ashburton -> Ashburton (Town, Unofficial Recorded) a 0.9 km
+SIN DATO   lugar   Tekapo
+IGUAL      lugar   Twizel -> Twizel (Town, Official Assigned) a 0.2 km
+IGUAL      lugar   Timaru -> Timaru (Town, Unofficial Recorded) a 1.1 km
+IGUAL      lugar   Oamaru -> Oamaru (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Wānaka -> Wānaka (Town, Official Assigned) a 1.2 km
+IGUAL      lugar   Cromwell -> Cromwell (Town, Unofficial Recorded) a 0.3 km
+IGUAL      lugar   Queenstown -> Queenstown (Town, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Alexandra -> Alexandra (Town, Unofficial Recorded) a 1.4 km
+IGUAL      lugar   Dunedin -> Dunedin (City, Unofficial Recorded) a 0.1 km
+IGUAL      lugar   Balclutha -> Balclutha (Town, Unofficial Recorded) a 0.5 km
+IGUAL      lugar   Te Anau -> Te Anau (Town, Unofficial Recorded) a 0.2 km
+IGUAL      lugar   Milford Sound / Piopiotahi -> Milford Sound/Piopiotahi (Bay, Official Altered) a 4.1 km
+IGUAL      lugar   Gore -> Gore (Town, Unofficial Recorded) a 0.3 km
+IGUAL      lugar   Invercargill -> Invercargill (City, Unofficial Recorded) a 1.9 km
+IGUAL LEJOS lugar   Bluff -> Bluff (Hill, Official Approved) a 821.4 km
+DISTINTO   lugar   Oban -> Halfmoon Bay / Oban (Locality, Unofficial Recorded) a 0.1 km
+IGUAL      pico    Aoraki / Mount Cook -> Aoraki/Mount Cook (Hill, Official Altered) a 0.0 km
+IGUAL      pico    Mount Aspiring / Tititea -> Mount Aspiring/Tititea (Hill, Official Altered) a 0.0 km
+IGUAL      pico    Tapuae-o-Uenuku -> Tapuae-o-Uenuku (Hill, Official Assigned) a 0.5 km
+IGUAL      pico    Mount Ruapehu -> Mount Ruapehu (Hill, Official Assigned) a 0.8 km
+IGUAL      pico    Taranaki Maunga -> Taranaki Maunga (Hill, Official Altered) a 0.1 km
+IGUAL LEJOS rótulo  TASMAN SEA -> Tasman Sea (Sea, Unofficial Recorded) a 404.8 km
+SIN DATO   rótulo  PACIFIC OCEAN
+IGUAL LEJOS rótulo  Cook Strait -> Cook Strait (Channel, Unofficial Recorded) a 46.0 km
+IGUAL LEJOS rótulo  Foveaux Strait -> Foveaux Strait (Channel, Unofficial Recorded) a 11.5 km
+IGUAL LEJOS rótulo  Hauraki Gulf / Tīkapa Moana -> Hauraki Gulf / Tīkapa Moana (Bay, Official Altered) a 18.7 km
+IGUAL LEJOS rótulo  Bay of Plenty -> Bay of Plenty (Bay, Unofficial Recorded) a 17.1 km
+IGUAL LEJOS rótulo  Hawke Bay -> Hawke Bay (Bay, Official Assigned) a 36.5 km
+IGUAL LEJOS rótulo  Golden Bay / Mohua -> Golden Bay / Mohua (Bay, Official Altered) a 20.1 km
+IGUAL LEJOS rótulo  Tasman Bay / Te Tai-o-Aorere -> Tasman Bay / Te Tai-o-Aorere (Bay, Official Altered) a 22.9 km
+IGUAL LEJOS rótulo  Pegasus Bay -> Pegasus Bay (Bay, Unofficial Recorded) a 22.4 km
+IGUAL LEJOS rótulo  Canterbury Bight -> Canterbury Bight (Bay, Unofficial Recorded) a 63.6 km
+IGUAL LEJOS rótulo  SOUTHERN ALPS / KĀ TIRITIRI O TE MOANA -> Southern Alps/Kā Tiritiri o te Moana (Range, Official Altered) a 79.7 km
+SIN DATO   rótulo  FIORDLAND
+SIN DATO   rótulo  KAIKŌURA RANGES
+IGUAL LEJOS rótulo  TARARUA RANGE -> Tararua Range (Range, Official Approved) a 27.9 km
+IGUAL LEJOS rótulo  RUAHINE RANGE -> Ruahine Range (Range, Official Approved) a 16.4 km
+IGUAL LEJOS rótulo  RAUKŪMARA RANGE -> Raukūmara Range (Range, Official Approved) a 7.3 km
+SIN DATO   rótulo  VOLCANIC PLATEAU
+SIN DATO   rótulo  CANTERBURY PLAINS
+IGUAL LEJOS rótulo  CENTRAL OTAGO -> Central Otago (Area, Official Assigned) a 48.8 km
+DISTINTO LEJOS rótulo  Lake Taupō -> Lake Taupō / Taupōmoana (Lake, Unofficial Recorded) a 24.1 km
+DISTINTO LEJOS rótulo  Lake Rotorua -> Lake Rotorua/Te Rotorua nui ā Kahumatamomoe (Lake, Official Altered) a 13.5 km
+IGUAL LEJOS rótulo  Lake Wakatipu -> Lake Wakatipu (Lake, Unofficial Recorded) a 23.5 km
+IGUAL LEJOS rótulo  Lake Te Anau -> Lake Te Anau (Lake, Unofficial Recorded) a 14.0 km
+IGUAL LEJOS rótulo  Lake Wānaka -> Lake Wānaka (Lake, Official Approved) a 11.3 km
+IGUAL LEJOS rótulo  Lake Pukaki -> Lake Pukaki (Lake, Unofficial Recorded) a 10.5 km
+IGUAL LEJOS rótulo  Waikato -> Waikato (Locality, Official Approved) a 398.4 km
+IGUAL LEJOS rótulo  Whanganui -> Whanganui (City, Official Assigned) a 48.2 km
+DISTINTO LEJOS rótulo  Clutha / Mata-Au -> Clutha River/Mata-Au (Stream, Official Altered) a 24.7 km
+SIN DATO   rótulo  Waitaki
+IGUAL LEJOS rótulo  Stewart Island / Rakiura -> Stewart Island/Rakiura (Island, Official Altered) a 42.3 km
+SIN DATO   rótulo  Great Barrier Island
+IGUAL LEJOS rótulo  Coromandel Peninsula -> Coromandel Peninsula (Peninsula, Unofficial Recorded) a 17.9 km
+IGUAL LEJOS rótulo  Banks Peninsula -> Banks Peninsula (Peninsula, Unofficial Recorded) a 27.2 km
+SIN DATO   rótulo  Marlborough Sounds
+IGUAL LEJOS rótulo  Cape Reinga / Te Rerenga Wairua -> Cape Reinga / Te Rerenga Wairua (Cape, Official Altered) a 35.1 km
+IGUAL LEJOS rótulo  East Cape -> East Cape (Point, Official Approved) a 27.0 km
+IGUAL LEJOS rótulo  TE IKA-A-MĀUI -> Te Ika-a-Māui (Island, Official Assigned) a 427.7 km
+IGUAL LEJOS rótulo  North Island -> North Island (Island, Official Assigned) a 418.2 km
+IGUAL LEJOS rótulo  TE WAIPOUNAMU -> Te Waipounamu (Island, Official Assigned) a 320.1 km
+IGUAL LEJOS rótulo  South Island -> South Island (Island, Official Assigned) a 309.8 km
+SIN DATO   pico    Ngāuruhoe
+IGUAL      rótulo  THE CATLINS -> The Catlins (Area, Official Assigned) a 0.0 km

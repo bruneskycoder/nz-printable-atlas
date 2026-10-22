@@ -137,3 +137,9 @@
 .mural .m-datos h2 { font-size: 13pt; margin: 0 0 1.2mm; }
 .mural .m-datos ul { margin: 0; padding-left: 4.5mm; font-size: 10.5pt; line-height: 1.3; }
 .mural .m-datos li { margin-bottom: 1mm; }
+
+/* Escudos de State Highway */
+.mural .mapa .escudo rect { fill: white; stroke: var(--m-sh1); stroke-width: 0.3; }
+.mural .mapa .escudo text { font-size: 2.85px; font-weight: 800; fill: var(--m-sh1); stroke: none; }
+.mural .mapa .escudo.sh1 rect { fill: var(--m-sh1); stroke: white; stroke-width: 0.25; }
+.mural .mapa .escudo.sh1 text { fill: white; }

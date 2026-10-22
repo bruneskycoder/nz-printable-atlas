@@ -1,5 +1,5 @@
 {
- "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro.",
+ "_nota": "Ajustes del mapa mural v2 (NZ-A-00, 9 A4 a 1:1.900.000) que no tocan a las fichas. Las posiciones con x/y están en mm del mural (origen arriba a la izquierda); las demás, en grados. 'rotulos_mover' cambia de lugar un rótulo de rotulos.json; 'lugares_pos' cambia el lado del rótulo de una ciudad de lugares.json para que no lo parta una junta; 'lugares_ocultar' saca pueblos que no entran; 'parques' son los rótulos de los parques nacionales del DOC (nombre oficial abreviado: NP = National Park). 'rotulos_ocultar' saca rótulos de rotulos.json que en el mural se pisan con otros; 'guia' (x, y) dibuja una línea fina del rótulo del parque hasta ese punto del parque, cuando el nombre no entra adentro. 'nombres' cambia el texto de un rótulo, pico o ciudad por su forma oficial del Gazetteer de LINZ (macrones, nombre doble); 't2' agrega una segunda línea con 'clase2' (ver datos/nz/linz/nombres-informe.txt). 'rotulos_nuevos' y 'picos_nuevos' son rasgos que el mural agrega a rotulos.json; las coordenadas salen del Gazetteer.",
  "rotulos_mover": {
   "TASMAN SEA": {
    "x": 250,
@@ -32,8 +32,8 @@
    "rot": 0
   },
   "SOUTHERN ALPS": {
-   "x": 232,
-   "y": 508,
+   "x": 229,
+   "y": 504,
    "rot": -37
   },
   "Waitaki": {
@@ -45,6 +45,21 @@
    "x": 34,
    "y": 690,
    "rot": -55
+  },
+  "VOLCANIC PLATEAU": {
+   "x": 430,
+   "y": 296,
+   "rot": 0
+  },
+  "Hauraki Gulf": {
+   "x": 380,
+   "y": 140,
+   "rot": 0
+  },
+  "Lake Taupō": {
+   "x": 413,
+   "y": 285,
+   "rot": 0
   }
  },
  "lugares_pos": {
@@ -57,7 +72,8 @@
   "Tekapo": "S",
   "Dunedin": "O",
   "Porirua": "O",
-  "Wellington": "O"
+  "Wellington": "O",
+  "Waitomo": "E"
  },
  "lugares_ocultar": [
   "Raglan"
@@ -169,8 +185,8 @@
   {
    "nombre": "Tongariro National Park",
    "t": "Tongariro NP",
-   "x": 393,
-   "y": 306.5,
+   "x": 386,
+   "y": 308,
    "rot": 0
   },
   {
@@ -194,5 +210,81 @@
  ],
  "rotulos_ocultar": [
   "Whanganui"
+ ],
+ "nombres": {
+  "Turangi": {
+   "t": "Tūrangi"
+  },
+  "Takaka": {
+   "t": "Tākaka"
+  },
+  "Franz Josef": {
+   "t": "Franz Josef / Waiau"
+  },
+  "Wanaka": {
+   "t": "Wānaka"
+  },
+  "Waitomo": {
+   "t": "Waitomo Caves"
+  },
+  "Milford Sound": {
+   "t": "Milford Sound / Piopiotahi"
+  },
+  "Tititea / Mt Aspiring": {
+   "t": "Mount Aspiring / Tititea"
+  },
+  "Ruapehu": {
+   "t": "Mount Ruapehu"
+  },
+  "Lake Wanaka": {
+   "t": "Lake Wānaka"
+  },
+  "Hauraki Gulf": {
+   "t": "Hauraki Gulf",
+   "t2": "Tīkapa Moana"
+  },
+  "Golden Bay": {
+   "t": "Golden Bay",
+   "t2": "Mohua"
+  },
+  "Tasman Bay": {
+   "t": "Tasman Bay",
+   "t2": "Te Tai-o-Aorere"
+  },
+  "SOUTHERN ALPS": {
+   "t2": "KĀ TIRITIRI O TE MOANA",
+   "clase2": "sierra-chica"
+  },
+  "RAUKUMARA RANGE": {
+   "t": "RAUKŪMARA RANGE"
+  },
+  "Cape Reinga": {
+   "t": "Cape Reinga",
+   "t2": "Te Rerenga Wairua"
+  }
+ },
+ "rotulos_nuevos": [
+  {
+   "t": "Bay of Islands",
+   "x": 348,
+   "y": 63,
+   "rot": 0,
+   "clase": "agua"
+  },
+  {
+   "t": "THE CATLINS",
+   "lon": 169.41886,
+   "lat": -46.45126,
+   "rot": -20,
+   "clase": "sierra-chica"
+  }
+ ],
+ "picos_nuevos": [
+  {
+   "n": "Ngāuruhoe",
+   "lon": 175.63489,
+   "lat": -39.15842,
+   "pos": "E"
+  }
  ]
 }

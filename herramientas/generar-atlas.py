@@ -10,18 +10,19 @@ Después: node herramientas/construir.mjs hojas/nz-a/*.html
 Datos: datos/nz/ (geografía, ver geo-nz.py) y datos/regiones.json (cifras con fuente).
 """
 import json
+import math
 import re
 import sys
 
 from shapely.geometry import LineString, box
 from shapely.ops import polylabel, unary_union
 
-from atlas_nz import (MURAL_ESCALA, MURAL_X0, MURAL_Y0, ORDEN_REGIONES, PT, RAIZ, Encuadre, caja_rotulo, capa,
-                      esc, nombre_region, recortar, relieve_mural_ventana, rotulo_punto, ruta, tabla)
+from atlas_nz import (DATOS, MURAL_ESCALA, MURAL_X0, MURAL_Y0, ORDEN_REGIONES, PT, RAIZ, Encuadre, ancho_texto,
+                      caja_rotulo, capa, esc, nombre_region, recortar, relieve_mural_ventana, rotulo_punto, ruta, tabla)
 from bloques_mural import GLIFOS_MAPA, principales
 from glifos import glifo_svg
 
-FECHA = '2026-10-21'
+FECHA = '2026-10-22'
 VERSION = 2
 DESTINO = RAIZ / 'hojas' / 'nz-a'
 
@@ -61,16 +62,26 @@ def capas_mural():
     for i, d in enumerate((1.0, 2.3, 3.8), start=1):
         borde = base.buffer(d, quad_segs=3).boundary
         olas.append((f'ola o{i}', borde.intersection(marco)))
+    # Rutas y lagos de LINZ (Topo 1:250k, datos/nz/linz/, ver linz-procesar.py) si están; si no, los de
+    # Natural Earth. El ferry y los ríos salen siempre de Natural Earth.
+    linz = (DATOS / 'linz' / 'rutas.json').exists()
     rios = unary_union([E.geom(g) for _, g in capa('rios')]).intersection(tierra.buffer(0.2))
-    rutas1, rutas2, ferry = [], [], []
+    rutas1, rutas2, ferry, numeradas = [], [], [], []
     for p, g in capa('rutas'):
         g = E.geom(g)
         if p.get('type') == 'Ferry Route':
             ferry.append(g)
+        elif linz:
+            continue
         elif p.get('type') == 'Major Highway' or (p.get('scalerank') or 9) <= 4:
             rutas1.append(g)
         else:
             rutas2.append(g)
+    if linz:
+        for p, g in capa('linz/rutas'):
+            g = E.geom(g)
+            (rutas1 if p['hway_num'] == '1' else rutas2).append(g)
+            numeradas.append((p['hway_num'], g))
     reticula = []
     for lon in range(166, 180):
         reticula.append(('m', lon, LineString([E.lonlat(lon, lat / 10) for lat in range(-480, -330, 2)])))
@@ -79,7 +90,8 @@ def capas_mural():
     parques = {p['nombre']: E.geom(g).simplify(0.08) for p, g in capa('parques')}
     return {
         'marco': marco, 'tierra': tierra, 'olas': olas,
-        'lagos': unary_union([E.geom(g) for _, g in capa('lagos')]),
+        'lagos': unary_union([E.geom(g) for _, g in capa('linz/lagos' if linz else 'lagos')]),
+        'numeradas': numeradas, 'linz': linz,
         'rios': rios,
         'limites': unary_union([E.geom(g) for _, g in capa('limites')]).simplify(0.06),
         'ruta1': unary_union(rutas1), 'ruta2': unary_union(rutas2), 'ferry': unary_union(ferry),
@@ -142,6 +154,7 @@ def elementos_mural(C):
     items = []
     rotulos = tabla('rotulos')
     ajustes = tabla('mural')
+    nombres = ajustes.get('nombres', {})
     # Parques nacionales: nombre corto en verde, dentro del parque
     for r in ajustes['parques']:
         x, y = posicion(E, r)
@@ -156,8 +169,8 @@ def elementos_mural(C):
             svg = f'<path class="guia-parque" d="M{ox:.2f} {oy:.2f} L{gx:.2f} {gy:.2f}"/><circle class="guia-parque-p" cx="{gx:.2f}" cy="{gy:.2f}" r="0.45"/>' + svg
         items.append((caja('parque-n', x, y, r['t'], 'middle', r.get('rot', 0)), svg))
     # Picos
-    for p in rotulos['picos']:
-        p = dict(p, pos=ajustes['picos_pos'].get(p['n'], p['pos']))
+    for p in rotulos['picos'] + ajustes.get('picos_nuevos', []):
+        p = dict(p, pos=ajustes['picos_pos'].get(p['n'], p['pos']), n=nombres.get(p['n'], {}).get('t', p['n']))
         x, y = E.lonlat(p['lon'], p['lat'])
         tri = f'<path class="pico" d="M{x:.2f} {y - 1.3:.2f} L{x + 1.15:.2f} {y + 0.75:.2f} L{x - 1.15:.2f} {y + 0.75:.2f} Z"/>'
         dx = 1.8 if p['pos'] == 'E' else -1.8
@@ -168,14 +181,24 @@ def elementos_mural(C):
             txt += f'<text class="pico-h" x="{x + dx:.2f}" y="{y + 3.0:.2f}" text-anchor="{ancla}">{alto}</text>'
         items.append((unir_cajas(caja('pico-n', x + dx, y - 0.2, p['n'], ancla), (x - 1.2, y - 1.3, x + 1.2, y + 3.2)), tri + txt))
     # Rótulos de geografía
-    for r in rotulos['rotulos']:
+    for r in rotulos['rotulos'] + ajustes.get('rotulos_nuevos', []):
         if r['t'] in ajustes['rotulos_ocultar']:
             continue
-        r = dict(r, **ajustes['rotulos_mover'].get(r['t'], {}))
+        r = dict(r, **ajustes['rotulos_mover'].get(r['t'], {}), **nombres.get(r['t'], {}))
         x, y = posicion(E, r)
-        rot = f' transform="rotate({r["rot"]} {x:.2f} {y:.2f})"' if r['rot'] else ''
-        items.append((caja(r['clase'], x, y, r['t'], 'middle', r['rot']),
-                      f'<text class="{r["clase"]}" x="{x:.2f}" y="{y:.2f}" text-anchor="middle"{rot}>{esc(r["t"])}</text>'))
+        lineas = [(r['clase'], x, y, r['t'])]
+        if r.get('t2'):
+            # Segunda línea (nombre māori de un nombre doble), debajo de la primera y girada igual
+            c2 = r.get('clase2', r['clase'])
+            dy = ESTILO[r['clase']][0] * 0.3 + ESTILO[c2][0] * 0.95
+            a = math.radians(r['rot'])
+            lineas.append((c2, x - math.sin(a) * dy, y + math.cos(a) * dy, r['t2']))
+        svg, cajas = '', []
+        for clase, lx, ly, texto in lineas:
+            rot = f' transform="rotate({r["rot"]} {lx:.2f} {ly:.2f})"' if r['rot'] else ''
+            svg += f'<text class="{clase}" x="{lx:.2f}" y="{ly:.2f}" text-anchor="middle"{rot}>{esc(texto)}</text>'
+            cajas.append(caja(clase, lx, ly, texto, 'middle', r['rot']))
+        items.append((unir_cajas(*cajas), svg))
     # Regiones: número, nombre y glifos de sector
     sectores = {s['clave']: s for s in json.loads((RAIZ / 'datos' / 'sectores-nz.json').read_text())['sectores']}
     tops = {k: principales(sectores[k]) for k, _ in GLIFOS_MAPA}
@@ -204,7 +227,7 @@ def elementos_mural(C):
     for c in tabla('lugares')['lugares']:
         if c['n'] in ajustes['lugares_ocultar']:
             continue
-        c = dict(c, pos=ajustes['lugares_pos'].get(c['n'], c['pos']))
+        c = dict(c, pos=ajustes['lugares_pos'].get(c['n'], c['pos']), n=nombres.get(c['n'], {}).get('t', c['n']))
         x, y = E.lonlat(c['lon'], c['lat'])
         cat = c['cat']
         sep = SEP_CAT[cat]
@@ -222,7 +245,46 @@ def elementos_mural(C):
             svg += avion(ax, ay)
             cajas.append((ax - 2, ay - 2, ax + 2, ay + 2))
         items.append((unir_cajas(*cajas), svg))
-    return items
+    return items + escudos(C, items)
+
+
+def se_tocan(a, b, aire=0.4):
+    return a[0] - aire < b[2] and b[0] - aire < a[2] and a[1] - aire < b[3] and b[1] - aire < a[3]
+
+
+def escudos(C, items):
+    """Número de State Highway en un escudo, sobre la ruta, donde no pisa otro rótulo ni una junta.
+    La SH1 lleva uno cada unos 100 mm; las demás, uno por tramo largo."""
+    ocupado = [c for c, _ in items]
+    out = []
+    for num, g in C['numeradas']:
+        partes = sorted(getattr(g, 'geoms', [g]), key=lambda h: -h.length)
+        paso = 100 if num == '1' else 170
+        for parte in partes:
+            if parte.length < (20 if num == '1' else 45):
+                continue
+            n = max(1, round(parte.length / paso))
+            w = ancho_texto(num, 2.85, 'texto', 800) + 1.5
+            for k in range(n):
+                d0 = (k + 0.5) * parte.length / n
+                for corrimiento in (0, 6, -6, 12, -12, 20, -20, 30, -30):
+                    d = d0 + corrimiento
+                    if not 4 < d < parte.length - 4:
+                        continue
+                    pt = parte.interpolate(d)
+                    caja = (pt.x - w / 2, pt.y - 1.7, pt.x + w / 2, pt.y + 1.7)
+                    # Fuera de las franjas de pegado (ahí van los códigos de pieza y la junta)
+                    if (any(se_tocan(caja, o) for o in ocupado)
+                            or any(caja[0] - 1 < j + SOLAPA and j < caja[2] + 1 for j in JUNTAS_X)
+                            or any(caja[1] - 1 < j + SOLAPA and j < caja[3] + 1 for j in JUNTAS_Y)):
+                        continue
+                    clase = 'escudo sh1' if num == '1' else 'escudo'
+                    out.append((caja, f'<g class="{clase}"><rect x="{caja[0]:.2f}" y="{caja[1]:.2f}" width="{w:.2f}" '
+                                      f'height="3.4" rx="0.8"/><text x="{pt.x:.2f}" y="{pt.y + 1.02:.2f}" '
+                                      f'text-anchor="middle">{num}</text></g>'))
+                    ocupado.append(caja)
+                    break
+    return out
 
 
 def grados_mural(C, vx, vy):

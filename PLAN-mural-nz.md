@@ -1,7 +1,7 @@
 # Plan: mapa mural de Nueva Zelanda, versión 2 (`NZ-A-00`)
 
 **Nivel:** profundo. Suma varias fuentes externas (LINZ, DOC, Work and Income, estadísticas sectoriales), una de ellas con clave, y cambia la grilla del mural.
-**Estado:** en ejecución. Pasos 1 a 5, 8 y 9 terminados; el 6 y el 7 esperan el secreto `LINZ_API_KEY` en GitHub.
+**Estado:** terminado el 2026-10-22. Los 9 pasos están hechos; queda la verificación manual (imprimir y unir las piezas 2 y 3).
 **Última actualización:** 2026-10-21
 
 ## Objetivo
@@ -116,7 +116,7 @@ Pediste más color y más tinta para que se entienda mejor y quede más lindo. L
    - El verde es una excepción explícita a las cuatro tintas: es la convención universal para áreas protegidas y no se confunde con el ocre del relieve.
    - El borde de trazos hace que se lean también en gris.
 2. **Rutas de LINZ:** la State Highway 1 más gruesa, con escudos «1», y número en las demás State Highways principales. Ferry Wellington–Picton y aeropuertos, como en la v1.
-3. **Ríos y lagos de LINZ 1:500k**, en lugar de Natural Earth.
+3. **Lagos de LINZ 1:250k**, en lugar de Natural Earth. Los ríos siguen de Natural Earth (ver el registro, 2026-10-22).
 4. **Rasgos y destinos que faltan**, con nombre oficial del Gazetteer (incluidos los nombres dobles):
    - Tongariro y Ngāuruhoe;
    - glaciares Franz Josef y Fox;
@@ -153,10 +153,10 @@ Pediste más color y más tinta para que se entienda mejor y quede más lindo. L
   - Verificación: cada celda se rastrea hasta la fuente y lleva la fecha de consulta.
 - [x] 5. **Bloques nuevos** (matriz, calendario, leyenda ampliada, nota) **y glifos.**
   - Verificación: el chequeo automático pasa (10 pt, nada a menos de 8 mm del borde, sin encimados).
-- [ ] 6. **Rasgos y destinos faltantes.**
+- [x] 6. **Rasgos y destinos faltantes.** Bay of Islands, The Catlins, Ngāuruhoe, Milford Sound / Piopiotahi y los nombres dobles oficiales; los glaciares no entraron (ver el registro).
   - Verificación: posición contra el Gazetteer o el DOC; ningún rótulo en el mar ni en otra región.
-- [ ] 7. **LINZ** (necesita el secreto de GitHub): rutas con número, ríos, lagos, costa y el chequeo de nombres.
-  - Verificación: SH1 continua de Cape Reinga a Bluff, con el corte del estrecho; informe de nombres sin diferencias pendientes.
+- [x] 7. **LINZ:** rutas con número, lagos y el chequeo de nombres (`datos/nz/linz/nombres-informe.txt`). Ríos y costa quedan como estaban.
+  - Verificación: SH1 continua de Cape Reinga a Wellington y de Picton a Bluff (los tramos empalman punta con punta); el informe de nombres deja 14 diferencias, todas decididas (ver el registro).
 - [x] 8. **Prueba en gris:** vista previa en escala de grises revisada; rutas, ríos y parques se distinguen.
 - [x] 9. **Exportar:**
   - las 9 piezas, el PDF combinado y la vista completa en PNG;
@@ -213,4 +213,10 @@ Los pasos 1 a 6 y 8 no dependen de la clave. El 7 empieza cuando la tarea de Git
 - 2026-10-21 — Juntas: cuatro ciudades caen sobre una junta (Auckland, Porirua, Wellington y Dunedin). Las dos piezas imprimen el símbolo entero, así que se ve continuo si la unión queda a menos de 1 mm. Los rótulos se corrieron al lado que no cruza.
 - 2026-10-21 — Las fichas solo cambian la línea «Mapa mural: NZ-A-00, pieza N» (8 de 16 cambian de número).
 - 2026-10-21 — Los rasgos nuevos (Tongariro, Ngāuruhoe, glaciares, Piopiotahi y otros) esperan el Gazetteer de LINZ, para que la posición y el nombre salgan de la fuente y no de memoria.
-
+- 2026-10-22 — LINZ funcionando: la tarea de GitHub baja las capas con el secreto y las publica en la rama `datos-linz` (datos del 2026-10-14). `herramientas/linz-procesar.py` las convierte en `datos/nz/linz/`.
+- 2026-10-22 — Rutas: las 96 State Highways de la 1:250k, con la SH1 en rojo con borde blanco y las demás en naranja. Los escudos con el número se ubican solos: la SH1 lleva uno cada unos 100 mm y las demás uno por tramo largo, siempre fuera de las franjas de pegado y sin pisar rótulos. El filtro por número se hace en el script porque el servidor devolvió las 66.625 calles.
+- 2026-10-22 — Ríos: siguen de Natural Earth. En la 1:250k de LINZ los ríos anchos (Clutha, Rakaia, Waikato) son polígonos y los tramos no están unidos (el Clutha tiene 475 puntas sueltas en 438 tramos), y las líneas del Gazetteer son tramos sueltos para ubicar el nombre (el Waikato tiene 3 km). Armar cursos completos pedía otra capa y bastante código para ganar un milímetro a esta escala.
+- 2026-10-22 — Nombres: se aplican las formas oficiales del Gazetteer solo en el mural (`nombres` en `datos/nz/mural.json`), así las fichas no cambian todavía. Macrones: Tūrangi, Tākaka, Wānaka, Lake Wānaka, Raukūmara. Nombres dobles: Franz Josef / Waiau, Milford Sound / Piopiotahi, Mount Aspiring / Tititea, Hauraki Gulf / Tīkapa Moana, Golden Bay / Mohua, Tasman Bay / Te Tai-o-Aorere, Southern Alps / Kā Tiritiri o te Moana, Cape Reinga / Te Rerenga Wairua. Además Mount Ruapehu y Waitomo Caves. Para la próxima actualización de las fichas queda el mismo cambio.
+- 2026-10-22 — Quedan como estaban, a propósito: Tekapo (el Gazetteer no tiene nombre oficial para el pueblo), Oban, Lake Taupō, Great Barrier Island y Cook Strait (sus alternativas son solo «unofficial») y Lake Rotorua (el nombre doble oficial, «Lake Rotorua / Te Rotorua nui ā Kahumatamomoe», no entra en el lago). Los ríos se rotulan sin «River», como en todo el mapa.
+- 2026-10-22 — Rasgos nuevos: Bay of Islands, The Catlins y Ngāuruhoe. Ngāuruhoe va con macrón como lo escribe el DOC (el Gazetteer lo tiene sin macrón y como «unofficial») y sin altura, porque el Gazetteer no trae alturas y las fuentes difieren. Tongariro no entra como pico: está a 1,6 mm de Ngāuruhoe; lo nombra el parque. Los glaciares Franz Josef y Fox tampoco entran: caen entre Franz Josef, Aoraki y el rótulo de Westland, y las guías se cruzarían con los tres. Quedan para la ficha de West Coast.
+- 2026-10-22 — Arreglo: la franja de «Altura del terreno» de la leyenda salía en blanco desde la v2 (el separador de miles rompía el color). Ahora muestra las tintas.

@@ -27,6 +27,12 @@ def muestra(svg):
     return f'<svg class="mapa" viewBox="0 0 9 4.5">{svg}</svg>'
 
 
+def escudo_muestra(num, clase):
+    """Escudo de State Highway para la leyenda, igual al del mapa."""
+    return (f'<g class="{clase}"><rect x="2.6" y="0.55" width="3.8" height="3.4" rx="0.8"/>'
+            f'<text x="4.5" y="3.27" text-anchor="middle">{num}</text></g>')
+
+
 def datos_pais():
     ruta_json = RAIZ / 'datos' / 'regiones.json'
     if not ruta_json.exists():
@@ -49,7 +55,8 @@ def tintas_altura():
     """Franja de las tintas de altura del relieve, con sus cortes en metros."""
     cortes = [0, 250, 600, 1000, 1500, 2000, 2400]
     color = {a: c for a, c in HIPSO}
-    celdas = ''.join(f'<div><i style="background:rgb{color[a]}"></i>{a:,}'.replace(',', '.') + '</div>' for a in cortes)
+    # El separador de miles va solo en el número: el color rgb(r, g, b) necesita sus comas
+    celdas = ''.join(f'<div><i style="background:rgb{color[a]}"></i>{f"{a:,}".replace(",", ".")}</div>' for a in cortes)
     return f'<div class="tintas">{celdas}<div class="u">m</div></div>'
 
 
@@ -172,9 +179,10 @@ def bloques(C, E):
 
     filas = [
         (muestra('<rect class="c1" x="2.6" y="0.35" width="3.8" height="3.8"/>'), 'Más de 1 millón de habitantes'),
-        (muestra('<path class="ruta1-borde" d="M0 2.25 H9"/><path class="ruta1" d="M0 2.25 H9"/>'), 'Ruta principal (<i>State Highway</i>)'),
+        (muestra('<path class="ruta1-borde" d="M0 2.25 H9"/><path class="ruta1" d="M0 2.25 H9"/>' + escudo_muestra('1', 'escudo sh1')),
+         '<i>State Highway</i> 1, la ruta troncal'),
         (muestra('<circle class="c2" cx="4.5" cy="2.25" r="1.45"/>'), '100.000 a 500.000'),
-        (muestra('<path class="ruta2" d="M0 2.25 H9"/>'), 'Otra ruta importante'),
+        (muestra('<path class="ruta2" d="M0 2.25 H9"/>' + escudo_muestra('6', 'escudo')), 'Otra <i>State Highway</i>, con su número'),
         (muestra('<circle class="c3" cx="4.5" cy="2.25" r="1.05"/>'), '25.000 a 100.000'),
         (muestra('<path class="ferry" d="M0 2.25 H9"/>'), 'Ferry entre las islas (por mar)'),
         (muestra('<circle class="c4" cx="4.5" cy="2.25" r="0.62"/>'), 'Pueblo o destino'),
@@ -238,18 +246,20 @@ def bloques(C, E):
         'agosto y primavera de septiembre a noviembre.</li>'
         '<li><b>Para qué sirve este mapa:</b> orientarte y planificar. No confirma empleos, salarios ni condiciones de la visa: '
         'eso se verifica en immigration.govt.nz y en cada aviso de trabajo.</li>'
-        '<li><b>Fechas:</b> parques, sectores y calendario consultados el 2026-10-21; población del Censo 2023.</li>'
+        '<li><b>Fechas:</b> parques, sectores y calendario consultados el 2026-10-21; rutas, lagos y nombres de LINZ, el '
+        '2026-10-22; población del Censo 2023.</li>'
         '</ul>')))
 
     b.append(Bloque('m-fuentes" data-meta="', 462, 432, 84, 98, (
         '<b>Fuentes.</b> Límites de las regiones: Stats NZ (2017) vía geoBoundaries, CC BY 4.0. '
         'Parques nacionales: Department of Conservation, «DOC Public Conservation Land» (NaPALIS), CC BY 4.0, consultado el 2026-10-21. '
-        'Lagos, ríos y rutas: Natural Earth 1:10 m, dominio público. '
+        'Rutas (<i>State Highways</i>) y lagos: LINZ, Topo 1:250k, CC BY 4.0, bajados el 2026-10-22. '
+        'Ríos y ferry: Natural Earth 1:10 m, dominio público. '
         'Sectores: Stats NZ (encuesta agropecuaria 2025, censo agropecuario 2022, demografía de empresas 2025), vía Figure.NZ. '
         'Calendario: Work and Income y PickNZ. '
         'Relieve: Terrain Tiles (Mapzen, en AWS) con el modelo de elevación de LINZ (CC BY 4.0), SRTM y ETOPO1. '
-        'Población: Stats NZ, Censo 2023. Nombres: New Zealand Gazetteer (LINZ). Alturas: Aoraki / Mount Cook, '
+        'Población: Stats NZ, Censo 2023. Nombres: New Zealand Gazetteer (LINZ), 2026-10-22. Alturas: Aoraki / Mount Cook, '
         'medición de 2014; Taranaki Maunga, ley Te Kāhui Tupua de 2025; las demás, valores de referencia. '
         'Proyección NZTM2000.<br>'
-        'NZ-A-00 · versión 2 · 2026-10-21 · Enciclopedia para imprimir')))
+        'NZ-A-00 · versión 2 · 2026-10-22 · Enciclopedia para imprimir')))
     return b

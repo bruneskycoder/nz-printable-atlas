@@ -8,11 +8,13 @@ Las capas las baja la tarea de GitHub «Datos de LINZ» (ver linz-bajar.py) y
 quedan en la rama datos-linz. Este script las lee de ahí con git, sin cambiar
 de rama, y escribe en NZTM2000:
   - rutas.json: State Highways (1:250k), con su número (hway_num).
-  - rios.json: los ríos de la topografía 1:250k que siguen a los ríos que ya
-    mostraba el mural (Natural Earth elige cuáles; LINZ da el trazado exacto).
   - lagos.json: lagos de más de 2 km², con su nombre oficial.
-  - nombres.json: el Gazetteer (NZGB) reducido a lo que usa el mural, y
-    nombres-informe.txt: cada rótulo del mural comparado con el Gazetteer.
+  - nombres-informe.txt: cada rótulo del mural comparado con el Gazetteer (NZGB):
+    grafía oficial y distancia. Las correcciones van en datos/nz/mural.json.
+
+Los ríos siguen siendo los de Natural Earth: en la red 1:250k de LINZ los ríos
+anchos (Clutha, Rakaia, Waikato) son polígonos y los tramos no están unidos, así
+que no da cursos completos; a 1:1.900.000 la diferencia es de un milímetro.
 
 Requiere: Python con shapely.
 """
@@ -51,6 +53,12 @@ def redondear(g):
     return {'type': m['type'], 'coordinates': r(m['coordinates'])}
 
 
+def fusionar(lineas):
+    """Une los tramos que se tocan (linemerge no acepta una línea sola)."""
+    g = unary_union(lineas)
+    return linemerge(g) if g.geom_type == 'MultiLineString' else g
+
+
 def rutas():
     por_numero = {}
     for f in leer('rutas.geojson.gz')['features']:
@@ -59,26 +67,9 @@ def rutas():
             por_numero.setdefault(n, []).append(shape(f['geometry']))
     feats = []
     for n, gs in sorted(por_numero.items(), key=lambda t: (len(t[0]), t[0])):
-        g = linemerge(unary_union(gs)).simplify(100)
+        g = fusionar(gs).simplify(100)
         feats.append({'type': 'Feature', 'properties': {'hway_num': n}, 'geometry': redondear(g)})
     escribir('rutas.json', feats)
-
-
-def rios():
-    ne = unary_union([shape(f['geometry']) for f in json.loads((RAIZ / 'datos' / 'nz' / 'rios.json').read_text())['features']])
-    zona = ne.buffer(1500)
-    elegidos = []
-    for f in leer('rios.geojson.gz')['features']:
-        if not f['geometry']:
-            continue
-        g = shape(f['geometry'])
-        if zona.contains(g.interpolate(0.5, normalized=True)):
-            elegidos.append(g)
-    unidos = linemerge(unary_union(elegidos))
-    partes = getattr(unidos, 'geoms', [unidos])
-    # Fuera los pedacitos sueltos: afluentes que tocan la franja de 1,5 km
-    largos = [p.simplify(100) for p in partes if p.length > 4000]
-    escribir('rios.json', [{'type': 'Feature', 'properties': {}, 'geometry': redondear(unary_union(largos))}])
 
 
 def lagos():
@@ -90,7 +81,7 @@ def lagos():
         if g.area < 2_000_000:
             continue
         p = f['properties']
-        feats.append({'type': 'Feature', 'properties': {'nombre': p.get('macronated') == 'Y' and p.get('name') or p.get('name')},
+        feats.append({'type': 'Feature', 'properties': {'nombre': p.get('name')},
                       'geometry': redondear(g.simplify(60))})
     escribir('lagos.json', feats)
 
@@ -104,13 +95,11 @@ def nombres():
     feats = []
     for f in leer('nombres.geojson.gz')['features']:
         p = f['properties']
-        if not p.get('name') or p.get('crd_latitude') is None:
+        if not p.get('name') or p.get('crd_latitude') is None or 'Discontinued' in (p.get('status') or ''):
             continue
         feats.append({'n': p['name'], 'tipo': p.get('feat_type'), 'estado': p.get('status'),
                       'lat': round(float(p['crd_latitude']), 5), 'lon': round(float(p['crd_longitude']), 5)})
-    SALIDA.mkdir(parents=True, exist_ok=True)
-    (SALIDA / 'nombres.json').write_text(json.dumps(feats, ensure_ascii=False, separators=(',', ':')))
-    print(f'  datos/nz/linz/nombres.json: {len(feats)} nombres')
+    print(f'  Gazetteer: {len(feats)} nombres vigentes')
     return feats
 
 
@@ -130,6 +119,14 @@ def informe(gaz):
         rotulos.append(('pico', p['n'], p['lon'], p['lat']))
     for x in r['rotulos']:
         rotulos.append(('rótulo', x['t'], x['lon'], x['lat']))
+    # Como queda en el mural: con las correcciones y los rasgos nuevos de mural.json
+    mural = json.loads((nz / 'mural.json').read_text())
+    def como_queda(t):
+        d = mural['nombres'].get(t, {})
+        return d.get('t', t) + (' / ' + d['t2'] if d.get('t2') else '')
+    rotulos = [(c, como_queda(t), lon, lat) for c, t, lon, lat in rotulos]
+    rotulos += [('pico', p['n'], p['lon'], p['lat']) for p in mural.get('picos_nuevos', [])]
+    rotulos += [('rótulo', x['t'], x['lon'], x['lat']) for x in mural.get('rotulos_nuevos', []) if 'lon' in x]
     lineas = []
     for clase, texto, lon, lat in rotulos:
         claves = [sin_macrones(texto)] + [sin_macrones(x) for x in texto.split('/')]
@@ -138,9 +135,13 @@ def informe(gaz):
             lineas.append(f'SIN DATO   {clase:7s} {texto}')
             continue
         dist = lambda g: 111.2 * math.hypot((g['lon'] - lon) * math.cos(math.radians(lat)), g['lat'] - lat)
-        mejor = min(cands, key=dist)
+        # Primero los nombres oficiales; entre ellos, el más cercano al rótulo
+        mejor = min(cands, key=lambda g: (not (g['estado'] or '').startswith('Official'), dist(g)))
         d = dist(mejor)
-        marca = 'IGUAL' if mejor['n'] == texto else 'DISTINTO'
+        # Mayúsculas y espacios alrededor de «/» son estilo del mapa, no otra grafía
+        def forma(n):
+            return ' '.join(n.replace('/', ' / ').split()).lower()
+        marca = 'IGUAL' if forma(mejor['n']) == forma(texto) else 'DISTINTO'
         if d > 5:
             marca += ' LEJOS'
         lineas.append(f'{marca:10s} {clase:7s} {texto} -> {mejor["n"]} ({mejor["tipo"]}, {mejor["estado"]}) a {d:.1f} km')
@@ -154,7 +155,6 @@ def main():
     SALIDA.mkdir(parents=True, exist_ok=True)
     (SALIDA / 'manifiesto.json').write_text(json.dumps(manifiesto, ensure_ascii=False, indent=1) + '\n')
     rutas()
-    rios()
     lagos()
     informe(nombres())
 
