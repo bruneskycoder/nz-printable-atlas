@@ -191,40 +191,6 @@ def nombres_maori():
             'English too.</p>')
 
 
-def dibujo_kiwifruit(ancho_mm):
-    """Kiwifruit dibujado: uno entero atrás y una mitad cortada adelante (SVG en línea, siempre igual)."""
-    import math
-    import random
-    azar = random.Random(7)
-    pelos = ''.join(
-        (lambda a, r, d: f'<path d="M{15 + 13.5 * r * math.cos(a):.2f} {13.5 + 11 * r * math.sin(a):.2f} '
-                         f'l{0.5 + d * 0.2:.2f} {-0.25 + d * 0.15:.2f}"/>')(
-            azar.uniform(0, 2 * math.pi), azar.uniform(0.2, 0.97), azar.uniform(-1, 1)) for _ in range(90))
-    semillas = []
-    for i in range(46):
-        a = 2 * math.pi * i / 46 + azar.uniform(-0.04, 0.04)
-        for r in (0.50, 0.60):
-            r += azar.uniform(-0.03, 0.03)
-            x, y = 29.5 + 11.7 * r * math.cos(a), 17 + 9.9 * r * math.sin(a)
-            semillas.append(f'<ellipse cx="{x:.2f}" cy="{y:.2f}" rx="0.62" ry="0.26" '
-                            f'transform="rotate({math.degrees(a):.0f} {x:.2f} {y:.2f})"/>')
-    rayos = ''.join(f'<path d="M29.5 17 L{29.5 + 11.2 * math.cos(2 * math.pi * i / 30):.2f} '
-                    f'{17 + 9.5 * math.sin(2 * math.pi * i / 30):.2f}"/>' for i in range(30))
-    return (f'<svg class="dibujo" viewBox="0 0 44 30" style="width:{ancho_mm}mm;height:{ancho_mm * 30 / 44:.1f}mm">'
-            '<defs><radialGradient id="kf-piel" cx="0.4" cy="0.35" r="0.75"><stop offset="0" stop-color="#b48a5a"/>'
-            '<stop offset="0.7" stop-color="#8a6438"/><stop offset="1" stop-color="#6a4a28"/></radialGradient>'
-            '<radialGradient id="kf-pulpa" cx="0.5" cy="0.5" r="0.5"><stop offset="0" stop-color="#e9f0c4"/>'
-            '<stop offset="0.32" stop-color="#cfe08a"/><stop offset="0.62" stop-color="#8cbd3a"/>'
-            '<stop offset="1" stop-color="#6f9f22"/></radialGradient></defs>'
-            '<ellipse cx="15" cy="13.5" rx="13.5" ry="11" fill="url(#kf-piel)" stroke="#55391d" stroke-width="0.35"/>'
-            f'<g stroke="#5c4127" stroke-width="0.14" stroke-linecap="round">{pelos}</g>'
-            '<ellipse cx="29.5" cy="17" rx="12.6" ry="10.8" fill="#7a5530" stroke="#55391d" stroke-width="0.35"/>'
-            '<ellipse cx="29.5" cy="17" rx="11.7" ry="9.9" fill="url(#kf-pulpa)"/>'
-            f'<g stroke="#f4f8dc" stroke-width="0.22" opacity="0.35">{rayos}</g>'
-            '<ellipse cx="29.5" cy="17" rx="3.3" ry="2.6" fill="#f3f5dc"/>'
-            f'<g fill="#1c1a12">{"".join(semillas)}</g></svg>')
-
-
 def bloques(C, E):
     b = []
     pais = datos_pais()
@@ -367,18 +333,6 @@ def imagen_lapiz(slug, ancho_px, vineta=0.0):
         rgba[..., 3] = (oscuro * 235).astype('uint8')
         Image.fromarray(rgba, 'RGBA').save(destino, optimize=True)
     return f'../../hojas/nz-a/img/{slug}-lapiz.png'
-
-
-def imagen_mural(slug, ancho_px):
-    """Copia reducida de imagenes/<slug>/maestra.jpg para el mural (unos 350 ppp a su tamaño impreso), así el PDF
-    no carga la maestra entera. La ruta sirve para hojas/nz-a/ y para salida/pruebas/ (las dos a dos niveles)."""
-    from PIL import Image
-    destino = RAIZ / 'hojas' / 'nz-a' / 'img' / f'{slug}.jpg'
-    if not destino.exists():
-        destino.parent.mkdir(parents=True, exist_ok=True)
-        im = Image.open(RAIZ / 'imagenes' / slug / 'maestra.jpg')
-        im.resize((ancho_px, round(im.height * ancho_px / im.width)), Image.LANCZOS).save(destino, quality=90)
-    return f'../../hojas/nz-a/img/{slug}.jpg'
 
 
 def curiosidades():
