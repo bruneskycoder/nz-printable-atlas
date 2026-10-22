@@ -23,13 +23,13 @@
   "preparado": {
     "fecha": "2026-10-22",
     "rotar": 0,
-    "recorte": "100,120,1700,1180",
+    "recorte": "90,160,1600,1060",
     "fondo": "ninguno",
     "niveles": true,
     "gamma": 0.85,
     "tamanio": [
-      1600,
-      1060
+      1510,
+      900
     ]
   }
 }

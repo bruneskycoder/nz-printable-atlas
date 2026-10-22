@@ -22,7 +22,7 @@ from glifos import glifo_html
 
 FECHA = '2026-10-22'
 VERSION = 2
-MAPA_W, MAPA_H = 190, 86
+MAPA_W, MAPA_H = 182, 84
 ESTILO = {
     'agua': (3.35, 'texto', 400, 0.15), 'lago': (3.0, 'texto', 400, 0), 'sierra': (4.6, 'titulo', 700, 1.2),
     'sierra-chica': (3.0, 'texto', 700, 0.5), 'isla': (3.0, 'texto', 700, 0), 'rio': (2.95, 'texto', 400, 0),
@@ -222,9 +222,9 @@ def mapa(r, destino_jpg):
     cur = json.loads((DATOS / 'curiosidades-regiones.json').read_text()).get(iso, {})
     if cur.get('dibujo_mapa'):
         dx, dy, dw = cur['dibujo_mapa']
-        src = imagen_lapiz(cur['imagen'], 900, vineta=0.3)
+        src = imagen_lapiz(cur['imagen'], 1400, vineta=0.12, fino=True)
         capas.append(f'<image class="dibujo-mapa" href="{src}" x="{dx}" y="{dy}" width="{dw}"/>')
-        col.ocupar((dx, dy, dx + dw, dy + dw * 0.66))
+        col.ocupar((dx, dy, dx + dw, dy + dw * cur.get('proporcion', 0.6)))
     capas += textos
     # Escala gráfica, en la primera esquina libre
     km = next(v for v in (5, 10, 20, 25, 50, 100) if v * 1000 * E.k >= 18)
@@ -290,16 +290,16 @@ def bloque_trabajo(r):
             f'<div class="sectores">{filas}</div>'
             '<h3>Cuándo hay temporada</h3>'
             f'<table class="temporada">{cab}{"".join(filas_cal)}</table>'
-            '<p class="nota">Orientativo (Work and Income); el recuadro marca los meses de más trabajo.</p>')
+            '<p class="nota">Orientativo (Work and Income); con recuadro, los meses pico.</p>')
 
 
 def bloque_plata(r, p):
     cuarto = round(r['alquiler'] / 3 / 5) * 5
     horas = cuarto / p['salario_minimo']
     return ('<h2>Plata</h2><div class="cifras">'
-            f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana, alquilar una casa entera (mediana, jun. 2026)</span></div>'
-            f'<div><b>≈ NZ$ {cuarto}</b><span>un cuarto en casa compartida (estimado: un tercio)</span></div>'
-            f'<div><b>{num(horas, 1)} h</b><span>de trabajo con salario mínimo para pagar ese cuarto</span></div></div>')
+            f'<div><b>NZ$ {r["alquiler"]}</b><span>por semana, una casa entera (mediana)</span></div>'
+            f'<div><b>≈ NZ$ {cuarto}</b><span>un cuarto compartido (un tercio)</span></div>'
+            f'<div><b>{num(horas, 1)} h</b><span>de salario mínimo pagan ese cuarto</span></div></div>')
 
 
 def bloque_clima(r, todas):
@@ -308,15 +308,15 @@ def bloque_clima(r, todas):
     def puesto(clave, valor, alto, bajo):
         orden = sorted(o[clave] for o in otras)
         f = orden.index(valor) / max(1, len(orden) - 1)
-        return alto if f > 0.66 else bajo if f < 0.34 else 'en el medio del país'
+        return alto if f > 0.66 else bajo if f < 0.34 else 'media'
     lugar = es['n'].replace(' (la más cercana)', '')
     return (f'<h2>Clima <span class="donde">en {esc(lugar)}</span></h2><div class="clima">'
             f'<div><span class="ic sol"></span><b>{num(es["max"], 1)} °C</b><span>máxima de {es["mes_max"].lower()}: '
-            f'{puesto("max", es["max"], "de las más calurosas", "de las más frescas")}</span></div>'
+            f'{puesto("max", es["max"], "calurosa", "fresca")}</span></div>'
             f'<div><span class="ic frio"></span><b>{num(es["min_jul"], 1)} °C</b><span>mínima de julio: '
-            f'{puesto("min_jul", es["min_jul"], "de las menos frías", "de las más frías")}</span></div>'
-            f'<div><span class="ic lluvia"></span><b>{num(es["lluvia"])} mm</b><span>de lluvia por año, {es["dias"]} días: '
-            f'{puesto("lluvia", es["lluvia"], "de las más lluviosas", "de las más secas")}</span></div></div>')
+            f'{puesto("min_jul", es["min_jul"], "templada", "fría")}</span></div>'
+            f'<div><span class="ic lluvia"></span><b>{num(es["lluvia"])} mm</b><span>de lluvia al año: '
+            f'{puesto("lluvia", es["lluvia"], "lluvioso", "seco")}</span></div></div>')
 
 
 def bloque_lugares(r):
@@ -351,7 +351,7 @@ def ficha(r, D, destino):
 <link rel="stylesheet" href="../../estilo/ficha-nz.css">
 </head>
 <body>
-<div class="hoja ficha2 mural" data-tinta-max="35">
+<div class="hoja ficha2 mural" data-tinta-max="40">
   <header class="cabecera">
     <div>
       <span class="coleccion">Atlas de Nueva Zelanda · región {r["n"]} de 16 · {isla}</span>
@@ -360,7 +360,7 @@ def ficha(r, D, destino):
       <p class="maori">{f'En māori: <b>{esc(r["mi"])}</b> · ' if r.get('mi') else ''}iwi: <b>{esc(", ".join(r["iwi"]))}</b></p>
     </div>
     <div class="lado">
-      {mapa_ubicacion(r["iso"])}
+      <div class="sello">{mapa_ubicacion(r["iso"])}<span class="n">{r["n"]}</span></div>
       <div class="datos"><div><b>{num(r["poblacion"])}</b>habitantes</div><div><b>{num(r["superficie"])}</b>km²</div></div>
     </div>
   </header>
@@ -377,8 +377,8 @@ def ficha(r, D, destino):
     <section class="curiosidad">{bloque_curiosidad(r)}<p class="cultura"><b>Cultura māori.</b> {esc(r["cultura"])}</p></section>
   </div>
   <footer class="pie" data-meta>
-    <span>{codigo} · v{VERSION} · {FECHA} · mural NZ-A-00, pieza {pieza_mural(r)} · Fuentes: Stats NZ (Censo 2023, sectores
-    2022–2025), Work and Income, NIWA 1991–2020, Tenancy Services (jun. 2026), Employment NZ, Te Ara, LINZ, DOC.</span>
+    <span>{codigo} · v{VERSION} · {FECHA} · mural NZ-A-00, pieza {pieza_mural(r)}</span>
+    <span>Fuentes: Stats NZ, Work and Income, NIWA, Tenancy Services, Employment NZ, Te Ara, LINZ, DOC</span>
   </footer>
 </div>
 </body>

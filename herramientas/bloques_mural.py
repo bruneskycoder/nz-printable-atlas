@@ -308,21 +308,23 @@ def bloques(C, E):
 CUR = json.loads((RAIZ / 'datos' / 'nz' / 'curiosidades.json').read_text())
 
 
-def imagen_lapiz(slug, ancho_px, vineta=0.0):
+def imagen_lapiz(slug, ancho_px, vineta=0.0, fino=False):
     """Versión a lápiz de imagenes/<slug>/maestra.jpg: el trazo sale de una sobreexposición de color (gris sobre su
     negativo desenfocado) y queda en grafito con transparencia, así se apoya en el mar sin recuadro. 'vineta'
-    (0 a 1) desvanece los bordes hacia afuera. Devuelve la ruta relativa a hojas/nz-a/ y salida/pruebas/."""
+    (0 a 1) desvanece los bordes hacia afuera. 'fino' da un trazo más delgado y oscuro, para dibujos que se
+    ven grandes (el pico de un pájaro, por ejemplo). Devuelve la ruta relativa a hojas/nz-a/ y salida/pruebas/."""
     import numpy as np
     from PIL import Image, ImageFilter
-    destino = RAIZ / 'hojas' / 'nz-a' / 'img' / f'{slug}-lapiz.png'
+    destino = RAIZ / 'hojas' / 'nz-a' / 'img' / f'{slug}-lapiz{"-fino" if fino else ""}.png'
     if not destino.exists():
         destino.parent.mkdir(parents=True, exist_ok=True)
         im = Image.open(RAIZ / 'imagenes' / slug / 'maestra.jpg').convert('L')
         im = im.resize((ancho_px, round(im.height * ancho_px / im.width)), Image.LANCZOS)
         g = np.asarray(im).astype(float)
-        borroso = np.asarray(Image.fromarray((255 - g).astype('uint8')).filter(ImageFilter.GaussianBlur(ancho_px / 150)))
+        radio, rango, curva = (ancho_px / 260, 85, 0.65) if fino else (ancho_px / 150, 105, 0.75)
+        borroso = np.asarray(Image.fromarray((255 - g).astype('uint8')).filter(ImageFilter.GaussianBlur(radio)))
         trazo = np.clip(g * 255 / np.maximum(1, 255 - borroso.astype(float)), 0, 255)
-        oscuro = np.clip((250 - trazo) / 105, 0, 1) ** 0.75
+        oscuro = np.clip((250 - trazo) / rango, 0, 1) ** curva
         if vineta:
             h, w = oscuro.shape
             yy, xx = np.mgrid[0:h, 0:w]
@@ -332,7 +334,7 @@ def imagen_lapiz(slug, ancho_px, vineta=0.0):
         rgba[..., :3] = (58, 48, 40)  # grafito cálido
         rgba[..., 3] = (oscuro * 235).astype('uint8')
         Image.fromarray(rgba, 'RGBA').save(destino, optimize=True)
-    return f'../../hojas/nz-a/img/{slug}-lapiz.png'
+    return f'../../hojas/nz-a/img/{destino.name}'
 
 
 def curiosidades():

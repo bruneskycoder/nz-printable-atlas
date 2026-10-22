@@ -78,3 +78,24 @@
 .ficha2 .curiosidad .cultura { color: #33424f; margin-top: 2mm; }
 .ficha2 .curiosidad .cultura b { color: var(--m-costa); }
 .ficha2 { gap: 2mm; }
+
+/* ===== Postal: papel claro, acentos de color por sección, estampilla ===== */
+.ficha2 { padding: 13mm 14mm; background: none; }
+.ficha2::before { content: ""; position: absolute; inset: 8.6mm; background: #f6efdf; border-radius: 3mm;
+  border: 0.35mm solid #d9c9a8; z-index: 0; }
+.ficha2 > * { position: relative; z-index: 1; }
+.ficha2 .coleccion { color: #b5532a; }
+.ficha2 h1 { color: #1d2a36; }
+.ficha2 .mapa-region { border: 1.4mm solid white; border-radius: 2mm; box-sizing: content-box; }
+.ficha2 .sello { position: relative; background: white; padding: 1.8mm; border: 0.7mm dotted #c4ab80; transform: rotate(2.5deg); }
+.ficha2 .sello .n { position: absolute; right: 1.6mm; bottom: 1mm; font-family: var(--fuente-titulo); font-weight: 800; font-size: 13pt; color: #b5532a; }
+.ficha2 .trabajo h2 { color: #2f6e44; border-color: #2f6e44; }
+.ficha2 .trabajo h3 { color: #2f6e44; }
+.ficha2 .plata h2 { color: #9a6a12; border-color: #9a6a12; }
+.ficha2 .clima-s h2 { color: #2a69a8; border-color: #2a69a8; }
+.ficha2 .conocer h2 { color: #b5532a; border-color: #b5532a; }
+.ficha2 .sec .barra { background: rgba(120, 100, 70, 0.14); }
+.ficha2 .temporada td { background: rgba(120, 100, 70, 0.1); }
+.ficha2 .temporada td.m { background: none; }
+.ficha2 .pie { border-top-color: #cbb895; color: #5b5145; }
+.ficha2 { padding: 12mm 14mm 10.5mm; }
