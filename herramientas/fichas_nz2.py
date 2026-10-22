@@ -84,7 +84,8 @@ def mapa(r, destino_jpg):
     tierra = recortar(unary_union([E.geom(g) for _, g in capa('tierra')]), -20, -20, W + 20, H + 20).simplify(0.06)
     reg = E.geom(regiones[iso]).simplify(0.06)
     relieve_mural_encuadre(E, W, H).save(destino_jpg, quality=88, optimize=True)
-    capas = [f'<image href="{destino_jpg.name}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="none"/>']
+    href = f'relieve/{destino_jpg.name}' if destino_jpg.parent.name == 'relieve' else destino_jpg.name
+    capas = [f'<image href="{href}" x="0" y="0" width="{W}" height="{H}" preserveAspectRatio="none"/>']
     base = tierra.simplify(0.1)
     for i, d in enumerate((0.8, 1.8, 3.0), start=1):
         capas.append(f'<path class="ola o{i}" d="{ruta(recortar(base.buffer(d, quad_segs=3).boundary, *vista))}"/>')
@@ -386,7 +387,7 @@ def frente(r, D, destino, F):
             f'<h1>{esc(r["nombre"])}</h1><p class="bajada">{esc(r["rasgo"])}</p></div>'
             f'<div class="sello">{mapa_ubicacion(r["iso"])}<span class="n">{r["n"]}</span></div></header>'
             f'<div class="contexto">{contexto}</div>'
-            f'{mapa(r, destino / f"{codigo}-relieve.jpg")}'
+            f'{mapa(r, destino / "relieve" / f"{codigo}.jpg" if destino.name == "nz-a" else destino / f"{codigo}-relieve.jpg")}'
             f'<section class="conocer"><h2>Para conocer <span class="donde">los números del mapa</span></h2>'
             f'<ol class="lugares">{lugares}</ol></section>'
             '<div class="identidad">'
@@ -596,6 +597,23 @@ def ficha(r, D, destino, F=None):
             '<link rel="stylesheet" href="../../estilo/combi.css">\n<link rel="stylesheet" href="../../estilo/atlas-nz.css">\n'
             '<link rel="stylesheet" href="../../estilo/mural-nz.css">\n<link rel="stylesheet" href="../../estilo/ficha-nz.css">\n'
             f'</head>\n<body>\n{cara}\n{atras}\n</body>\n</html>\n')
+
+
+def fichas(destino, solo=None):
+    """Las 16 fichas (o las de 'solo') en destino, con el alto de mapa y los puestos de datos/nz/fichas-ajuste.json."""
+    global MAPA_H, MAX_PUESTOS
+    D = datos()
+    (destino / 'relieve').mkdir(parents=True, exist_ok=True)
+    ajuste = json.loads((DATOS / 'fichas-ajuste.json').read_text())
+    for r in D['regiones']:
+        if solo and r['iso'] not in solo and str(r['n']) not in solo:
+            continue
+        a = ajuste.get(r['iso'], {})
+        MAPA_H, MAX_PUESTOS = a.get('mapa', 114), a.get('puestos', 5)
+        codigo = f'NZ-A-{r["n"]:02d}'
+        (destino / f'{codigo}.html').write_text(ficha(r, D, destino))
+        print(f'  {destino.relative_to(RAIZ)}/{codigo}.html')
+    MAPA_H, MAX_PUESTOS = 114, 5
 
 
 def desbordes(html):

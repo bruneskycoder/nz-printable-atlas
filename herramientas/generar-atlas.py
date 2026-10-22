@@ -3,7 +3,7 @@
 
     python3 herramientas/generar-atlas.py mural    # NZ-A-00-1 a 9 (mapa mural, 3 × 3 A4 verticales)
     python3 herramientas/generar-atlas.py mural-previa [--sin-juntas]   # el mural en una sola página
-    python3 herramientas/generar-atlas.py fichas   # NZ-A-01 a 16 (una por región)
+    python3 herramientas/generar-atlas.py fichas   # NZ-A-01 a 16 (una por región, frente y dorso) y NZ-A-fuentes
     python3 herramientas/generar-atlas.py matriz   # NZ-A-99 (¿dónde ir?)
 
 Después: node herramientas/construir.mjs hojas/nz-a/*.html
@@ -579,8 +579,10 @@ if __name__ == '__main__':
     if que == 'mural-previa':
         mural_previa()
     if que in ('fichas', 'todo'):
-        from fichas_nz import fichas
+        from fichas_nz2 import fichas
+        from fuentes_nz import main as fuentes
         fichas(DESTINO, sys.argv[2:] or None)
+        fuentes(DESTINO)
     if que in ('matriz', 'todo'):
         from matriz_nz import matriz
         matriz(DESTINO)

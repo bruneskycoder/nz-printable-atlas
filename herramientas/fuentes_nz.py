@@ -58,13 +58,15 @@ def pagina(contenido, n, total):
             f'<footer class="pie" data-meta><span>NZ-A-fuentes · v1 · {FECHA}</span><span>hoja {n} de {total}</span></footer></div>')
 
 
-def main():
+def main(dest=RAIZ / 'salida' / 'pruebas'):
+    import fichas_nz2
     D = datos()
-    dest = RAIZ / 'salida' / 'pruebas'
+    ajuste = json.loads((RAIZ / 'datos' / 'nz' / 'fichas-ajuste.json').read_text())
     regiones = []
     for r in D['regiones']:
         F = Fuentes()
-        ficha(r, D, dest, F)
+        fichas_nz2.MAX_PUESTOS = ajuste.get(r['iso'], {}).get('puestos', 5)  # misma lista de puestos que la ficha
+        ficha(r, D, RAIZ / 'salida' / 'pruebas', F)
         items = ''.join(f'<li data-meta><b>{i}</b> {esc(re.sub(r" \(https?://[^)]*\)", "", F.detalle[t][0]))}'
                         + (f' <a href="{esc(F.detalle[t][1])}">{esc(F.detalle[t][1])}</a>' if F.detalle[t][1] else '') + '</li>'
                         for i, t in enumerate(F.lista, start=1))
@@ -95,7 +97,8 @@ def main():
         '<link rel="stylesheet" href="../../estilo/combi.css">\n<link rel="stylesheet" href="../../estilo/atlas-nz.css">\n'
         '<link rel="stylesheet" href="../../estilo/fuentes-nz.css">\n'
         f'</head>\n<body>\n{hojas}\n</body>\n</html>\n')
-    print('  salida/pruebas/NZ-A-fuentes.html')
+    fichas_nz2.MAX_PUESTOS = 5
+    print(f'  {(dest / "NZ-A-fuentes.html").relative_to(RAIZ)}')
 
 
 if __name__ == '__main__':
