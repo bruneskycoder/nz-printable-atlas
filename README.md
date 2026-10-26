@@ -65,6 +65,10 @@ open data ──► herramientas/*.py ──► datos/ (JSON) ──► generar-
 | `generar-atlas.py` | `mural`, `fichas` or `matriz`: writes the pages into `hojas/nz-a/` (`fichas` also writes `NZ-A-fuentes`) |
 | `construir.mjs` | Checks, PDF, preview and ink coverage |
 
+## Made with Claude Code
+
+I build with Claude Code. I have a technical background in construction and programming fundamentals, and I keep learning, but the code here is written by Claude. I decided what was needed: an atlas by regions to help choose where to go on a working holiday, a wall map plus one sheet per region, and a source for every figure. Claude wrote the scripts and the pages and tested them. I check the result through the print checks described above, which stop the build when the layout fails, not by reading the code.
+
 ## Build it yourself
 
 You need Python 3.11+ (tested on 3.13) and Node 18+ (tested on 22).

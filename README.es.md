@@ -66,6 +66,10 @@ datos abiertos ──► herramientas/*.py ──► datos/ (JSON) ──► gen
 | `generar-atlas.py` | `mural`, `fichas` o `matriz`: escribe las hojas en `hojas/nz-a/` (`fichas` también escribe `NZ-A-fuentes`) |
 | `construir.mjs` | Control, PDF, vista previa y cobertura de tinta |
 
+## Hecho con Claude Code
+
+Lo construyo con Claude Code. Tengo un perfil técnico orientado a la construcción y bases de programación, y sigo aprendiendo, pero el código de acá lo escribe Claude. Yo decidí qué hacía falta: un atlas por regiones para ayudar a elegir adónde ir con una Working Holiday, un mural y una ficha por región, y una fuente para cada cifra. Claude escribió los scripts y las hojas y los fue probando. El resultado lo verifico con los chequeos de impresión que se describen arriba, que frenan la construcción si la maquetación falla, no leyendo el código.
+
 ## Generarlo vos
 
 Necesitás Python 3.11 o más (probado con 3.13) y Node 18 o más (probado con 22).
